@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+      {
+          "label": "run program",
+          "type": "shell",
+          "command": "./mvnw clean javafx:run",
+          "windows": {
+              "command": ".\\mvnw.cmd clean javafx:run"
+          },
+          "group": {
+              "kind": "build",
+              "isDefault": true
+          }
+      },
+      {
+          "label": "run style tool",
+          "type": "shell",
+          "command": "./mvnw clean compile exec:java@style",
+          "windows": {
+              "command": ".\\mvnw.cmd clean compile exec:java@style"
+          }
+      },
+      {
+        "label": "run debug",
+        "type": "shell",
+        "command": "./mvnw clean javafx:run -X",
+        "windows": {
+            "command": ".\\mvnw clean javafx:run -X"
+        },
+        "group": {
+            "kind": "build",
+            "isDefault": true
+        }
+    },
+  ]
+}

@@ -2,15 +2,15 @@ package nz.ac.auckland.se206;
 
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import nz.ac.auckland.se206.controllers.ChatController;
-import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 
 /**
  * This is the entry point of the JavaFX application. This class initializes and runs the JavaFX
@@ -19,6 +19,7 @@ import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 public class App extends Application {
 
   private static Scene scene;
+  private static Stage stage;
 
   /**
    * The main method that launches the JavaFX application.
@@ -59,16 +60,38 @@ public class App extends Application {
    * @throws IOException if the FXML file is not found
    */
   public static void openChat(MouseEvent event, String profession) throws IOException {
-    FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/chat.fxml"));
-    Parent root = loader.load();
+    long startTime = System.nanoTime();
+    Task<Void> backgroundTask =
+        new Task<>() {
+          @Override
+          protected Void call() throws Exception {
+            Platform.runLater(
+                () -> {
+                  try {
+                    FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/chat.fxml"));
+                    Parent root = loader.load();
 
-    ChatController chatController = loader.getController();
-    chatController.setProfession(profession);
+                    ChatController chatController = loader.getController();
+                    chatController.setProfession(profession);
 
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                    long endTime = System.nanoTime();
+                    long duration = (endTime - startTime) / 1_000_000; // convert to milliseconds
+                    System.out.println("openChat took: " + duration + " ms");
+                  } catch (IOException e) {
+                    e.printStackTrace();
+                  }
+                });
+
+            return null;
+          }
+        };
+
+    Thread backgroundThread = new Thread(backgroundTask);
+    backgroundThread.start();
   }
 
   /**
@@ -83,11 +106,16 @@ public class App extends Application {
     scene = new Scene(root);
     stage.setScene(scene);
     stage.show();
-    stage.setOnCloseRequest(event -> handleWindowClose(event));
     root.requestFocus();
+    App.stage = stage;
   }
 
-  private void handleWindowClose(WindowEvent event) {
-    FreeTextToSpeech.deallocateSynthesizer();
+  /**
+   * Returns the primary stage of the application.
+   *
+   * @return the primary stage of the application
+   */
+  public static Stage getStage() {
+    return stage;
   }
 }

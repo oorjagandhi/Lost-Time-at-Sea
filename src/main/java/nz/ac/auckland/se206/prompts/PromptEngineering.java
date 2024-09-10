@@ -22,13 +22,33 @@ public class PromptEngineering {
    * @return the filled prompt
    * @throws IllegalArgumentException if there is an error loading or filling the template
    */
-  public static String getPrompt(String promptId, Map<String, String> data) {
+  // public static String getPrompt(String promptId, Map<String, String> data) {
+  //   try {
+  //     // Load the prompt template file from resources
+  //     URL resourceUrl = PromptEngineering.class.getClassLoader().getResource("prompts/chat.txt");
+  //     String template = loadTemplate(resourceUrl.toURI());
+  //     // Fill the template with the provided data
+  //     return fillTemplate(template, data);
+  //   } catch (IOException | URISyntaxException e) {
+  //     e.printStackTrace();
+  //     throw new IllegalArgumentException("Error loading or filling the prompt template.", e);
+  //   }
+  // }
+
+  public static String getPrompt(String profession) {
     try {
-      // Load the prompt template file from resources
-      URL resourceUrl = PromptEngineering.class.getClassLoader().getResource("prompts/chat.txt");
+      // Load the prompt template file from resources based on the profession
+      URL resourceUrl =
+          PromptEngineering.class
+              .getClassLoader()
+              .getResource("prompts/chat-" + profession.toLowerCase() + ".txt");
+      if (resourceUrl == null) {
+        throw new IllegalArgumentException(
+            "Prompt template not found for profession: " + profession);
+      }
       String template = loadTemplate(resourceUrl.toURI());
       // Fill the template with the provided data
-      return fillTemplate(template, data);
+      return template;
     } catch (IOException | URISyntaxException e) {
       e.printStackTrace();
       throw new IllegalArgumentException("Error loading or filling the prompt template.", e);
