@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="room" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" prefHeight="599.0" prefWidth="789.0" style="-fx-background-color: #304d4b;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RoomController">
+   <children>
+      <Pane />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fill="WHITE" layoutX="185.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You did not guess the thief">
+         <font>
+            <Font name="Mukta Bold" size="36.0" />
+         </font>
+      </Text>
+              <!-- Centered Text Labels -->
+        <Label alignment="CENTER" layoutX="7.0" layoutY="167.0" prefWidth="789.0" text="YOU LOSE">
+           <font>
+              <Font name="Baloo Bhaijaan Regular" size="60.0" />
+           </font>
+           <textFill>
+              <LinearGradient endX="0.27078384798099764" endY="1.0" startX="0.27078384798099764">
+                 <stops>
+                    <Stop>
+                       <color>
+                          <Color red="0.8684210777282715" green="0.8264071345329285" blue="0.6392543911933899" />
+                       </color>
+                    </Stop>
+                    <Stop offset="0.006711409395973154">
+                       <color>
+                          <Color red="1.0" />
+                       </color>
+                    </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+                 </stops>
+              </LinearGradient>
+           </textFill>
+        </Label> 
+   </children>
+</AnchorPane>

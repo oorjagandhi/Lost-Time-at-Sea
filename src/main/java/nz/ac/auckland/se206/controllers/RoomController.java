@@ -1,15 +1,29 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
+import java.net.URL;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
+import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.GameStateContext;
-import nz.ac.auckland.se206.speech.TextToSpeech;
+import nz.ac.auckland.se206.util.RoomManager;
+import nz.ac.auckland.se206.util.TimerManager;
 
 /**
  * Controller class for the room view. Handles user interactions within the room where the user can
@@ -17,30 +31,52 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
  */
 public class RoomController {
 
-  @FXML private Rectangle rectCashier;
-  @FXML private Rectangle rectPerson1;
-  @FXML private Rectangle rectPerson2;
-  @FXML private Rectangle rectPerson3;
-  @FXML private Rectangle rectWaitress;
-  @FXML private Label lblProfession;
-  @FXML private Button btnGuess;
-
   private static boolean isFirstTimeInit = true;
   private static GameStateContext context = new GameStateContext();
+
+  @FXML private Rectangle rectSecurity;
+  @FXML private Rectangle rectArtist;
+  @FXML private Rectangle rectCollector;
+
+  @FXML private Button btnGuess;
+  @FXML private Button btnBack;
+
+  @FXML private ImageView book;
+
+  @FXML private Pane popupContainer;
+  @FXML private VBox chatContainer;
+  @FXML private ChatController chatController;
+
+  private final TimerManager timerManager = TimerManager.getInstance();
+  private final RoomManager roomManager = RoomManager.getInstance();
+
+  private MediaPlayer mediaPlayer;
 
   /**
    * Initializes the room view. If it's the first time initialization, it will provide instructions
    * via text-to-speech.
    */
   @FXML
-  public void initialize() {
-    if (isFirstTimeInit) {
-      TextToSpeech.speak(
-          "Chat with the three customers, and guess who is the "
-              + context.getProfessionToGuess());
-      isFirstTimeInit = false;
+  public void initialize() throws IOException {
+    System.out.println("Initializing RoomController...");
+
+    timerManager.setGuessingStartListener(this::guessingStartListener);
+
+    updateGuessButtonState();
+    context.setUpdateGuessButtonStateCallback(this::updateGuessButtonAvailability);
+    if (!roomManager.isUserWelcomed()) {
+      playSound("/sounds/welcome.mp3");
     }
-    lblProfession.setText(context.getProfessionToGuess());
+    roomManager.setUserWelcomed(true);
+  }
+
+  private void guessingStartListener() {
+    // Ensure UI updates are performed on the JavaFX application thread
+    Platform.runLater(
+        () -> {
+          timerManager.setCanGuess(context.canGuess());
+          context.setState(context.getGuessingState());
+        });
   }
 
   /**
@@ -59,8 +95,11 @@ public class RoomController {
    * @param event the key event
    */
   @FXML
-  public void onKeyReleased(KeyEvent event) {
+  public void onKeyReleased(KeyEvent event) throws ApiProxyException, IOException {
     System.out.println("Key " + event.getCode() + " released");
+    if (event.getCode() == KeyCode.ENTER && chatController != null) {
+      chatController.sendMessage();
+    }
   }
 
   /**
@@ -71,6 +110,7 @@ public class RoomController {
    */
   @FXML
   private void handleRectangleClick(MouseEvent event) throws IOException {
+    chatController.clearChat();
     Rectangle clickedRectangle = (Rectangle) event.getSource();
     context.handleRectangleClick(event, clickedRectangle.getId());
   }
@@ -83,6 +123,155 @@ public class RoomController {
    */
   @FXML
   private void handleGuessClick(ActionEvent event) throws IOException {
-    context.handleGuessClick();
+    // Check if the player is ready to guess
+    if (context.canGuess()) {
+      // Set the game state to guessing if the player has interacted with the required elements
+      context.setState(context.getGuessingState());
+      System.out.println("Transitioning to guessing state. Ready to make a guess.");
+    } else {
+      // Inform the player that they need to interact with both a clue and a suspect
+      System.out.println("You must interact with both a clue and a suspect before you can guess.");
+    }
+  }
+
+  @FXML
+  private void handleSecurityClick(MouseEvent event) throws IOException {
+    chatController.clearChat();
+    context.setSuspectInteracted(true);
+    updateGuessButtonAvailability();
+    // Open chat with the security guard
+    if (context.getState().equals(context.getGuessingState())) {
+      context.handleRectangleClick(event, "rectSecurity");
+    } else {
+      showChat("security");
+      System.out.println("security");
+    }
+  }
+
+  @FXML
+  private void handleCollectorClick(MouseEvent event) throws IOException {
+    chatController.clearChat();
+    updateGuessButtonAvailability();
+    context.setSuspectInteracted(true);
+    if (context.getState().equals(context.getGuessingState())) {
+      context.handleRectangleClick(event, "rectCollector");
+    } else {
+      showChat("collector");
+      System.out.println("collector");
+    }
+  }
+
+  @FXML
+  private void handleArtistClick(MouseEvent event) throws IOException {
+    chatController.clearChat();
+    updateGuessButtonAvailability();
+    context.setSuspectInteracted(true);
+    if (context.getState().equals(context.getGuessingState())) {
+      context.handleRectangleClick(event, "rectArtist");
+    } else {
+      showChat("artist");
+      System.out.println("artist");
+    }
+  }
+
+  @FXML
+  private void handleMouseEnter(MouseEvent event) {
+    Node source = (Node) event.getSource();
+    source.setCursor(Cursor.HAND);
+  }
+
+  @FXML
+  private void handleMouseExit(MouseEvent event) {
+    Node source = (Node) event.getSource();
+    source.setCursor(Cursor.DEFAULT);
+  }
+
+  @FXML
+  private void handlePhoneClick(MouseEvent event) {
+    if (chatContainer != null) {
+      chatContainer.setVisible(false);
+    }
+
+    context.setClueInteracted(true);
+    try {
+      // Load the FXML file for the pop-up
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/phoneZoom.fxml"));
+      Parent popupContent = loader.load();
+
+      // Clear existing content and add new pop-up content
+      popupContainer.getChildren().clear();
+      popupContainer.getChildren().add(popupContent);
+
+      // Make the pop-up visible
+      popupContainer.setVisible(true);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @FXML
+  private void onBackButtonAction(ActionEvent event) {
+    try {
+      // Load the FXML file for the room
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/room.fxml"));
+      Parent roomContent = loader.load();
+
+      // Get the current stage
+      Node source = (Node) event.getSource();
+      javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
+
+      // Set the scene to the room
+      stage.setScene(new javafx.scene.Scene(roomContent));
+      stage.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void showChat(String profession) {
+    if (chatController != null) {
+      chatController.setProfession(profession);
+      chatContainer.setVisible(true);
+    } else {
+      System.out.println("Chat controller is null");
+    }
+  }
+
+  private void updateGuessButtonState() {
+    if (btnGuess != null) {
+      btnGuess.setDisable(!context.canGuess());
+    }
+  }
+
+  private void updateGuessButtonAvailability() {
+    if (btnGuess != null) {
+      btnGuess.setDisable(!context.canGuess());
+    }
+  }
+
+  private void playSound(String filePath) {
+    Task<Void> backgroundTask =
+        new Task<>() {
+          @Override
+          protected Void call() {
+            URL resource = getClass().getResource(filePath);
+            if (resource == null) {
+              Platform.runLater(() -> System.out.println("File not found: " + filePath));
+              return null;
+            }
+            Media media = new Media(resource.toString());
+            Platform.runLater(
+                () -> {
+                  if (mediaPlayer != null) {
+                    mediaPlayer.stop();
+                  }
+                  mediaPlayer = new MediaPlayer(media);
+                  mediaPlayer.play();
+                });
+            return null;
+          }
+        };
+    Thread backgroundThread = new Thread(backgroundTask);
+    backgroundThread.start();
   }
 }

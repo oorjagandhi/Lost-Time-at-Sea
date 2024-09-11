@@ -10,7 +10,6 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="room" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" prefHeight="599.0" prefWidth="789.0" style="-fx-background-color: #304d4b;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RoomController">
@@ -19,12 +18,9 @@
           <children>
               <ImageView fitHeight="452.0" fitWidth="789.0" layoutY="149.0" preserveRatio="true">
                  <image>
-                    <Image url="@../images/gallery.png" />
+                    <Image url="@../images/floor.png" />
                  </image>
               </ImageView>
-              <Rectangle fx:id="rectSecurity" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="265.0" layoutX="169.0" layoutY="286.0" onMouseClicked="#handleSecurityClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="77.0" />
-              <Rectangle fx:id="rectArtist" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="266.0" layoutX="273.0" layoutY="283.0" onMouseClicked="#handleArtistClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="71.0" />
-              <Rectangle fx:id="rectCollector" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="256.0" layoutX="487.0" layoutY="300.0" onMouseClicked="#handleCollectorClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="77.0" />
               
               <!-- Centered Text Labels -->
               <Label alignment="CENTER" prefWidth="789.0" text="Stolen Strokes">
@@ -65,19 +61,19 @@
               <Button fx:id="btnGuess" alignment="CENTER" layoutX="344.0" layoutY="114.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" text="Make a Guess" textAlignment="CENTER" />
               
               <fx:include source="timer.fxml" />
-              
-              <ImageView fitHeight="33.0" fitWidth="49.0" layoutX="109.0" layoutY="538.0" onMouseClicked="#handlePhoneClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" pickOnBounds="true" preserveRatio="true">
-                 <image>
-                    <Image url="@../images/phone.png" />
-                 </image>
-              </ImageView>
+            <ImageView fitHeight="394.0" fitWidth="198.0" layoutX="292.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/phone_msgs.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnBack" layoutX="362.0" layoutY="548.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="Go Back" />
           </children>
       </Pane>
       <!-- Container for the popup -->
       <Pane fx:id="popupContainer" style="-fx-background-color: rgba(0, 0, 0, 0.5);" visible="false">
       </Pane>
       <!-- Container for the chat -->
-      <VBox fx:id="chatContainer" layoutX="580" layoutY="418.0" prefHeight="172.0" prefWidth="200" visible="true">
+      <VBox fx:id="chatContainer" layoutX="10" layoutY="440" prefHeight="150" prefWidth="280" visible="false">
           <fx:include fx:id="chat" source="chat.fxml" />
       </VBox> 
    </children>

@@ -1,8 +1,8 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,9 +14,7 @@ import nz.ac.auckland.apiproxy.chat.openai.ChatMessage;
 import nz.ac.auckland.apiproxy.chat.openai.Choice;
 import nz.ac.auckland.apiproxy.config.ApiProxyConfig;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
-import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.prompts.PromptEngineering;
-import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 
 /**
  * Controller class for the chat view. Handles user interactions and communication with the GPT
@@ -47,9 +45,7 @@ public class ChatController {
    * @return the system prompt string
    */
   private String getSystemPrompt() {
-    Map<String, String> map = new HashMap<>();
-    map.put("profession", profession);
-    return PromptEngineering.getPrompt("chat.txt", map);
+    return PromptEngineering.getPrompt(profession);
   }
 
   /**
@@ -90,18 +86,36 @@ public class ChatController {
    * @throws ApiProxyException if there is an error communicating with the API proxy
    */
   private ChatMessage runGpt(ChatMessage msg) throws ApiProxyException {
-    chatCompletionRequest.addMessage(msg);
-    try {
-      ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
-      Choice result = chatCompletionResult.getChoices().iterator().next();
-      chatCompletionRequest.addMessage(result.getChatMessage());
-      appendChatMessage(result.getChatMessage());
-      FreeTextToSpeech.speak(result.getChatMessage().getContent());
-      return result.getChatMessage();
-    } catch (ApiProxyException e) {
-      e.printStackTrace();
-      return null;
-    }
+    long startTime = System.nanoTime();
+    final ChatMessage[] resultHolder = new ChatMessage[1];
+    Task<Void> backgroundTask =
+        new Task<>() {
+          @Override
+          protected Void call() {
+            try {
+              chatCompletionRequest.addMessage(msg);
+              ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
+              Choice result = chatCompletionResult.getChoices().iterator().next();
+              ChatMessage responseMessage = result.getChatMessage();
+              // Schedule the update on the JavaFX Application Thread
+              Platform.runLater(
+                  () -> {
+                    chatCompletionRequest.addMessage(responseMessage);
+                    appendChatMessage(responseMessage);
+                  });
+              resultHolder[0] = responseMessage;
+              long endTime = System.nanoTime();
+              long duration = (endTime - startTime) / 1_000_000;
+              System.out.println("runGpt took: " + duration + " ms");
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
+            return null;
+          }
+        };
+    Thread backgroundThread = new Thread(backgroundTask);
+    backgroundThread.start();
+    return resultHolder[0];
   }
 
   /**
@@ -123,15 +137,11 @@ public class ChatController {
     runGpt(msg);
   }
 
-  /**
-   * Navigates back to the previous view.
-   *
-   * @param event the action event triggered by the go back button
-   * @throws ApiProxyException if there is an error communicating with the API proxy
-   * @throws IOException if there is an I/O error
-   */
-  @FXML
-  private void onGoBack(ActionEvent event) throws ApiProxyException, IOException {
-    App.setRoot("room");
+  public void clearChat() {
+    txtaChat.clear();
+  }
+
+  public void sendMessage() throws ApiProxyException, IOException {
+    onSendMessage(null);
   }
 }

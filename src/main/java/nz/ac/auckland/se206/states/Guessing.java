@@ -1,9 +1,18 @@
 package nz.ac.auckland.se206.states;
 
 import java.io.IOException;
+import java.net.URL;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
-import nz.ac.auckland.se206.speech.TextToSpeech;
+import nz.ac.auckland.se206.util.TimerManager;
 
 /**
  * The Guessing state of the game. Handles the logic for when the player is making a guess about the
@@ -12,6 +21,9 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
 public class Guessing implements GameState {
 
   private final GameStateContext context;
+
+  private MediaPlayer mediaPlayer;
+  private final TimerManager timerManager = TimerManager.getInstance();
 
   /**
    * Constructs a new Guessing state with the given game state context.
@@ -32,18 +44,30 @@ public class Guessing implements GameState {
    */
   @Override
   public void handleRectangleClick(MouseEvent event, String rectangleId) throws IOException {
-    if (rectangleId.equals("rectCashier") || rectangleId.equals("rectWaitress")) {
-      TextToSpeech.speak("You should click on the customers");
-      return;
-    }
-
-    String clickedProfession = context.getProfession(rectangleId);
+    // Check if the clicked rectangle is the correct one
     if (rectangleId.equals(context.getRectIdToGuess())) {
-      TextToSpeech.speak("Correct! You won! This is the " + clickedProfession);
+      timerManager.stopTimer();
+      playSound("/sounds/correct.mp3");
+      // Transition to game over state
+      context.setState(context.getGameOverState());
+      System.out.println("Correct! You guessed the thief");
+      // Load the game over screen
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/you_win.fxml"));
+      Parent root = loader.load();
+      Scene scene = new Scene(root);
+      App.getStage().setScene(scene);
+      App.getStage().show();
     } else {
-      TextToSpeech.speak("You lost! This is the " + clickedProfession);
+      playSound("/sounds/wrong.mp3");
+      // Transition to game over state
+      context.setState(context.getGameOverState());
+      // Load the game over screen
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/you_lose.fxml"));
+      Parent root = loader.load();
+      Scene scene = new Scene(root);
+      App.getStage().setScene(scene);
+      App.getStage().show();
     }
-    context.setState(context.getGameOverState());
   }
 
   /**
@@ -54,6 +78,33 @@ public class Guessing implements GameState {
    */
   @Override
   public void handleGuessClick() throws IOException {
-    TextToSpeech.speak("You have already guessed!");
+    context.setState(context.getGuessingState());
+    context.handleGuessClick();
+  }
+
+  private void playSound(String filePath) {
+    Task<Void> backgroundTask =
+        new Task<>() {
+          @Override
+          protected Void call() {
+            URL resource = getClass().getResource(filePath);
+            if (resource == null) {
+              Platform.runLater(() -> System.out.println("File not found: " + filePath));
+              return null;
+            }
+            Media media = new Media(resource.toString());
+            Platform.runLater(
+                () -> {
+                  if (mediaPlayer != null) {
+                    mediaPlayer.stop();
+                  }
+                  mediaPlayer = new MediaPlayer(media);
+                  mediaPlayer.play();
+                });
+            return null;
+          }
+        };
+    Thread backgroundThread = new Thread(backgroundTask);
+    backgroundThread.start();
   }
 }
