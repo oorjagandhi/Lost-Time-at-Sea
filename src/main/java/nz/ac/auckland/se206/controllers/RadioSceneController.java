@@ -35,4 +35,6 @@ public class RadioSceneController {
   private void onIncreaseFrequency(ActionEvent event) {
     System.out.println("Increase Frequency button clicked");
   }
+
+  private void playAudio(int frequency) {}
 }
