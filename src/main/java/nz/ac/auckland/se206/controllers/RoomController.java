@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -20,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.util.RoomManager;
@@ -291,6 +293,44 @@ public class RoomController {
       stage.show();
     } catch (IOException e) {
       e.printStackTrace();
+    }
+  }
+
+  @FXML
+  private void switchToCrimeScene(ActionEvent event) {
+    switchScene(event, "/fxml/crime-scene.fxml");
+  }
+
+  @FXML
+  private void switchToMaidRoom(ActionEvent event) {
+    switchScene(event, "/fxml/maid-room.fxml");
+  }
+
+  @FXML
+  private void switchToBar(ActionEvent event) {
+    switchScene(event, "/fxml/bar-room.fxml");
+  }
+
+  @FXML
+  private void switchToDeck(ActionEvent event) {
+    switchScene(event, "/fxml/deck.fxml");
+  }
+
+  private void switchScene(ActionEvent event, String fxmlFile) {
+    try {
+      // Use non-static FXMLLoader to load the FXML
+      FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+      Parent newScene = loader.load(); // Load the new scene
+
+      // Get the stage from the current event
+      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      Scene scene = new Scene(newScene);
+
+      // Set the new scene
+      stage.setScene(scene);
+      stage.show();
+    } catch (IOException e) {
+      e.printStackTrace(); // Handle IOException
     }
   }
 }
