@@ -9,7 +9,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class RadioSceneController {
-  boolean Playingaudio = false;
+  boolean isPlayingaudio = false;
   int frequency = 1;
   MediaPlayer mediaPlayer;
   Task<Void> backgroundTask;
@@ -22,14 +22,14 @@ public class RadioSceneController {
   @FXML
   private void onPlay(ActionEvent event) {
     System.out.println("Play button clicked");
-    if (Playingaudio) {
+    if (isPlayingaudio) {
       // pause the audio
-      Playingaudio = false;
+      isPlayingaudio = false;
       stopAudio();
     } else {
       // play the audio
-      Playingaudio = true;
-      playSound("/sounds/welcome.mp3");
+      isPlayingaudio = true;
+      playAudio();
     }
   }
 
@@ -41,7 +41,12 @@ public class RadioSceneController {
   @FXML
   private void onDecreaseFrequency(ActionEvent event) {
     System.out.println("Decrease Frequency button clicked");
+    stopAudio();
     frequency--;
+    if (frequency < 1) {
+      frequency = 3;
+    }
+    playAudio();
   }
 
   /**
@@ -52,18 +57,30 @@ public class RadioSceneController {
   @FXML
   private void onIncreaseFrequency(ActionEvent event) {
     System.out.println("Increase Frequency button clicked");
+    stopAudio();
+    frequency++;
+    if (frequency > 3) {
+      frequency = 1;
+    }
+    playAudio();
   }
 
   private void stopAudio() {
+    if (backgroundTask == null) {
+      return;
+    }
+
+    isPlayingaudio = false;
     backgroundTask.cancel();
   }
 
   /**
    * to play the audio with a input frequency, mp3s are all named as radio1.mp3, radio2.mp3,
-   * radio3.mp3, radio4.mp3, radio5.mp3 the frequency is from 1 to 5 the audio3 is the clue audio
-   * playing the audio could be stopped by the stopAudio
+   * radio3.mp3, the frequency is the number from 1 to 3 playing the audio could be stopped by the
+   * stopAudio
    */
-  private void playSound(String filePath) {
+  private void playAudio() {
+    String filePath = "/sounds/radio" + frequency + ".mp3";
     backgroundTask =
         new Task<>() {
           @Override
@@ -80,6 +97,7 @@ public class RadioSceneController {
                 () -> {
                   mediaPlayer = new MediaPlayer(media);
 
+                  isPlayingaudio = true;
                   // Add a listener to the MediaPlayer status property
                   mediaPlayer
                       .statusProperty()
@@ -87,10 +105,17 @@ public class RadioSceneController {
                           (obs, oldStatus, newStatus) -> {
                             if (newStatus == MediaPlayer.Status.STOPPED
                                 || newStatus == MediaPlayer.Status.PAUSED) {
-                              // The media has stopped, so we can cancel the task
+                              // Media stopped or paused, cancel the task
                               cancel();
                             }
                           });
+
+                  // Set onEndOfMedia to update isPlayingaudio to false when media ends
+                  mediaPlayer.setOnEndOfMedia(
+                      () -> {
+                        isPlayingaudio = false;
+                        System.out.println("Audio finished playing");
+                      });
 
                   mediaPlayer.play();
                 });
@@ -112,6 +137,7 @@ public class RadioSceneController {
                   if (mediaPlayer != null
                       && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
                     mediaPlayer.stop();
+                    isPlayingaudio = false;
                   }
                 });
 
