@@ -24,7 +24,6 @@
               </ImageView>
               <Rectangle fx:id="rectSecurity" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="265.0" layoutX="169.0" layoutY="286.0" onMouseClicked="#handleSecurityClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="77.0" />
               <Rectangle fx:id="rectArtist" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="266.0" layoutX="273.0" layoutY="283.0" onMouseClicked="#handleArtistClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="71.0" />
-              <Rectangle fx:id="rectCollector" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="256.0" layoutX="487.0" layoutY="300.0" onMouseClicked="#handleCollectorClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="77.0" />
               
               <!-- Centered Text Labels -->
               <Label alignment="CENTER" layoutX="23.0" layoutY="12.0" prefWidth="789.0" text="Guess Who?">
@@ -68,6 +67,11 @@
             <VBox fx:id="chatContainer" layoutX="601.0" layoutY="266.0" prefHeight="172.0" prefWidth="200" visible="true">
                 <fx:include fx:id="chat" source="chat.fxml" />
             </VBox>
+            <Button layoutX="276.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToCrimeScene" text="Crime Scene" />
+            <Button layoutX="364.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToMaidRoom" text="Bedroom" />
+            <Button layoutX="432.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToBar" text="Bar" />
+            <Button layoutX="468.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToDeck" text="Deck" />
+
           </children>
       </Pane>
       <!-- Container for the popup -->
