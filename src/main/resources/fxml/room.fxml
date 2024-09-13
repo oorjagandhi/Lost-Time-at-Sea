@@ -71,6 +71,7 @@
                     <Image url="@../images/phone.png" />
                  </image>
               </ImageView>
+            <Button fx:id="changeToRadioScene" layoutX="66.0" layoutY="164.0" mnemonicParsing="false" onAction="#onChangeToRadioScene" prefHeight="70.0" prefWidth="120.0" text="change to radio scene" />
           </children>
       </Pane>
       <!-- Container for the popup -->

@@ -274,4 +274,23 @@ public class RoomController {
     Thread backgroundThread = new Thread(backgroundTask);
     backgroundThread.start();
   }
+
+  @FXML
+  private void onChangeToRadioScene(ActionEvent event) {
+    try {
+      // Load the FXML file for the radio scene
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/radio.fxml"));
+      Parent radioContent = loader.load();
+
+      // Get the current stage
+      Node source = (Node) event.getSource();
+      javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
+
+      // Set the scene to the radio scene
+      stage.setScene(new javafx.scene.Scene(radioContent));
+      stage.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }
