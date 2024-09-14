@@ -72,10 +72,10 @@
             <Button layoutX="432.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToBar" text="Bar" />
             <Button layoutX="468.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToDeck" text="Deck" />
             <ImageView fx:id="paperImageView" fitHeight="47.0" fitWidth="53.0" layoutX="297.0" layoutY="477.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#handlePaperClick">
-               <image>
-                  <Image url="@../images/crumple-1.png" />
-               </image>
-            </ImageView>
+                <image>
+                    <Image url="@../images/crumple-1.png" />
+                </image>
+              </ImageView>
 
           </children>
       </Pane>

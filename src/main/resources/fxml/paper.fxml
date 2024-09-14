@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="room" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" prefHeight="599.0" prefWidth="789.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RoomController">
+<AnchorPane fx:id="room" focusTraversable="true" prefHeight="599.0" prefWidth="789.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.PaperController">
    <children>
       <Pane layoutY="-1.0">
           <children>
@@ -17,15 +17,13 @@
                  </image>
               </ImageView>
               
-              <Button fx:id="btnGuess" alignment="CENTER" layoutX="358.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" text="Make a Guess" textAlignment="CENTER" />
-              
               <fx:include source="timer.fxml" />
-            <ImageView fitHeight="394.0" fitWidth="198.0" layoutX="293.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#changePaperImage">
+            <ImageView fx:id="paperImageView" fitHeight="394.0" fitWidth="198.0" layoutX="293.0" layoutY="238.0" onMouseClicked="#handlePaperClick" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/crumple-1.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnBack" layoutX="362.0" layoutY="548.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="Go Back" />
+            <Button fx:id="btnBack" layoutX="362.0" layoutY="515.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="Go Back" />
           </children>
       </Pane>
       <!-- Container for the popup -->

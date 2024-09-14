@@ -2,7 +2,6 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -13,7 +12,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,7 +22,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.util.RoomManager;
@@ -66,11 +63,6 @@ public class RoomController {
     System.out.println("Initializing RoomController...");
 
     timerManager.setGuessingStartListener(this::guessingStartListener);
-
-    if (paperImageView != null) {
-      paperImageView.setImage(new Image(getClass().getResourceAsStream(paperImages[0])));
-      paperImageView.setOnMouseClicked(event -> changePaperImage());
-    }
 
     updateGuessButtonState();
     context.setUpdateGuessButtonStateCallback(this::updateGuessButtonAvailability);
@@ -344,49 +336,23 @@ public class RoomController {
 
   @FXML private ImageView paperImageView;
 
-  private int clickCount = 0; // To track the number of clicks
-  private final String[] paperImages = {
-    "/images/crumple-1.png",
-    "/images/crumple-2.png",
-    "/images/crumple-3.png",
-    "/images/crumple-4.png"
-  };
-
   @FXML
   private void handlePaperClick(MouseEvent event) {
+    System.out.println("Paper clicked, attempting to load paper.fxml...");
     try {
-      // Load the FXML file for the paper scene
+      // Load the FXML file for the radio scene
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/paper.fxml"));
       Parent paperScene = loader.load();
 
-      // Get the current stage using the source of the event
+      // Get the current stage
       Node source = (Node) event.getSource();
-      Stage stage = (Stage) source.getScene().getWindow();
+      javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
 
-      // Set the new scene
-      stage.setScene(new Scene(paperScene));
+      // Set the scene to the radio scene
+      stage.setScene(new javafx.scene.Scene(paperScene));
       stage.show();
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-
-  @FXML
-  private void changePaperImage() {
-    // Cycle through the images
-    clickCount++;
-    if (clickCount < paperImages.length) {
-      paperImageView.setImage(new Image(getClass().getResourceAsStream(paperImages[clickCount])));
-    } else {
-      // Reset to the first image if the end is reached
-      clickCount = 0;
-      paperImageView.setImage(new Image(getClass().getResourceAsStream(paperImages[clickCount])));
-    }
-
-    // Zoom back out after changing the image
-    ScaleTransition zoomOut = new ScaleTransition(Duration.seconds(0.5), paperImageView);
-    zoomOut.setToX(1);
-    zoomOut.setToY(1);
-    zoomOut.play();
   }
 }
