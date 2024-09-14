@@ -316,6 +316,26 @@ public class RoomController {
     switchScene(event, "/fxml/deck.fxml");
   }
 
+  @FXML
+  private void handleFloorBoardClick(MouseEvent event) {
+    System.out.println("Floor clicked, attempting to load floor.fxml...");
+    try {
+      // Load the FXML file for the radio scene
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/floor.fxml"));
+      Parent floorScene = loader.load();
+
+      // Get the current stage
+      Node source = (Node) event.getSource();
+      javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
+
+      // Set the scene to the radio scene
+      stage.setScene(new javafx.scene.Scene(floorScene));
+      stage.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
   private void switchScene(ActionEvent event, String fxmlFile) {
     try {
       // Use non-static FXMLLoader to load the FXML
