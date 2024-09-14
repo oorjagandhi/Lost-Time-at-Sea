@@ -35,6 +35,7 @@ public class RoomController {
 
   private static boolean isFirstTimeInit = true;
   private static GameStateContext context = new GameStateContext();
+  @FXML private Rectangle floorBoard;
 
   @FXML private Rectangle rectSecurity;
   @FXML private Rectangle rectArtist;
@@ -70,6 +71,9 @@ public class RoomController {
       playSound("/sounds/welcome.mp3");
     }
     roomManager.setUserWelcomed(true);
+
+    floorBoard.setOnMouseEntered(this::handleMouseEnterFloorBoard);
+    floorBoard.setOnMouseExited(this::handleMouseExitFloorBoard);
   }
 
   private void guessingStartListener() {
@@ -314,6 +318,19 @@ public class RoomController {
   @FXML
   private void switchToDeck(ActionEvent event) {
     switchScene(event, "/fxml/deck.fxml");
+  }
+
+  // Method to handle mouse entering the floorBoard
+  private void handleMouseEnterFloorBoard(MouseEvent event) {
+    floorBoard.setCursor(Cursor.HAND); // Change cursor to hand
+    floorBoard.setStyle(
+        "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
+  }
+
+  // Method to handle mouse exiting the floorBoard
+  private void handleMouseExitFloorBoard(MouseEvent event) {
+    floorBoard.setCursor(Cursor.DEFAULT); // Reset cursor
+    floorBoard.setStyle(""); // Remove the drop shadow effect
   }
 
   @FXML
