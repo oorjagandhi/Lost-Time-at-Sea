@@ -1,6 +1,9 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
+import java.net.URL;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,10 +12,13 @@ import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class PaperController {
 
   @FXML private ImageView paperImageView;
+  private MediaPlayer mediaPlayer;
 
   private int clickCount = 0; // To track the number of clicks
   private final String[] paperImages = {
@@ -37,6 +43,7 @@ public class PaperController {
     // Cycle through the images
     clickCount++;
     if (clickCount < paperImages.length) {
+      playSound("/sounds/paper.mp3");
       paperImageView.setImage(new Image(getClass().getResourceAsStream(paperImages[clickCount])));
     }
   }
@@ -58,5 +65,31 @@ public class PaperController {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  private void playSound(String filePath) {
+    Task<Void> backgroundTask =
+        new Task<>() {
+          @Override
+          protected Void call() {
+            URL resource = getClass().getResource(filePath);
+            if (resource == null) {
+              Platform.runLater(() -> System.out.println("File not found: " + filePath));
+              return null;
+            }
+            Media media = new Media(resource.toString());
+            Platform.runLater(
+                () -> {
+                  if (mediaPlayer != null) {
+                    mediaPlayer.stop();
+                  }
+                  mediaPlayer = new MediaPlayer(media);
+                  mediaPlayer.play();
+                });
+            return null;
+          }
+        };
+    Thread backgroundThread = new Thread(backgroundTask);
+    backgroundThread.start();
   }
 }
