@@ -72,8 +72,10 @@ public class RoomController {
     }
     roomManager.setUserWelcomed(true);
 
-    floorBoard.setOnMouseEntered(this::handleMouseEnterFloorBoard);
-    floorBoard.setOnMouseExited(this::handleMouseExitFloorBoard);
+    if (floorBoard != null) {
+      floorBoard.setOnMouseEntered(this::handleMouseEnterFloorBoard);
+      floorBoard.setOnMouseExited(this::handleMouseExitFloorBoard);
+    }
   }
 
   private void guessingStartListener() {
