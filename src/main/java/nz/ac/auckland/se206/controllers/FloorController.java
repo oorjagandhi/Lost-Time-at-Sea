@@ -74,7 +74,7 @@ public class FloorController {
   private void handleMouseEnterScrew(MouseEvent event) {
     Circle screw = (Circle) event.getSource();
     screw.setCursor(Cursor.HAND);
-    screw.setStyle("-fx-fill: lightblue; -fx-stroke: black; -fx-stroke-width: 2;");
+    screw.setStyle("-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);");
   }
 
   // Remove screw highlight when mouse exits
