@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="room" focusTraversable="true" prefHeight="599.0" prefWidth="789.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.PaperController">
+   <children>
+      <Pane layoutY="-1.0">
+          <children>
+              <ImageView fitHeight="452.0" fitWidth="789.0" layoutY="149.0" preserveRatio="true">
+                 <image>
+                    <Image url="@../images/floor.png" />
+                 </image>
+              </ImageView>
+              
+              <fx:include source="timer.fxml" />
+            <ImageView fx:id="paperImageView" fitHeight="394.0" fitWidth="198.0" layoutX="293.0" layoutY="238.0" onMouseClicked="#handlePaperClick" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/crumple-1.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnBack" layoutX="362.0" layoutY="515.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="Go Back" />
+          </children>
+      </Pane>
+      <!-- Container for the popup -->
+      <Pane fx:id="popupContainer" style="-fx-background-color: rgba(0, 0, 0, 0.5);" visible="false">
+      </Pane>
+      <!-- Container for the chat -->
+      <VBox fx:id="chatContainer" layoutX="10" layoutY="440" prefHeight="150" prefWidth="280" visible="false">
+          <fx:include fx:id="chat" source="chat.fxml" />
+      </VBox> 
+   </children>
+</AnchorPane>

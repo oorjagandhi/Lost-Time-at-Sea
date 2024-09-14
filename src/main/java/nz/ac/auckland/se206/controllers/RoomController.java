@@ -72,8 +72,10 @@ public class RoomController {
     }
     roomManager.setUserWelcomed(true);
 
-    floorBoard.setOnMouseEntered(this::handleMouseEnterFloorBoard);
-    floorBoard.setOnMouseExited(this::handleMouseExitFloorBoard);
+    if (floorBoard != null) {
+      floorBoard.setOnMouseEntered(this::handleMouseEnterFloorBoard);
+      floorBoard.setOnMouseExited(this::handleMouseExitFloorBoard);
+    }
   }
 
   private void guessingStartListener() {
@@ -368,6 +370,28 @@ public class RoomController {
       stage.show();
     } catch (IOException e) {
       e.printStackTrace(); // Handle IOException
+    }
+  }
+
+  @FXML private ImageView paperImageView;
+
+  @FXML
+  private void handlePaperClick(MouseEvent event) {
+    System.out.println("Paper clicked, attempting to load paper.fxml...");
+    try {
+      // Load the FXML file for the radio scene
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/paper.fxml"));
+      Parent paperScene = loader.load();
+
+      // Get the current stage
+      Node source = (Node) event.getSource();
+      javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
+
+      // Set the scene to the radio scene
+      stage.setScene(new javafx.scene.Scene(paperScene));
+      stage.show();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 }
