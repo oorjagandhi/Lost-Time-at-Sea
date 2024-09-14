@@ -71,6 +71,7 @@
             <Button layoutX="364.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToMaidRoom" text="Bedroom" />
             <Button layoutX="432.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToBar" text="Bar" />
             <Button layoutX="468.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToDeck" text="Deck" />
+            <Rectangle fx:id="floorBoard" arcHeight="5.0" arcWidth="5.0" fill="#b26d14" height="54.0" layoutX="661.0" layoutY="511.0" onMouseClicked="#handleFloorBoardClick" stroke="BLACK" strokeType="INSIDE" width="99.0" />
 
           </children>
       </Pane>

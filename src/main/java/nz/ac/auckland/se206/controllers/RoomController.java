@@ -35,6 +35,7 @@ public class RoomController {
 
   private static boolean isFirstTimeInit = true;
   private static GameStateContext context = new GameStateContext();
+  @FXML private Rectangle floorBoard;
 
   @FXML private Rectangle rectSecurity;
   @FXML private Rectangle rectArtist;
@@ -70,6 +71,9 @@ public class RoomController {
       playSound("/sounds/welcome.mp3");
     }
     roomManager.setUserWelcomed(true);
+
+    floorBoard.setOnMouseEntered(this::handleMouseEnterFloorBoard);
+    floorBoard.setOnMouseExited(this::handleMouseExitFloorBoard);
   }
 
   private void guessingStartListener() {
@@ -314,6 +318,39 @@ public class RoomController {
   @FXML
   private void switchToDeck(ActionEvent event) {
     switchScene(event, "/fxml/deck.fxml");
+  }
+
+  // Method to handle mouse entering the floorBoard
+  private void handleMouseEnterFloorBoard(MouseEvent event) {
+    floorBoard.setCursor(Cursor.HAND); // Change cursor to hand
+    floorBoard.setStyle(
+        "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
+  }
+
+  // Method to handle mouse exiting the floorBoard
+  private void handleMouseExitFloorBoard(MouseEvent event) {
+    floorBoard.setCursor(Cursor.DEFAULT); // Reset cursor
+    floorBoard.setStyle(""); // Remove the drop shadow effect
+  }
+
+  @FXML
+  private void handleFloorBoardClick(MouseEvent event) {
+    System.out.println("Floor clicked, attempting to load floor.fxml...");
+    try {
+      // Load the FXML file for the radio scene
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/floor.fxml"));
+      Parent floorScene = loader.load();
+
+      // Get the current stage
+      Node source = (Node) event.getSource();
+      javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
+
+      // Set the scene to the radio scene
+      stage.setScene(new javafx.scene.Scene(floorScene));
+      stage.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   private void switchScene(ActionEvent event, String fxmlFile) {
