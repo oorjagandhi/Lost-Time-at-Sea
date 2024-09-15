@@ -13,6 +13,7 @@ public class RadioSceneController {
   int frequency = 1;
   MediaPlayer mediaPlayer;
   Task<Void> backgroundTask;
+  int totalAudio = 5;
 
   /**
    * the play button is clicked if the audio is playing, pause it. if the audio is paused, play it
@@ -44,7 +45,7 @@ public class RadioSceneController {
     stopAudio();
     frequency--;
     if (frequency < 1) {
-      frequency = 3;
+      frequency = totalAudio;
     }
     playAudio();
   }
@@ -59,7 +60,7 @@ public class RadioSceneController {
     System.out.println("Increase Frequency button clicked");
     stopAudio();
     frequency++;
-    if (frequency > 3) {
+    if (frequency > totalAudio) {
       frequency = 1;
     }
     playAudio();
