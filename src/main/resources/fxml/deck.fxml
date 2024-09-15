@@ -33,16 +33,6 @@
             <Button layoutX="364.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToMaidRoom" text="Bedroom" />
             <Button layoutX="432.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToBar" text="Bar" />
             <Button layoutX="468.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToDeck" text="Deck" />
-            <ImageView fx:id="suspectIcon" fitHeight="151.0" fitWidth="148.0" layoutX="83.0" layoutY="327.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <image>
-                  <Image url="@../images/sailor_closeup1.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="suspectThinking" fitHeight="150.0" fitWidth="200.0" layoutX="82.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <image>
-                  <Image url="@../images/sailor_closeup.png" />
-               </image>
-            </ImageView>
           </children>
       </Pane>
       <!-- Container for the popup -->

@@ -1,0 +1,21 @@
+/* styles.css */
+.nav-button {
+  -fx-background-color: #ffffff;
+  -fx-text-fill: rgb(0, 0, 0);
+  -fx-font-size: 12px;
+  -fx-background-radius: 0;
+  -fx-padding: 5 10;
+
+}
+
+.nav-button:hover {
+  -fx-background-color: #b1b1b1;
+  -fx-text-fill: rgb(0, 0, 0);
+}
+
+.nav-button:disabled {
+  -fx-opacity: 1.0; /* Make sure it has the same opacity */
+  -fx-background-color: #dad6d6; /* Keep the same color */
+  -fx-text-fill: black; /* Keep the same text color */
+}
+

@@ -41,6 +41,8 @@ public class RoomController {
   @FXML private Rectangle rectArtist;
   @FXML private Rectangle rectCollector;
 
+  @FXML private ImageView suspectBartender;
+
   @FXML private Button btnGuess;
   @FXML private Button btnBack;
 
@@ -76,6 +78,11 @@ public class RoomController {
     if (floorBoard != null) {
       floorBoard.setOnMouseEntered(this::handleMouseEnterFloorBoard);
       floorBoard.setOnMouseExited(this::handleMouseExitFloorBoard);
+    }
+
+    if (paperImageView != null) {
+      paperImageView.setOnMouseEntered(this::handleMouseEnterpaperImageView);
+      paperImageView.setOnMouseExited(this::handleMouseExitpaperImageView);
     }
   }
 
@@ -180,6 +187,19 @@ public class RoomController {
     } else {
       showChat("artist");
       System.out.println("artist");
+    }
+  }
+
+  @FXML
+  private void handleBartenderClick(MouseEvent event) throws IOException {
+    chatController.clearChat();
+    updateGuessButtonAvailability();
+    context.setSuspectInteracted(true);
+    if (context.getState().equals(context.getGuessingState())) {
+      context.handleRectangleClick(event, "suspectBartender");
+    } else {
+      showChat("bartender");
+      System.out.println("bartender");
     }
   }
 
@@ -367,6 +387,8 @@ public class RoomController {
       Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
       Scene scene = new Scene(newScene);
 
+      newScene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+
       // Set the new scene
       stage.setScene(scene);
       stage.show();
@@ -376,6 +398,19 @@ public class RoomController {
   }
 
   @FXML private ImageView paperImageView;
+
+  // Method to handle mouse entering the paper
+  private void handleMouseEnterpaperImageView(MouseEvent event) {
+    paperImageView.setCursor(Cursor.HAND); // Change cursor to hand
+    paperImageView.setStyle(
+        "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
+  }
+
+  // Method to handle mouse exiting the paper
+  private void handleMouseExitpaperImageView(MouseEvent event) {
+    paperImageView.setCursor(Cursor.DEFAULT); // Reset cursor
+    paperImageView.setStyle(""); // Remove the drop shadow effect
+  }
 
   @FXML
   private void handlePaperClick(MouseEvent event) {
