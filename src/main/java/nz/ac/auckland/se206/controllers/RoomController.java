@@ -41,6 +41,8 @@ public class RoomController {
   @FXML private Rectangle rectArtist;
   @FXML private Rectangle rectCollector;
 
+  @FXML private ImageView suspectBartender;
+
   @FXML private Button btnGuess;
   @FXML private Button btnBack;
 
@@ -184,6 +186,19 @@ public class RoomController {
     } else {
       showChat("artist");
       System.out.println("artist");
+    }
+  }
+
+  @FXML
+  private void handleBartenderClick(MouseEvent event) throws IOException {
+    chatController.clearChat();
+    updateGuessButtonAvailability();
+    context.setSuspectInteracted(true);
+    if (context.getState().equals(context.getGuessingState())) {
+      context.handleRectangleClick(event, "suspectBartender");
+    } else {
+      showChat("bartender");
+      System.out.println("bartender");
     }
   }
 

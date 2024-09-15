@@ -60,9 +60,9 @@ public class ChatController {
       chatCompletionRequest =
           new ChatCompletionRequest(config)
               .setN(1)
-              .setTemperature(0.2)
-              .setTopP(0.5)
-              .setMaxTokens(100);
+              .setTemperature(0.1)
+              .setTopP(0.3)
+              .setMaxTokens(60);
       runGpt(new ChatMessage("system", getSystemPrompt()));
     } catch (ApiProxyException e) {
       e.printStackTrace();
