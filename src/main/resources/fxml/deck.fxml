@@ -16,7 +16,7 @@
                     <Image url="@../images/deck.png" />
                  </image>
               </ImageView>
-            <ImageView fitHeight="574.0" fitWidth="814.0" layoutX="2.0" layoutY="39.0" onMouseClicked="#handleArtistClick" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="554.0" fitWidth="850.0" layoutX="2.0" layoutY="41.0" onMouseClicked="#handleArtistClick" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/sailor.png" />
                </image>
@@ -26,13 +26,23 @@
               
               <fx:include source="timer.fxml" />
             <!-- Container for the chat -->
-            <VBox fx:id="chatContainer" layoutX="79.0" layoutY="317.0" prefHeight="201.0" prefWidth="661.0" visible="false">
+            <VBox fx:id="chatContainer" layoutX="81.0" layoutY="307.0" prefHeight="204.0" prefWidth="658.0" visible="false">
                 <fx:include fx:id="chat" source="chat.fxml" />
             </VBox>
-            <Button layoutX="276.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToCrimeScene" text="Crime Scene" />
-            <Button layoutX="364.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToMaidRoom" text="Bedroom" />
-            <Button layoutX="432.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToBar" text="Bar" />
-            <Button layoutX="468.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToDeck" text="Deck" />
+            <Button layoutX="263.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToCrimeScene" styleClass="nav-button" text="CRIME SCENE" />
+            <Button layoutX="356.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToMaidRoom" styleClass="nav-button" text="BEDROOM" />
+            <Button layoutX="432.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToBar" styleClass="nav-button" text="BAR" />
+            <Button disable="true" layoutX="473.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToDeck" styleClass="nav-button" text="DECK" />
+            <ImageView fx:id="suspectIcon" fitHeight="150.0" fitWidth="148.0" layoutX="86.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../images/sailor_closeup1.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="156.0" fitWidth="158.0" layoutX="77.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../images/sailor_closeup.png" />
+               </image>
+            </ImageView>
           </children>
       </Pane>
       <!-- Container for the popup -->
