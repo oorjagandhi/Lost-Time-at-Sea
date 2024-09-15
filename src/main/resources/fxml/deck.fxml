@@ -16,7 +16,7 @@
                     <Image url="@../images/deck.png" />
                  </image>
               </ImageView>
-            <ImageView fitHeight="574.0" fitWidth="814.0" layoutX="2.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="574.0" fitWidth="814.0" layoutX="2.0" layoutY="39.0" onMouseClicked="#handleArtistClick" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/sailor.png" />
                </image>
@@ -26,16 +26,21 @@
               
               <fx:include source="timer.fxml" />
             <!-- Container for the chat -->
-            <VBox fx:id="chatContainer" layoutX="79.0" layoutY="317.0" prefHeight="201.0" prefWidth="661.0" visible="true">
+            <VBox fx:id="chatContainer" layoutX="79.0" layoutY="317.0" prefHeight="201.0" prefWidth="661.0" visible="false">
                 <fx:include fx:id="chat" source="chat.fxml" />
             </VBox>
             <Button layoutX="276.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToCrimeScene" text="Crime Scene" />
             <Button layoutX="364.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToMaidRoom" text="Bedroom" />
             <Button layoutX="432.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToBar" text="Bar" />
             <Button layoutX="468.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToDeck" text="Deck" />
-            <ImageView fitHeight="151.0" fitWidth="148.0" layoutX="83.0" layoutY="327.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="suspectIcon" fitHeight="151.0" fitWidth="148.0" layoutX="83.0" layoutY="327.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@../images/sailor_closeup1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="suspectThinking" fitHeight="150.0" fitWidth="200.0" layoutX="82.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../images/sailor_closeup.png" />
                </image>
             </ImageView>
           </children>

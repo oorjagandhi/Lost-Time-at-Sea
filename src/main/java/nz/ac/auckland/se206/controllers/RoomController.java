@@ -45,6 +45,7 @@ public class RoomController {
   @FXML private Button btnBack;
 
   @FXML private ImageView book;
+  @FXML private ImageView suspectIcon;
 
   @FXML private Pane popupContainer;
   @FXML private VBox chatContainer;
@@ -240,6 +241,7 @@ public class RoomController {
     if (chatController != null) {
       chatController.setProfession(profession);
       chatContainer.setVisible(true);
+      suspectIcon.setVisible(true);
     } else {
       System.out.println("Chat controller is null");
     }
