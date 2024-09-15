@@ -59,6 +59,8 @@ public class PaperController {
       Node source = (Node) event.getSource();
       javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
 
+      roomContent.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+
       // Set the scene to the room
       stage.setScene(new javafx.scene.Scene(roomContent));
       stage.show();

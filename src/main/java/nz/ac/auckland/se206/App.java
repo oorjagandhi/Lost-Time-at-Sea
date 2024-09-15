@@ -105,6 +105,7 @@ public class App extends Application {
     Parent root = loadFxml("crime-scene");
     scene = new Scene(root);
     stage.setScene(scene);
+    scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
     stage.show();
     root.requestFocus();
     App.stage = stage;

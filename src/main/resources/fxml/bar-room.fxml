@@ -26,10 +26,10 @@
             </VBox>
           </children>
       </Pane>
-            <Button layoutX="276.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToCrimeScene" text="Crime Scene" />
-            <Button layoutX="364.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToMaidRoom" text="Bedroom" />
-            <Button layoutX="432.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToBar" text="Bar" />
-            <Button layoutX="468.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToDeck" text="Deck" />
+            <Button layoutX="263.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToCrimeScene" styleClass="nav-button" text="CRIME SCENE" />
+            <Button layoutX="356.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToMaidRoom" styleClass="nav-button" text="BEDROOM" />
+            <Button disable="true" layoutX="432.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToBar" styleClass="nav-button" text="BAR" />
+            <Button layoutX="473.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToDeck" styleClass="nav-button" text="DECK" />
       <!-- Container for the popup -->
       <Pane fx:id="popupContainer" style="-fx-background-color: rgba(0, 0, 0, 0.5);" visible="false">
       </Pane> 
