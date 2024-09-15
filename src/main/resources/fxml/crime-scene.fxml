@@ -67,11 +67,11 @@
             <VBox fx:id="chatContainer" layoutX="601.0" layoutY="266.0" prefHeight="172.0" prefWidth="200" visible="true">
                 <fx:include fx:id="chat" source="chat.fxml" />
             </VBox>
-            <Button layoutX="276.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToCrimeScene" text="Crime Scene" />
-            <Button layoutX="364.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToMaidRoom" text="Bedroom" />
-            <Button layoutX="432.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToBar" text="Bar" />
-            <Button layoutX="468.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToDeck" text="Deck" />
-            <ImageView fx:id="paperImageView" fitHeight="47.0" fitWidth="53.0" layoutX="297.0" layoutY="477.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#handlePaperClick">
+            <Button disable="true" layoutX="263.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToCrimeScene" styleClass="nav-button" text="CRIME SCENE" />
+            <Button layoutX="356.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToMaidRoom" styleClass="nav-button" text="BEDROOM" />
+            <Button layoutX="432.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToBar" styleClass="nav-button" text="BAR" />
+            <Button layoutX="473.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToDeck" styleClass="nav-button" text="DECK" />
+            <ImageView fx:id="paperImageView" fitHeight="47.0" fitWidth="53.0" layoutX="297.0" layoutY="477.0" onMouseClicked="#handlePaperClick" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../images/crumple-1.png" />
                 </image>
