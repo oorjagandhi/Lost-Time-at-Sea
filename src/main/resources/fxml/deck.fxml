@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane fx:id="room" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" prefHeight="599.0" prefWidth="789.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RoomController">
    <children>
@@ -16,7 +17,7 @@
                     <Image url="@../images/deck.png" />
                  </image>
               </ImageView>
-            <ImageView fitHeight="471.0" fitWidth="714.0" layoutX="32.0" layoutY="129.0" onMouseClicked="#handleArtistClick" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="suspectSailor" fitHeight="471.0" fitWidth="714.0" layoutX="32.0" layoutY="129.0" onMouseClicked="#handleArtistClick" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/sailor.png" />
                </image>
@@ -43,6 +44,7 @@
                   <Image url="@../images/sailor_closeup.png" />
                </image>
             </ImageView>
+            <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="455.0" layoutX="169.0" layoutY="145.0" stroke="TRANSPARENT" strokeType="INSIDE" width="142.0" />
           </children>
       </Pane>
       <!-- Container for the popup -->

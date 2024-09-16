@@ -43,6 +43,10 @@ public class RoomController {
 
   @FXML private ImageView suspectBartender;
 
+  @FXML private Rectangle rectSuspect;
+  @FXML private ImageView suspectMaid;
+  @FXML private ImageView suspectSailor;
+
   @FXML private Button btnGuess;
   @FXML private Button btnBack;
 
@@ -84,6 +88,15 @@ public class RoomController {
       paperImageView.setOnMouseEntered(this::handleMouseEnterpaperImageView);
       paperImageView.setOnMouseExited(this::handleMouseExitpaperImageView);
     }
+
+    if (rectSuspect != null) {
+      rectSuspect.setOnMouseEntered(this::handleMouseEnterrectSuspect);
+      rectSuspect.setOnMouseExited(this::handleMouseExitrectSuspect);
+    }
+
+    System.out.println("suspectMaid: " + suspectMaid);
+    System.out.println("suspectBartender: " + suspectBartender);
+    System.out.println("suspectSailor: " + suspectSailor);
   }
 
   private void guessingStartListener() {
@@ -276,6 +289,39 @@ public class RoomController {
   private void updateGuessButtonAvailability() {
     if (btnGuess != null) {
       btnGuess.setDisable(!context.canGuess());
+    }
+  }
+
+  // Method to handle mouse entering rectMaid and highlighting suspectMaid
+  private void handleMouseEnterrectSuspect(MouseEvent event) {
+    if (suspectMaid != null) {
+      suspectMaid.setStyle(
+          "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
+    }
+
+    if (suspectBartender != null) {
+      suspectBartender.setStyle(
+          "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
+    }
+
+    if (suspectSailor != null) {
+      suspectSailor.setStyle(
+          "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
+    }
+  }
+
+  // Method to handle mouse exiting rectMaid and removing highlight from suspectMaid
+  private void handleMouseExitrectSuspect(MouseEvent event) {
+    if (suspectMaid != null) {
+      suspectMaid.setStyle(""); // Remove the drop shadow effect
+    }
+
+    if (suspectBartender != null) {
+      suspectBartender.setStyle(""); // Remove the drop shadow effect
+    }
+
+    if (suspectSailor != null) {
+      suspectSailor.setStyle(""); // Remove the drop shadow effect
     }
   }
 
