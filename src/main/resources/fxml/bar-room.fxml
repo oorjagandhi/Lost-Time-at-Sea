@@ -11,22 +11,27 @@
    <children>
       <Pane layoutY="-1.0">
           <children>
-              <ImageView fitHeight="574.0" fitWidth="901.0" layoutX="2.0" layoutY="40.0" preserveRatio="true">
+              <ImageView fitHeight="595.0" fitWidth="891.0" layoutX="2.0" layoutY="40.0" preserveRatio="true">
                  <image>
-                    <Image url="@../images/bar.jpg" />
+                    <Image url="@../images/bar2.png" />
                  </image>
               </ImageView>
+            <ImageView fx:id="suspectBartender" fitHeight="476.0" fitWidth="702.0" layoutX="264.0" layoutY="167.0" onMouseClicked="#handleBartenderClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" pickOnBounds="true" preserveRatio="true" rotate="5.0">
+               <image>
+                  <Image url="@../images/bartender2.png" />
+               </image>
+            </ImageView>
               
               <Button fx:id="btnGuess" alignment="CENTER" layoutX="365.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" text="Make a Guess" textAlignment="CENTER" />
               
               <fx:include source="timer.fxml" />
             <!-- Container for the chat -->
-            <VBox fx:id="chatContainer" layoutX="649.0" layoutY="424.0" prefHeight="120.0" prefWidth="147.0" visible="true">
+            <VBox fx:id="chatContainer" layoutX="78.0" layoutY="318.0" prefHeight="191.0" prefWidth="664.0" visible="false">
                 <fx:include fx:id="chat" source="chat.fxml" />
             </VBox>
-            <ImageView fx:id="suspectBartender" fitHeight="260.0" fitWidth="204.0" layoutX="54.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#handleBartenderClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit">
+            <ImageView fx:id="suspectIcon" fitHeight="144.0" fitWidth="145.0" layoutX="87.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@../images/bartender.png" />
+                  <Image url="@../images/bartender-closeup.png" />
                </image>
             </ImageView>
           </children>
