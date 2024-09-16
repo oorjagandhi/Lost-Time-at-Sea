@@ -27,9 +27,8 @@
               
               <fx:include source="timer.fxml" />
             <!-- Container for the chat -->
-            <VBox fx:id="chatContainer" layoutX="78.0" layoutY="318.0" prefHeight="191.0" prefWidth="664.0" visible="false">
-                <fx:include fx:id="chat" source="chat.fxml" />
-            </VBox>
+            <VBox fx:id="chatContainer" layoutX="79.0" layoutY="327.0" prefHeight="190.0" prefWidth="661.0" visible="false" />
+
             <ImageView fx:id="suspectIcon" fitHeight="144.0" fitWidth="145.0" layoutX="87.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@../images/bartender-closeup.png" />

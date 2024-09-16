@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -36,6 +37,8 @@ public class RoomController {
 
   private static boolean isFirstTimeInit = true;
   private static GameStateContext context = new GameStateContext();
+  private String currentSuspect;
+
   @FXML private Rectangle floorBoard;
 
   @FXML private Rectangle rectSecurity;
@@ -112,6 +115,23 @@ public class RoomController {
     System.out.println("suspectMaid: " + suspectMaid);
     System.out.println("suspectBartender: " + suspectBartender);
     System.out.println("suspectSailor: " + suspectSailor);
+
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/chat.fxml"));
+      Node chatContent = loader.load();
+      chatController = loader.getController();
+      chatContainer.getChildren().add(chatContent);
+
+      // Set up the listener for isLoading
+      chatController
+          .isLoadingProperty()
+          .addListener(
+              (obs, wasLoading, isNowLoading) -> {
+                Platform.runLater(() -> updateSuspectIcon(isNowLoading));
+              });
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   private void guessingStartListener() {
@@ -181,8 +201,7 @@ public class RoomController {
     }
   }
 
-  @FXML
-  private void handleSuspectClick(MouseEvent event) {
+  public void handleSuspectClick(MouseEvent event) {
     System.out.println("Suspect clicked");
     Node source = (Node) event.getSource();
     String suspectId = source.getId(); // e.g., "suspectMaid" or "suspectBartender"
@@ -193,13 +212,17 @@ public class RoomController {
     // Handle the suspect interaction
     switch (suspectId) {
       case "suspectMaid":
+        currentSuspect = "maid";
         showChat("maid");
         break;
       case "suspectBartender":
+        currentSuspect = "bartender";
         showChat("bartender");
         break;
       case "suspectSailor":
+        currentSuspect = "sailor";
         showChat("sailor");
+        break;
       default:
         System.out.println("Unknown suspect ID: " + suspectId);
     }
@@ -375,10 +398,13 @@ public class RoomController {
   }
 
   private void showChat(String profession) {
+    currentSuspect = profession;
     if (chatController != null) {
       chatController.setProfession(profession);
       chatContainer.setVisible(true);
       suspectIcon.setVisible(true);
+      // Set the suspect icon to the appropriate image
+      updateSuspectIcon(false);
     } else {
       System.out.println("Chat controller is null");
     }
@@ -595,5 +621,43 @@ public class RoomController {
     }
     // Add more conditions for other suspects if any
     return null;
+  }
+
+  private void updateSuspectIcon(boolean isLoading) {
+    String imagePath;
+    if (isLoading) {
+      switch (currentSuspect) {
+        case "maid":
+          imagePath = "/images/maid-think.png"; // Maid's loading image
+          break;
+        case "bartender":
+          imagePath = "/images/bartender-think.png"; // Bartender's loading image
+          break;
+        case "sailor":
+          imagePath = "/images/sailor_closeup.png"; // Sailor's loading image
+          break;
+        default:
+          imagePath = "/images/loading.jpg"; // Default loading image if needed
+          break;
+      }
+    } else {
+      // Use the original image depending on the current suspect
+      switch (currentSuspect) {
+        case "maid":
+          imagePath = "/images/cleaner-closeup2.png"; // Replace with the maid's icon image
+          break;
+        case "bartender":
+          imagePath = "/images/bartender-closeup.png"; // Replace with the bartender's icon image
+          break;
+        case "sailor":
+          imagePath = "/images/sailor_closeup1.png"; // Replace with the sailor's icon image
+          break;
+        default:
+          // Default image if current suspect is not set
+          imagePath = "/images/default-icon.png"; // Replace with a default icon if needed
+          break;
+      }
+    }
+    suspectIcon.setImage(new Image(getClass().getResourceAsStream(imagePath)));
   }
 }

@@ -2,6 +2,8 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +28,8 @@ public class ChatController {
   @FXML private TextField txtInput;
   @FXML private Button btnSend;
 
+  private BooleanProperty isLoading = new SimpleBooleanProperty(false);
+
   private ChatCompletionRequest chatCompletionRequest;
   private String profession;
 
@@ -37,6 +41,10 @@ public class ChatController {
   @FXML
   public void initialize() throws ApiProxyException {
     // Any required initialization code can be placed here
+  }
+
+  public BooleanProperty isLoadingProperty() {
+    return isLoading;
   }
 
   /**
@@ -86,6 +94,7 @@ public class ChatController {
    * @throws ApiProxyException if there is an error communicating with the API proxy
    */
   private ChatMessage runGpt(ChatMessage msg) throws ApiProxyException {
+    isLoading.set(true);
     long startTime = System.nanoTime();
     final ChatMessage[] resultHolder = new ChatMessage[1];
     Task<Void> backgroundTask =
@@ -109,6 +118,9 @@ public class ChatController {
               System.out.println("runGpt took: " + duration + " ms");
             } catch (Exception e) {
               e.printStackTrace();
+            } finally {
+              // Ensure isLoading is set to false after the call
+              Platform.runLater(() -> isLoading.set(false)); // API call ended
             }
             return null;
           }

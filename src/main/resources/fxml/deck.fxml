@@ -27,9 +27,8 @@
               
               <fx:include source="timer.fxml" />
             <!-- Container for the chat -->
-            <VBox fx:id="chatContainer" layoutX="81.0" layoutY="307.0" prefHeight="204.0" prefWidth="658.0" visible="false">
-                <fx:include fx:id="chat" source="chat.fxml" />
-            </VBox>
+            <VBox fx:id="chatContainer" layoutX="79.0" layoutY="327.0" prefHeight="190.0" prefWidth="661.0" visible="false" />
+
             <Button layoutX="263.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToCrimeScene" styleClass="nav-button" text="CRIME SCENE" />
             <Button layoutX="356.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToMaidRoom" styleClass="nav-button" text="BEDROOM" />
             <Button layoutX="432.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToBar" styleClass="nav-button" text="BAR" />
