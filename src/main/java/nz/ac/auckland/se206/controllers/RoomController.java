@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -75,7 +76,7 @@ public class RoomController {
     updateGuessButtonState();
     context.setUpdateGuessButtonStateCallback(this::updateGuessButtonAvailability);
     if (!roomManager.isUserWelcomed()) {
-      playSound("/sounds/welcome.mp3");
+      // playSound("/sounds/welcome.mp3");
     }
     roomManager.setUserWelcomed(true);
 
@@ -90,8 +91,22 @@ public class RoomController {
     }
 
     if (rectSuspect != null) {
-      rectSuspect.setOnMouseEntered(this::handleMouseEnterrectSuspect);
-      rectSuspect.setOnMouseExited(this::handleMouseExitrectSuspect);
+      rectSuspect.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> handleRectangleHover());
+      rectSuspect.addEventFilter(MouseEvent.MOUSE_EXITED, event -> handleRectangleHoverExit());
+      rectSuspect.addEventFilter(
+          MouseEvent.MOUSE_CLICKED,
+          event -> {
+            // Pass click event to the underlying ImageView (suspectBartender in this case)
+            if (suspectBartender != null) {
+              suspectBartender.fireEvent(event);
+            }
+            if (suspectMaid != null) {
+              suspectMaid.fireEvent(event);
+            }
+            if (suspectSailor != null) {
+              suspectSailor.fireEvent(event);
+            }
+          });
     }
 
     System.out.println("suspectMaid: " + suspectMaid);
@@ -138,10 +153,56 @@ public class RoomController {
    * @throws IOException if there is an I/O error
    */
   @FXML
-  private void handleRectangleClick(MouseEvent event) throws IOException {
+  private void handleRectangleClick(MouseEvent event) {
+    Node source = (Node) event.getSource();
+    ImageView suspectImageView = getSuspectImageView(source);
+    if (suspectImageView != null) {
+      // Forward the click event to the suspect's ImageView
+      suspectImageView.fireEvent(
+          new MouseEvent(
+              MouseEvent.MOUSE_CLICKED,
+              suspectImageView.getLayoutX(),
+              suspectImageView.getLayoutY(),
+              suspectImageView.getLayoutX(),
+              suspectImageView.getLayoutY(),
+              MouseButton.PRIMARY,
+              1,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              null));
+    }
+  }
+
+  @FXML
+  private void handleSuspectClick(MouseEvent event) {
+    System.out.println("Suspect clicked");
+    Node source = (Node) event.getSource();
+    String suspectId = source.getId(); // e.g., "suspectMaid" or "suspectBartender"
     chatController.clearChat();
-    Rectangle clickedRectangle = (Rectangle) event.getSource();
-    context.handleRectangleClick(event, clickedRectangle.getId());
+    updateGuessButtonAvailability();
+    context.setSuspectInteracted(true);
+
+    // Handle the suspect interaction
+    switch (suspectId) {
+      case "suspectMaid":
+        showChat("maid");
+        break;
+      case "suspectBartender":
+        showChat("bartender");
+        break;
+      case "suspectSailor":
+        showChat("sailor");
+      default:
+        System.out.println("Unknown suspect ID: " + suspectId);
+    }
   }
 
   /**
@@ -205,6 +266,7 @@ public class RoomController {
 
   @FXML
   private void handleBartenderClick(MouseEvent event) throws IOException {
+    System.out.println("PLEASEPLAESEPLAESE");
     chatController.clearChat();
     updateGuessButtonAvailability();
     context.setSuspectInteracted(true);
@@ -217,15 +279,57 @@ public class RoomController {
   }
 
   @FXML
+  private void handleMaidClick(MouseEvent event) throws IOException {
+    chatController.clearChat();
+    updateGuessButtonAvailability();
+    context.setSuspectInteracted(true);
+    if (context.getState().equals(context.getGuessingState())) {
+      context.handleRectangleClick(event, "suspectMaid");
+    } else {
+      showChat("maid");
+      System.out.println("maid");
+    }
+  }
+
+  @FXML
+  private void handleSailorClick(MouseEvent event) throws IOException {
+    chatController.clearChat();
+    updateGuessButtonAvailability();
+    context.setSuspectInteracted(true);
+    if (context.getState().equals(context.getGuessingState())) {
+      context.handleRectangleClick(event, "suspectMaid");
+    } else {
+      showChat("maid");
+      System.out.println("maid");
+    }
+  }
+
+  private void handleRectangleHover() {
+    rectSuspect.setStyle(
+        "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
+  }
+
+  private void handleRectangleHoverExit() {
+    rectSuspect.setStyle(""); // Remove the drop shadow effect
+  }
+
+  @FXML
   private void handleMouseEnter(MouseEvent event) {
     Node source = (Node) event.getSource();
-    source.setCursor(Cursor.HAND);
+    ImageView suspectImageView = getSuspectImageView(source);
+    if (suspectImageView != null) {
+      suspectImageView.setStyle(
+          "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
+    }
   }
 
   @FXML
   private void handleMouseExit(MouseEvent event) {
     Node source = (Node) event.getSource();
-    source.setCursor(Cursor.DEFAULT);
+    ImageView suspectImageView = getSuspectImageView(source);
+    if (suspectImageView != null) {
+      suspectImageView.setStyle(""); // Remove the drop shadow effect
+    }
   }
 
   @FXML
@@ -293,6 +397,7 @@ public class RoomController {
   }
 
   // Method to handle mouse entering rectMaid and highlighting suspectMaid
+  @FXML
   private void handleMouseEnterrectSuspect(MouseEvent event) {
     if (suspectMaid != null) {
       suspectMaid.setStyle(
@@ -311,6 +416,7 @@ public class RoomController {
   }
 
   // Method to handle mouse exiting rectMaid and removing highlight from suspectMaid
+  @FXML
   private void handleMouseExitrectSuspect(MouseEvent event) {
     if (suspectMaid != null) {
       suspectMaid.setStyle(""); // Remove the drop shadow effect
@@ -476,5 +582,18 @@ public class RoomController {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  private ImageView getSuspectImageView(Node source) {
+    // Check which suspect is associated with the node
+    if (source.getId().contains("Maid")) {
+      return suspectMaid;
+    } else if (source.getId().contains("Bartender")) {
+      return suspectBartender;
+    } else if (source.getId().contains("Sailor")) {
+      return suspectSailor;
+    }
+    // Add more conditions for other suspects if any
+    return null;
   }
 }

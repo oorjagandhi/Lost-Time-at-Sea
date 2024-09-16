@@ -17,7 +17,7 @@
                     <Image url="@../images/bar2.png" />
                  </image>
               </ImageView>
-            <ImageView fx:id="suspectBartender" fitHeight="476.0" fitWidth="702.0" layoutX="264.0" layoutY="167.0" onMouseClicked="#handleBartenderClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" pickOnBounds="true" preserveRatio="true" rotate="5.0">
+            <ImageView fx:id="suspectBartender" fitHeight="476.0" fitWidth="702.0" layoutX="264.0" layoutY="167.0" onMouseClicked="#handleSuspectClick" pickOnBounds="true" preserveRatio="true" rotate = "5.0">
                <image>
                   <Image url="@../images/bartender2.png" />
                </image>
@@ -35,7 +35,9 @@
                   <Image url="@../images/bartender-closeup.png" />
                </image>
             </ImageView>
-            <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="197.0" layoutX="362.0" layoutY="160.0" stroke="TRANSPARENT" strokeType="INSIDE" width="111.0" />
+            <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="197.0" layoutX="362.0" layoutY="160.0" stroke="TRANSPARENT" strokeType="INSIDE" width="111.0"
+              onMouseEntered="#handleMouseEnterrectSuspect" 
+              onMouseExited="#handleMouseExitrectSuspect" />
           </children>
       </Pane>
             <Button layoutX="263.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToCrimeScene" styleClass="nav-button" text="CRIME SCENE" />
