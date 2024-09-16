@@ -16,14 +16,24 @@
                     <Image url="@../images/maid-room.png" />
                  </image>
               </ImageView>
+            <ImageView fitHeight="551.0" fitWidth="797.0" layoutX="34.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/cleaner.png" />
+               </image>
+            </ImageView>
               
               <Button fx:id="btnGuess" alignment="CENTER" layoutX="365.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" text="Make a Guess" textAlignment="CENTER" />
               
               <fx:include source="timer.fxml" />
             <!-- Container for the chat -->
-            <VBox fx:id="chatContainer" layoutX="649.0" layoutY="424.0" prefHeight="120.0" prefWidth="147.0" visible="true">
+            <VBox fx:id="chatContainer" layoutX="79.0" layoutY="327.0" prefHeight="190.0" prefWidth="661.0" visible="false">
                 <fx:include fx:id="chat" source="chat.fxml" />
             </VBox>
+            <ImageView fx:id="suspectIcon" fitHeight="152.0" fitWidth="150.0" layoutX="85.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../images/cleaner-closeup.png" />
+               </image>
+            </ImageView>
           </children>
       </Pane>
             <Button layoutX="263.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToCrimeScene" styleClass="nav-button" text="CRIME SCENE" />
