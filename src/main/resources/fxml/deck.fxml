@@ -16,7 +16,7 @@
                     <Image url="@../images/deck.png" />
                  </image>
               </ImageView>
-            <ImageView fitHeight="554.0" fitWidth="850.0" layoutX="2.0" layoutY="41.0" onMouseClicked="#handleArtistClick" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="471.0" fitWidth="714.0" layoutX="32.0" layoutY="129.0" onMouseClicked="#handleArtistClick" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/sailor.png" />
                </image>

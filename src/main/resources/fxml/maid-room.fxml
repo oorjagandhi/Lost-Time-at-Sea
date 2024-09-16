@@ -18,7 +18,7 @@
               </ImageView>
             <ImageView fitHeight="551.0" fitWidth="797.0" layoutX="34.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/cleaner.png" />
+                  <Image url="@../images/cleaner2.png" />
                </image>
             </ImageView>
               
@@ -31,7 +31,7 @@
             </VBox>
             <ImageView fx:id="suspectIcon" fitHeight="152.0" fitWidth="150.0" layoutX="85.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@../images/cleaner-closeup.png" />
+                  <Image url="@../images/cleaner-closeup2.png" />
                </image>
             </ImageView>
           </children>
