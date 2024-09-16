@@ -18,6 +18,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -46,6 +47,8 @@ public class RoomController {
   @FXML private Rectangle rectCollector;
 
   @FXML private ImageView suspectBartender;
+
+  @FXML private AnchorPane room;
 
   @FXML private Rectangle rectSuspect;
   @FXML private ImageView suspectMaid;
@@ -542,7 +545,7 @@ public class RoomController {
       Parent newScene = loader.load(); // Load the new scene
 
       // Get the stage from the current event
-      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      Stage stage = (Stage) room.getScene().getWindow();
       Scene scene = new Scene(newScene);
 
       newScene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());

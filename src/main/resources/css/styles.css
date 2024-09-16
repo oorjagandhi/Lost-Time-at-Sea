@@ -1,11 +1,12 @@
 /* styles.css */
+
+/* Existing styles */
 .nav-button {
   -fx-background-color: #ffffff;
   -fx-text-fill: rgb(0, 0, 0);
   -fx-font-size: 12px;
   -fx-background-radius: 0;
   -fx-padding: 5 10;
-
 }
 
 .nav-button:hover {
@@ -30,4 +31,35 @@
 
 .text-field {
   -fx-text-inner-color: white;
+}
+
+/* New styles for MenuItems */
+.menu .menu-item {
+    -fx-text-fill: black; /* Set the default text color */
+}
+
+/* Ensure text remains black on hover */
+.menu .menu-item:hover {
+    -fx-background-color: #b1b1b1;
+    -fx-text-fill: black;
+}
+
+/* Ensure text remains black when focused */
+.menu .menu-item:focused {
+    -fx-text-fill: black;
+}
+
+/* Ensure text remains black when selected */
+.menu .menu-item:selected {
+    -fx-text-fill: black;
+}
+
+/* Ensure text remains black when armed */
+.menu .menu-item:armed {
+    -fx-text-fill: black;
+}
+
+/* Styles for disabled MenuItems */
+.menu .menu-item:disabled {
+    -fx-text-fill: gray;
 }
