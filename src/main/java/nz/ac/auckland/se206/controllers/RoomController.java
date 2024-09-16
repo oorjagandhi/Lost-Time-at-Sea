@@ -116,7 +116,8 @@ public class RoomController {
     System.out.println("suspectBartender: " + suspectBartender);
     System.out.println("suspectSailor: " + suspectSailor);
 
-    try {
+    if (chatContainer != null) {
+      // Load chat.fxml manually
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/chat.fxml"));
       Node chatContent = loader.load();
       chatController = loader.getController();
@@ -129,8 +130,6 @@ public class RoomController {
               (obs, wasLoading, isNowLoading) -> {
                 Platform.runLater(() -> updateSuspectIcon(isNowLoading));
               });
-    } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 
@@ -373,25 +372,6 @@ public class RoomController {
 
       // Make the pop-up visible
       popupContainer.setVisible(true);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  @FXML
-  private void onBackButtonAction(ActionEvent event) {
-    try {
-      // Load the FXML file for the room
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/room.fxml"));
-      Parent roomContent = loader.load();
-
-      // Get the current stage
-      Node source = (Node) event.getSource();
-      javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
-
-      // Set the scene to the room
-      stage.setScene(new javafx.scene.Scene(roomContent));
-      stage.show();
     } catch (IOException e) {
       e.printStackTrace();
     }
