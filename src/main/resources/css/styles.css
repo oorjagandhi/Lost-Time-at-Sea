@@ -19,3 +19,15 @@
   -fx-text-fill: black; /* Keep the same text color */
 }
 
+.text-area .content {
+  -fx-background-color: black;
+  -fx-text-fill: white;
+}
+
+.text-area {
+  -fx-text-fill: white;
+}
+
+.text-field {
+  -fx-text-inner-color: white;
+}
