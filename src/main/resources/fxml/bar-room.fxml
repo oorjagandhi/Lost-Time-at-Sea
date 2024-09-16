@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane fx:id="room" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" prefHeight="599.0" prefWidth="789.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RoomController">
    <children>
@@ -16,7 +17,7 @@
                     <Image url="@../images/bar2.png" />
                  </image>
               </ImageView>
-            <ImageView fx:id="suspectBartender" fitHeight="476.0" fitWidth="702.0" layoutX="264.0" layoutY="167.0" onMouseClicked="#handleBartenderClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" pickOnBounds="true" preserveRatio="true" rotate="5.0">
+            <ImageView fx:id="suspectBartender" fitHeight="183.0" fitWidth="162.0" layoutX="351.0" layoutY="173.0" onMouseClicked="#handleSuspectClick" pickOnBounds="true" preserveRatio="true" rotate="5.0">
                <image>
                   <Image url="@../images/bartender2.png" />
                </image>
@@ -26,14 +27,14 @@
               
               <fx:include source="timer.fxml" />
             <!-- Container for the chat -->
-            <VBox fx:id="chatContainer" layoutX="78.0" layoutY="318.0" prefHeight="191.0" prefWidth="664.0" visible="false">
-                <fx:include fx:id="chat" source="chat.fxml" />
-            </VBox>
+            <VBox fx:id="chatContainer" layoutX="79.0" layoutY="327.0" prefHeight="190.0" prefWidth="661.0" visible="false" />
+
             <ImageView fx:id="suspectIcon" fitHeight="144.0" fitWidth="145.0" layoutX="87.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@../images/bartender-closeup.png" />
                </image>
             </ImageView>
+            <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="197.0" layoutX="366.0" layoutY="166.0" onMouseEntered="#handleMouseEnterrectSuspect" onMouseExited="#handleMouseExitrectSuspect" stroke="TRANSPARENT" strokeType="INSIDE" width="111.0" />
           </children>
       </Pane>
             <Button layoutX="263.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToCrimeScene" styleClass="nav-button" text="CRIME SCENE" />

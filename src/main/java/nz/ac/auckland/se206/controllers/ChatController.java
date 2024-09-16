@@ -2,6 +2,8 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +28,8 @@ public class ChatController {
   @FXML private TextField txtInput;
   @FXML private Button btnSend;
 
+  private BooleanProperty isLoading = new SimpleBooleanProperty(false);
+
   private ChatCompletionRequest chatCompletionRequest;
   private String profession;
 
@@ -37,6 +41,10 @@ public class ChatController {
   @FXML
   public void initialize() throws ApiProxyException {
     // Any required initialization code can be placed here
+  }
+
+  public BooleanProperty isLoadingProperty() {
+    return isLoading;
   }
 
   /**
@@ -75,7 +83,22 @@ public class ChatController {
    * @param msg the chat message to append
    */
   private void appendChatMessage(ChatMessage msg) {
-    txtaChat.appendText(msg.getRole() + ": " + msg.getContent() + "\n\n");
+    String displayRole;
+    if ("user".equals(msg.getRole())) {
+      displayRole = "You";
+    } else if ("assistant".equals(msg.getRole())) {
+      displayRole = capitalize(profession);
+    } else {
+      displayRole = msg.getRole();
+    }
+    txtaChat.appendText(displayRole + ": " + msg.getContent() + "\n\n");
+  }
+
+  private String capitalize(String str) {
+    if (str == null || str.isEmpty()) {
+      return str;
+    }
+    return str.substring(0, 1).toUpperCase() + str.substring(1);
   }
 
   /**
@@ -86,6 +109,7 @@ public class ChatController {
    * @throws ApiProxyException if there is an error communicating with the API proxy
    */
   private ChatMessage runGpt(ChatMessage msg) throws ApiProxyException {
+    isLoading.set(true);
     long startTime = System.nanoTime();
     final ChatMessage[] resultHolder = new ChatMessage[1];
     Task<Void> backgroundTask =
@@ -109,6 +133,9 @@ public class ChatController {
               System.out.println("runGpt took: " + duration + " ms");
             } catch (Exception e) {
               e.printStackTrace();
+            } finally {
+              // Ensure isLoading is set to false after the call
+              Platform.runLater(() -> isLoading.set(false)); // API call ended
             }
             return null;
           }

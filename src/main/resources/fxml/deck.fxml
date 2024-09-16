@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane fx:id="room" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" prefHeight="599.0" prefWidth="789.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RoomController">
    <children>
@@ -16,7 +17,7 @@
                     <Image url="@../images/deck.png" />
                  </image>
               </ImageView>
-            <ImageView fitHeight="471.0" fitWidth="714.0" layoutX="32.0" layoutY="129.0" onMouseClicked="#handleArtistClick" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="suspectSailor" fitHeight="471.0" fitWidth="714.0" layoutX="136.0" layoutY="120.0" onMouseClicked="#handleSuspectClick" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/sailor.png" />
                </image>
@@ -26,9 +27,8 @@
               
               <fx:include source="timer.fxml" />
             <!-- Container for the chat -->
-            <VBox fx:id="chatContainer" layoutX="81.0" layoutY="307.0" prefHeight="204.0" prefWidth="658.0" visible="false">
-                <fx:include fx:id="chat" source="chat.fxml" />
-            </VBox>
+            <VBox fx:id="chatContainer" layoutX="79.0" layoutY="327.0" prefHeight="190.0" prefWidth="661.0" visible="false" />
+
             <Button layoutX="263.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToCrimeScene" styleClass="nav-button" text="CRIME SCENE" />
             <Button layoutX="356.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToMaidRoom" styleClass="nav-button" text="BEDROOM" />
             <Button layoutX="432.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToBar" styleClass="nav-button" text="BAR" />
@@ -43,6 +43,7 @@
                   <Image url="@../images/sailor_closeup.png" />
                </image>
             </ImageView>
+            <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="444.0" layoutX="163.0" layoutY="154.0" onMouseEntered="#handleMouseEnterrectSuspect" onMouseExited="#handleMouseExitrectSuspect" stroke="TRANSPARENT" strokeType="INSIDE" width="137.0" />
           </children>
       </Pane>
       <!-- Container for the popup -->
