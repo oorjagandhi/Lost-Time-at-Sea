@@ -83,7 +83,22 @@ public class ChatController {
    * @param msg the chat message to append
    */
   private void appendChatMessage(ChatMessage msg) {
-    txtaChat.appendText(msg.getRole() + ": " + msg.getContent() + "\n\n");
+    String displayRole;
+    if ("user".equals(msg.getRole())) {
+      displayRole = "You";
+    } else if ("assistant".equals(msg.getRole())) {
+      displayRole = capitalize(profession);
+    } else {
+      displayRole = msg.getRole();
+    }
+    txtaChat.appendText(displayRole + ": " + msg.getContent() + "\n\n");
+  }
+
+  private String capitalize(String str) {
+    if (str == null || str.isEmpty()) {
+      return str;
+    }
+    return str.substring(0, 1).toUpperCase() + str.substring(1);
   }
 
   /**
