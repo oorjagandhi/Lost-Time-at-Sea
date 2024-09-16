@@ -611,10 +611,10 @@ public class RoomController {
     if (isLoading) {
       switch (currentSuspect) {
         case "maid":
-          imagePath = "/images/maid-think.png"; // Maid's loading image
+          imagePath = "/images/cleaner-closeup3.png"; // Maid's loading image
           break;
         case "bartender":
-          imagePath = "/images/bartender-think.png"; // Bartender's loading image
+          imagePath = "/images/bartender-closeup2.png"; // Bartender's loading image
           break;
         case "sailor":
           imagePath = "/images/sailor_closeup.png"; // Sailor's loading image
