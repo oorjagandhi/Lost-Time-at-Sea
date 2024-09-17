@@ -80,10 +80,10 @@
 
               <MenuButton styleClass="nav-button" layoutX="41.0" layoutY="65.0" mnemonicParsing="false" text="MOVE ROOMS">
               <items>
-                <MenuItem onAction="#switchToCrimeScene" styleClass="nav-button" mnemonicParsing="false" text="CRIME SCENE" />
-                <MenuItem onAction="#switchToMaidRoom" styleClass="nav-button" mnemonicParsing="false" text="MAID (BEDROOM)" />
-                <MenuItem onAction="#switchToBar" styleClass="nav-button" mnemonicParsing="false" text="BARTENDER (BAR)" />
-                <MenuItem onAction="#switchToDeck" styleClass="nav-button" mnemonicParsing="false" text="FIRST MATE (DECK)" />
+                <MenuItem onAction="#handleSwitchToCrimeScene" styleClass="nav-button" mnemonicParsing="false" text="CRIME SCENE" />
+                <MenuItem onAction="#handleSwitchToMaidRoom" styleClass="nav-button" mnemonicParsing="false" text="MAID (BEDROOM)" />
+                <MenuItem onAction="#handleSwitchToBar" styleClass="nav-button" mnemonicParsing="false" text="BARTENDER (BAR)" />
+                <MenuItem onAction="#handleSwitchToDeck" styleClass="nav-button" mnemonicParsing="false" text="FIRST MATE (DECK)" />
               </items>
             </MenuButton>
           </children>

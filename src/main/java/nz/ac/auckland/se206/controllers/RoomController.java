@@ -498,22 +498,22 @@ public class RoomController {
   }
 
   @FXML
-  private void switchToCrimeScene(ActionEvent event) {
+  private void handleSwitchToCrimeScene(ActionEvent event) {
     switchScene(event, "/fxml/crime-scene.fxml");
   }
 
   @FXML
-  private void switchToMaidRoom(ActionEvent event) {
+  private void handleSwitchToMaidRoom(ActionEvent event) {
     switchScene(event, "/fxml/maid-room.fxml");
   }
 
   @FXML
-  private void switchToBar(ActionEvent event) {
+  private void handleSwitchToBar(ActionEvent event) {
     switchScene(event, "/fxml/bar-room.fxml");
   }
 
   @FXML
-  private void switchToDeck(ActionEvent event) {
+  private void handleSwitchToDeck(ActionEvent event) {
     switchScene(event, "/fxml/deck.fxml");
   }
 
