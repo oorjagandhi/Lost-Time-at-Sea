@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.controllers.ChatController;
 
@@ -102,6 +103,7 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) throws IOException {
+    Font.loadFont(getClass().getResourceAsStream("/fonts/timer-text.ttf"), 24);
     Parent root = loadFxml("crime-scene");
     scene = new Scene(root);
     stage.setScene(scene);

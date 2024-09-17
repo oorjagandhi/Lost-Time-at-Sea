@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.StackPane?>
 
-<AnchorPane fx:id="room" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" prefHeight="599.0" prefWidth="789.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RoomController">
+
+<AnchorPane fx:id="room" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" prefHeight="605.0" prefWidth="835.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RoomController">
    <children>
-      <Pane layoutY="-1.0">
+      <Pane>
           <children>
-              <ImageView fitHeight="595.0" fitWidth="891.0" layoutX="2.0" layoutY="40.0" preserveRatio="true">
+              <ImageView fitHeight="605.0" fitWidth="835.0" preserveRatio="false">
                  <image>
                     <Image url="@../images/bar2.png" />
                  </image>
               </ImageView>
-            <ImageView fx:id="suspectBartender" fitHeight="183.0" fitWidth="162.0" layoutX="351.0" layoutY="173.0" onMouseClicked="#handleSuspectClick" pickOnBounds="true" preserveRatio="true" rotate="5.0">
+            <ImageView fx:id="suspectBartender" fitHeight="183.0" fitWidth="162.0" layoutX="324.0" layoutY="140.0" onMouseClicked="#handleSuspectClick" pickOnBounds="true" preserveRatio="true" rotate="5.0">
                <image>
                   <Image url="@../images/bartender2.png" />
                </image>
             </ImageView>
               
-              <Button fx:id="btnGuess" alignment="CENTER" layoutX="365.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" text="Make a Guess" textAlignment="CENTER" />
+              <Button fx:id="btnGuess" alignment="CENTER" layoutX="693.0" layoutY="45.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" text="Make a Guess" textAlignment="CENTER" />
               
-              <fx:include source="timer.fxml" />
+              <StackPane layoutY="10.0" prefWidth="835.0">
+                  <fx:include source="timer.fxml" />
+              </StackPane>
             <!-- Container for the chat -->
             <VBox fx:id="chatContainer" layoutX="79.0" layoutY="327.0" prefHeight="190.0" prefWidth="661.0" visible="false" />
 
@@ -34,13 +40,17 @@
                   <Image url="@../images/bartender-closeup.png" />
                </image>
             </ImageView>
-            <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="197.0" layoutX="366.0" layoutY="166.0" onMouseEntered="#handleMouseEnterrectSuspect" onMouseExited="#handleMouseExitrectSuspect" stroke="TRANSPARENT" strokeType="INSIDE" width="111.0" />
+            <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="197.0" layoutX="524.0" layoutY="140.0" onMouseEntered="#handleMouseEnterrectSuspect" onMouseExited="#handleMouseExitrectSuspect" stroke="TRANSPARENT" strokeType="INSIDE" width="111.0" />
           </children>
       </Pane>
-            <Button layoutX="263.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToCrimeScene" styleClass="nav-button" text="CRIME SCENE" />
-            <Button layoutX="356.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToMaidRoom" styleClass="nav-button" text="BEDROOM" />
-            <Button disable="true" layoutX="432.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToBar" styleClass="nav-button" text="BAR" />
-            <Button layoutX="473.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToDeck" styleClass="nav-button" text="DECK" />
+            <MenuButton layoutX="41.0" layoutY="65.0" mnemonicParsing="false" styleClass="nav-button" text="MOVE ROOMS">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#switchToCrimeScene" styleClass="nav-button" text="CRIME SCENE" />
+                <MenuItem mnemonicParsing="false" onAction="#switchToMaidRoom" styleClass="nav-button" text="MAID (BEDROOM)" />
+                <MenuItem mnemonicParsing="false" onAction="#switchToBar" styleClass="nav-button" text="BARTENDER (BAR)" />
+                <MenuItem mnemonicParsing="false" onAction="#switchToDeck" styleClass="nav-button" text="FIRST MATE (DECK)" />
+              </items>
+            </MenuButton>
       <!-- Container for the popup -->
       <Pane fx:id="popupContainer" style="-fx-background-color: rgba(0, 0, 0, 0.5);" visible="false">
       </Pane> 
