@@ -177,12 +177,14 @@ public class RoomController {
    */
   @FXML
   private void handleRectangleClick(MouseEvent event) {
+    // handles when a rectangle is clicked
     Node source = (Node) event.getSource();
     ImageView suspectImageView = getSuspectImageView(source);
     if (suspectImageView != null) {
       // Forward the click event to the suspect's ImageView
       suspectImageView.fireEvent(
           new MouseEvent(
+              // information to be sent when rectangle is clicked
               MouseEvent.MOUSE_CLICKED,
               suspectImageView.getLayoutX(),
               suspectImageView.getLayoutY(),
@@ -252,6 +254,7 @@ public class RoomController {
 
   @FXML
   private void handleSecurityClick(MouseEvent event) throws IOException {
+    // handles opening the chat for the security and updates suspect interaction
     chatController.clearChat();
     context.setSuspectInteracted(true);
     updateGuessButtonAvailability();
@@ -266,6 +269,7 @@ public class RoomController {
 
   @FXML
   private void handleCollectorClick(MouseEvent event) throws IOException {
+    // handles opening the chat for the collector and updates suspect itneraction
     chatController.clearChat();
     updateGuessButtonAvailability();
     context.setSuspectInteracted(true);
@@ -279,6 +283,7 @@ public class RoomController {
 
   @FXML
   private void handleArtistClick(MouseEvent event) throws IOException {
+    // handles opening the cha tfor the artist and updates suspect interaction
     chatController.clearChat();
     updateGuessButtonAvailability();
     context.setSuspectInteracted(true);
@@ -292,6 +297,7 @@ public class RoomController {
 
   @FXML
   private void handleBartenderClick(MouseEvent event) throws IOException {
+    // handles opening the chat for the bartender and updates suspect interaction
     System.out.println("PLEASEPLAESEPLAESE");
     chatController.clearChat();
     updateGuessButtonAvailability();
@@ -306,6 +312,7 @@ public class RoomController {
 
   @FXML
   private void handleMaidClick(MouseEvent event) throws IOException {
+    // handles opening the chat for the maid and updates suspect interaction
     chatController.clearChat();
     updateGuessButtonAvailability();
     context.setSuspectInteracted(true);
@@ -319,6 +326,7 @@ public class RoomController {
 
   @FXML
   private void handleSailorClick(MouseEvent event) throws IOException {
+    // handles opening the chat for the sailor and updates suspect interaction
     chatController.clearChat();
     updateGuessButtonAvailability();
     context.setSuspectInteracted(true);
@@ -442,15 +450,18 @@ public class RoomController {
   }
 
   private void playSound(String filePath) {
+    // runs finding a particular audiofile as a background task
     Task<Void> backgroundTask =
         new Task<>() {
           @Override
           protected Void call() {
+            // checks if a given audio file exists and if it does,plays it
             URL resource = getClass().getResource(filePath);
             if (resource == null) {
               Platform.runLater(() -> System.out.println("File not found: " + filePath));
               return null;
             }
+            // if audio file is found, plays and then stops once it is finished
             Media media = new Media(resource.toString());
             Platform.runLater(
                 () -> {

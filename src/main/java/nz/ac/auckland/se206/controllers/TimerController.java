@@ -54,6 +54,7 @@ public class TimerController {
   }
 
   private void showYouLoose() {
+    // goes to the loss scene if the player has lost
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/you_lose.fxml"));
     Parent root;
     try {
@@ -61,6 +62,7 @@ public class TimerController {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+    // opens the scene
     Scene scene = new Scene(root);
     App.getStage().setScene(scene);
     App.getStage().show();
@@ -78,10 +80,12 @@ public class TimerController {
   }
 
   private void playSound(String filePath) {
+    // runs playing an audio file as a background task
     Task<Void> backgroundTask =
         new Task<>() {
           @Override
           protected Void call() {
+            // attempts to find the audio file and if found will play it
             URL resource = getClass().getResource(filePath);
             if (resource == null) {
               Platform.runLater(() -> System.out.println("File not found: " + filePath));
@@ -99,6 +103,7 @@ public class TimerController {
             return null;
           }
         };
+    // starts background thread
     Thread backgroundThread = new Thread(backgroundTask);
     backgroundThread.start();
   }
