@@ -1,5 +1,3 @@
-/* styles.css */
-
 /* Existing styles */
 .nav-button {
   -fx-background-color: #ffffff;
@@ -16,10 +14,19 @@
 
 .nav-button:disabled {
   -fx-opacity: 1.0; /* Make sure it has the same opacity */
-  -fx-background-color: #dad6d6; /* Keep the same color */
+  -fx-background-color: #7a7a7a; /* Keep the same color */
   -fx-text-fill: black; /* Keep the same text color */
 }
 
+.nav-current {
+  -fx-background-color: #ffffff;
+  -fx-text-fill: rgb(0, 0, 0);
+  -fx-font-size: 12px;
+  -fx-background-radius: 0;
+  -fx-padding: 5 10;
+}
+
+/* Text area styles */
 .text-area .content {
   -fx-background-color: black;
   -fx-text-fill: white;
@@ -33,33 +40,57 @@
   -fx-text-inner-color: white;
 }
 
-/* New styles for MenuItems */
-.menu .menu-item {
-    -fx-text-fill: black; /* Set the default text color */
+/* Custom font */
+@font-face {
+  font-family: 'Open 24 Display St';
+  src: url('../fonts/timer-text.ttf');
 }
 
-/* Ensure text remains black on hover */
-.menu .menu-item:hover {
+.custom-font {
+  -fx-font-family: 'Open 24 Display St';
+  -fx-font-size: 40px;
+}
+
+/* Updated styles for MenuItems */
+.menu-item,
+.menu-item:hover,
+.menu-item:focused,
+.menu-item:focused:hover,
+.menu-item:armed,
+.menu-item:selected {
+    -fx-text-fill: black;
+    -fx-background-color: transparent; /* Or set to your desired color */
+}
+
+/* Customize hover background color */
+.menu-item:hover {
     -fx-background-color: #b1b1b1;
-    -fx-text-fill: black;
 }
 
-/* Ensure text remains black when focused */
-.menu .menu-item:focused {
-    -fx-text-fill: black;
+/* Customize focused and armed background color */
+.menu-item:focused,
+.menu-item:focused:hover,
+.menu-item:armed {
+    -fx-background-color: #b1b1b1;
 }
 
-/* Ensure text remains black when selected */
-.menu .menu-item:selected {
-    -fx-text-fill: black;
-}
-
-/* Ensure text remains black when armed */
-.menu .menu-item:armed {
-    -fx-text-fill: black;
-}
-
-/* Styles for disabled MenuItems */
-.menu .menu-item:disabled {
+/* Disabled MenuItems */
+.menu-item:disabled {
     -fx-text-fill: gray;
 }
+
+.menu-item-label {
+  -fx-text-fill: black;
+  -fx-background-color: transparent;
+  -fx-padding: 5 10;
+}
+
+/* Hover effect for menu item labels */
+.menu-item-label:hover {
+  -fx-background-color: #b1b1b1;
+}
+
+.current-room-label {
+  -fx-background-color: #a9a9a9; /* Example darker gray */
+}
+

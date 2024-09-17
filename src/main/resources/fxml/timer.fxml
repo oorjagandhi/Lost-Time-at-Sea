@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.TimerController">
-    <!-- StackPane to center the rectangle and label together -->
-    <StackPane layoutX="370" layoutY="50.0"> <!-- Adjust layoutX and layoutY to position in the AnchorPane -->
-        <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#00000056" height="38.0" stroke="TRANSPARENT" strokeType="INSIDE" width="96.0" />
-        <Label fx:id="timerLabel" alignment="CENTER" minWidth="80" style="-fx-font-family: 'Consolas', 'Courier New', monospace; -fx-font-size: 16px; -fx-text-fill: black; -fx-padding: 5px;" text="02:00">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </Label>
-    </StackPane>
-</AnchorPane>
+<StackPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="nz.ac.auckland.se206.controllers.TimerController"
+           prefHeight="83.0" prefWidth="198.0">
+    <!-- Background image -->
+    <ImageView fitHeight="60.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../images/timer.png" />
+        </image>
+    </ImageView>
+    <!-- Timer Label -->
+    <Label fx:id="timerLabel" alignment="CENTER" prefHeight="43.0" prefWidth="155.0"
+           style="-fx-font-size: 16px; -fx-text-fill: black; -fx-padding: 5px;"
+           styleClass="custom-font" text="02:00">
+        <font>
+            <Font size="20.0" />
+        </font>
+    </Label>
+</StackPane>
