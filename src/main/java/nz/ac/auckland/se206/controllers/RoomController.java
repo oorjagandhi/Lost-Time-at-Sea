@@ -596,7 +596,7 @@ public class RoomController {
       Stage stage = (Stage) source.getScene().getWindow();
 
       // Set the scene to the radio scene
-      stage.setScene(new javafx.scene.Scene(paperScene));
+      stage.setScene(new Scene(paperScene));
       stage.show();
     } catch (IOException e) {
       e.printStackTrace();
