@@ -475,10 +475,10 @@ public class RoomController {
 
       // Get the current stage
       Node source = (Node) event.getSource();
-      javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
+      Stage stage = (Stage) source.getScene().getWindow();
 
       // Set the scene to the radio scene
-      stage.setScene(new javafx.scene.Scene(radioContent));
+      stage.setScene(new Scene(radioContent));
       stage.show();
     } catch (IOException e) {
       e.printStackTrace();
@@ -528,10 +528,10 @@ public class RoomController {
 
       // Get the current stage
       Node source = (Node) event.getSource();
-      javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
+      Stage stage = (Stage) source.getScene().getWindow();
 
       // Set the scene to the radio scene
-      stage.setScene(new javafx.scene.Scene(floorScene));
+      stage.setScene(new Scene(floorScene));
       stage.show();
     } catch (IOException e) {
       e.printStackTrace();
@@ -583,7 +583,7 @@ public class RoomController {
 
       // Get the current stage
       Node source = (Node) event.getSource();
-      javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
+      Stage stage = (Stage) source.getScene().getWindow();
 
       // Set the scene to the radio scene
       stage.setScene(new javafx.scene.Scene(paperScene));
