@@ -59,6 +59,7 @@ public class RoomController {
 
   @FXML private ImageView book;
   @FXML private ImageView suspectIcon;
+  @FXML private ImageView paperImageView;
 
   @FXML private Pane popupContainer;
   @FXML private VBox chatContainer;
@@ -557,8 +558,6 @@ public class RoomController {
       e.printStackTrace(); // Handle IOException
     }
   }
-
-  @FXML private ImageView paperImageView;
 
   // Method to handle mouse entering the paper
   private void handleMouseEnterpaperImageView(MouseEvent event) {
