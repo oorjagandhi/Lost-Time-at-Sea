@@ -9,11 +9,11 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class RadioSceneController {
-  boolean isPlayingaudio = false;
-  int frequency = 1;
-  MediaPlayer mediaPlayer;
-  Task<Void> backgroundTask;
-  int totalAudio = 5;
+  private boolean isPlayingaudio = false;
+  private int frequency = 1;
+  private MediaPlayer mediaPlayer;
+  private Task<Void> backgroundTask;
+  private int totalAudio = 5;
 
   /**
    * the play button is clicked if the audio is playing, pause it. if the audio is paused, play it
