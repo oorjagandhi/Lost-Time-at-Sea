@@ -80,7 +80,7 @@
 
               <MenuButton styleClass="nav-button" layoutX="41.0" layoutY="65.0" mnemonicParsing="false" text="MOVE ROOMS">
               <items>
-                <MenuItem onAction="#onSwitchToCrimeScene" styleClass="nav-button" mnemonicParsing="false" text="CRIME SCENE" />
+                <MenuItem onAction="#onSwitchToCrimeScene" styleClass="nav-button" mnemonicParsing="false" text="CAPTAINS QUARTERS (CRIME SCENE)" />
                 <MenuItem onAction="#onSwitchToMaidRoom" styleClass="nav-button" mnemonicParsing="false" text="MAID (BEDROOM)" />
                 <MenuItem onAction="#onSwitchToBar" styleClass="nav-button" mnemonicParsing="false" text="BARTENDER (BAR)" />
                 <MenuItem onAction="#onSwitchToDeck" styleClass="nav-button" mnemonicParsing="false" text="FIRST MATE (DECK)" />
