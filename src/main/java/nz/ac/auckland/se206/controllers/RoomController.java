@@ -467,22 +467,22 @@ public class RoomController extends SoundPlayer {
   }
 
   @FXML
-  private void handleSwitchToCrimeScene(ActionEvent event) {
+  private void onSwitchToCrimeScene(ActionEvent event) {
     switchScene(event, "/fxml/crime-scene.fxml");
   }
 
   @FXML
-  private void handleSwitchToMaidRoom(ActionEvent event) {
+  private void onSwitchToMaidRoom(ActionEvent event) {
     switchScene(event, "/fxml/maid-room.fxml");
   }
 
   @FXML
-  private void handleSwitchToBar(ActionEvent event) {
+  private void onSwitchToBar(ActionEvent event) {
     switchScene(event, "/fxml/bar-room.fxml");
   }
 
   @FXML
-  private void handleSwitchToDeck(ActionEvent event) {
+  private void onSwitchToDeck(ActionEvent event) {
     switchScene(event, "/fxml/deck.fxml");
   }
 
