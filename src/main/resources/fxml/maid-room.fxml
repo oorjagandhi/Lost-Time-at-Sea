@@ -42,10 +42,10 @@
             <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="353.0" layoutX="83.0" layoutY="217.0" onMouseClicked="#handleRectangleClick" onMouseEntered="#handleMouseEnterrectSuspect" onMouseExited="#handleMouseExitrectSuspect" stroke="TRANSPARENT" strokeType="INSIDE" width="150.0" />
             <MenuButton layoutX="41.0" layoutY="65.0" mnemonicParsing="false" styleClass="nav-button" text="MOVE ROOMS">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#handleSwitchToCrimeScene" styleClass="nav-button" text="CRIME SCENE" />
-                <MenuItem mnemonicParsing="false" onAction="#handleSwitchToMaidRoom" styleClass="nav-button" text="MAID (BEDROOM)" />
-                <MenuItem mnemonicParsing="false" onAction="#handleSwitchToBar" styleClass="nav-button" text="BARTENDER (BAR)" />
-                <MenuItem mnemonicParsing="false" onAction="#handleSwitchToDeck" styleClass="nav-button" text="FIRST MATE (DECK)" />
+                <MenuItem mnemonicParsing="false" onAction="#onSwitchToCrimeScene" styleClass="nav-button" text="CRIME SCENE" />
+                <MenuItem mnemonicParsing="false" onAction="#onSwitchToMaidRoom" styleClass="nav-button" text="MAID (BEDROOM)" />
+                <MenuItem mnemonicParsing="false" onAction="#onSwitchToBar" styleClass="nav-button" text="BARTENDER (BAR)" />
+                <MenuItem mnemonicParsing="false" onAction="#onSwitchToDeck" styleClass="nav-button" text="FIRST MATE (DECK)" />
               </items>
             </MenuButton>
           </children>
