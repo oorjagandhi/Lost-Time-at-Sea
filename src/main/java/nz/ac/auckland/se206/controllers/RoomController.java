@@ -38,7 +38,9 @@ public class RoomController extends SoundPlayer {
   private static GameStateContext context = new GameStateContext();
   private String currentSuspect;
 
-  @FXML private Rectangle floorBoard;
+  @FXML private ImageView radioImageView;
+  @FXML private ImageView floorBoardImageView;
+
 
   @FXML private Rectangle rectSecurity;
   @FXML private Rectangle rectArtist;
@@ -85,14 +87,19 @@ public class RoomController extends SoundPlayer {
     }
     roomManager.setUserWelcomed(true);
 
-    if (floorBoard != null) {
-      floorBoard.setOnMouseEntered(this::handleMouseEnterFloorBoard);
-      floorBoard.setOnMouseExited(this::handleMouseExitFloorBoard);
+    if (floorBoardImageView != null) {
+      floorBoardImageView.setOnMouseEntered(this::handleMouseEnterfloorBoardImageView);
+      floorBoardImageView.setOnMouseExited(this::handleMouseExitfloorBoardImageView);
     }
 
     if (paperImageView != null) {
       paperImageView.setOnMouseEntered(this::handleMouseEnterpaperImageView);
       paperImageView.setOnMouseExited(this::handleMouseExitpaperImageView);
+    }
+
+    if (radioImageView != null) {
+      radioImageView.setOnMouseEntered(this::handleMouseEnterradioImageView);
+      radioImageView.setOnMouseExited(this::handleMouseExitradioImageView);
     }
 
     if (rectSuspect != null) {
@@ -447,19 +454,22 @@ public class RoomController extends SoundPlayer {
     }
   }
 
+
+
   @FXML
-  private void onChangeToRadioScene(ActionEvent event) {
+  private void handleRadioClick(MouseEvent event) {
+    System.out.println("Radio clicked, attempting to load radio.fxml...");
     try {
       // Load the FXML file for the radio scene
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/radio.fxml"));
-      Parent radioContent = loader.load();
+      Parent radioScene = loader.load();
 
       // Get the current stage
       Node source = (Node) event.getSource();
       Stage stage = (Stage) source.getScene().getWindow();
 
       // Set the scene to the radio scene
-      stage.setScene(new Scene(radioContent));
+      stage.setScene(new Scene(radioScene));
       stage.show();
     } catch (IOException e) {
       e.printStackTrace();
@@ -486,24 +496,11 @@ public class RoomController extends SoundPlayer {
     switchScene(event, "/fxml/deck.fxml");
   }
 
-  // Method to handle mouse entering the floorBoard
-  private void handleMouseEnterFloorBoard(MouseEvent event) {
-    floorBoard.setCursor(Cursor.HAND); // Change cursor to hand
-    floorBoard.setStyle(
-        "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
-  }
-
-  // Method to handle mouse exiting the floorBoard
-  private void handleMouseExitFloorBoard(MouseEvent event) {
-    floorBoard.setCursor(Cursor.DEFAULT); // Reset cursor
-    floorBoard.setStyle(""); // Remove the drop shadow effect
-  }
-
   @FXML
   private void handleFloorBoardClick(MouseEvent event) {
     System.out.println("Floor clicked, attempting to load floor.fxml...");
     try {
-      // Load the FXML file for the radio scene
+      // Load the FXML file for the floorboard scene
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/floor.fxml"));
       Parent floorScene = loader.load();
 
@@ -511,7 +508,7 @@ public class RoomController extends SoundPlayer {
       Node source = (Node) event.getSource();
       Stage stage = (Stage) source.getScene().getWindow();
 
-      // Set the scene to the radio scene
+      // Set the scene to the floorboard scene
       stage.setScene(new Scene(floorScene));
       stage.show();
     } catch (IOException e) {
@@ -552,11 +549,35 @@ public class RoomController extends SoundPlayer {
     paperImageView.setStyle(""); // Remove the drop shadow effect
   }
 
+  // add the same methods for floorBoardImageView
+  private void handleMouseEnterfloorBoardImageView(MouseEvent event) {
+    floorBoardImageView.setCursor(Cursor.HAND); // Change cursor to hand
+    floorBoardImageView.setStyle(
+        "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
+  }
+
+  private void handleMouseExitfloorBoardImageView(MouseEvent event) {
+    floorBoardImageView.setCursor(Cursor.DEFAULT); // Reset cursor
+    floorBoardImageView.setStyle(""); // Remove the drop shadow effect
+  }
+
+  // same for radioImageView
+  private void handleMouseEnterradioImageView(MouseEvent event) {
+    radioImageView.setCursor(Cursor.HAND); // Change cursor to hand
+    radioImageView.setStyle(
+        "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
+  }
+
+  private void handleMouseExitradioImageView(MouseEvent event) {
+    radioImageView.setCursor(Cursor.DEFAULT); // Reset cursor
+    radioImageView.setStyle(""); // Remove the drop shadow effect
+  }
+
   @FXML
   private void handlePaperClick(MouseEvent event) {
     System.out.println("Paper clicked, attempting to load paper.fxml...");
     try {
-      // Load the FXML file for the radio scene
+      // Load the FXML file for the paper scene
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/paper.fxml"));
       Parent paperScene = loader.load();
 
@@ -564,7 +585,7 @@ public class RoomController extends SoundPlayer {
       Node source = (Node) event.getSource();
       Stage stage = (Stage) source.getScene().getWindow();
 
-      // Set the scene to the radio scene
+      // Set the scene to the paper scene
       stage.setScene(new Scene(paperScene));
       stage.show();
     } catch (IOException e) {

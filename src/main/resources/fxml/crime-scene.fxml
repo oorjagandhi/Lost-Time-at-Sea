@@ -10,21 +10,31 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane fx:id="room" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RoomController">
+<AnchorPane fx:id="room" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" prefHeight="605.0" prefWidth="835.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RoomController">
    <children>
-      <Pane layoutY="-1.0">
+      <Pane>
           <children>
-            <ImageView fitHeight="677.0" fitWidth="1078.0" layoutX="-3.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="605.0" fitWidth="835.0" preserveRatio="false">
                <image>
                   <Image url="@../images/clues/crimescene.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="radioImageView" fitHeight="124.0" fitWidth="186.0" layoutX="151.0" layoutY="188.0" onMouseClicked="#handleRadioClick" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/clues/radio2.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="floorBoardImageView" fitHeight="121.0" fitWidth="119.0" layoutX="327.0" layoutY="457.0" onMouseClicked="#handleFloorBoardClick" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/clues/floorboard2.png" />
                </image>
             </ImageView>
               <Rectangle fx:id="rectSecurity" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="265.0" layoutX="169.0" layoutY="286.0" onMouseClicked="#handleSecurityClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="77.0" />
               <Rectangle fx:id="rectArtist" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="266.0" layoutX="273.0" layoutY="283.0" onMouseClicked="#handleArtistClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="71.0" />
               
-              <Button fx:id="btnGuess" alignment="CENTER" layoutX="370.0" layoutY="70.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" text="Make a Guess" textAlignment="CENTER" />
+              <Button fx:id="btnGuess" alignment="CENTER" layoutX="690.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="68.0" prefWidth="144.0" text="Make a Guess" textAlignment="CENTER" />
               
-              <StackPane layoutX="-3.0" layoutY="95.0" prefWidth="835.0">
+              <StackPane layoutX="350.0" layoutY="49.0" prefHeight="83.0" prefWidth="135.0">
                   <fx:include source="timer.fxml" />
               </StackPane>
               
@@ -33,18 +43,15 @@
                     <Image url="@../images/phone.png" />
                  </image>
               </ImageView>
-              <Button fx:id="changeToRadioScene" layoutX="52.0" layoutY="287.0" mnemonicParsing="false" onAction="#onChangeToRadioScene" prefHeight="23.0" prefWidth="153.0" text="change to radio scene" />
           
               
-              <ImageView fx:id="paperImageView" fitHeight="47.0" fitWidth="53.0" layoutX="297.0" layoutY="477.0" onMouseClicked="#handlePaperClick" pickOnBounds="true" preserveRatio="true">
+              <ImageView fx:id="paperImageView" fitHeight="47.0" fitWidth="53.0" layoutX="528.0" layoutY="473.0" onMouseClicked="#handlePaperClick" pickOnBounds="true" preserveRatio="true">
                   <image>
                       <Image url="@../images/crumple-1.png" />
                   </image>
               </ImageView>
-              
-              <Rectangle fx:id="floorBoard" arcHeight="5.0" arcWidth="5.0" fill="#b26d14" height="54.0" layoutX="661.0" layoutY="511.0" onMouseClicked="#handleFloorBoardClick" stroke="BLACK" strokeType="INSIDE" width="99.0" />
 
-              <MenuButton layoutX="41.0" layoutY="65.0" mnemonicParsing="false" styleClass="nav-button" text="MOVE ROOMS">
+              <MenuButton layoutY="2.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="152.0" styleClass="nav-button" text="MOVE ROOMS">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#onSwitchToCrimeScene" styleClass="nav-button" text="CAPTAINS QUARTERS (CRIME SCENE)" />
                 <MenuItem mnemonicParsing="false" onAction="#onSwitchToMaidRoom" styleClass="nav-button" text="MAID (BEDROOM)" />
