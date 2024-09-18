@@ -37,12 +37,6 @@
               <StackPane layoutX="350.0" layoutY="49.0" prefHeight="83.0" prefWidth="135.0">
                   <fx:include source="timer.fxml" />
               </StackPane>
-              
-              <ImageView fitHeight="33.0" fitWidth="49.0" layoutX="109.0" layoutY="538.0" onMouseClicked="#handlePhoneClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" pickOnBounds="true" preserveRatio="true">
-                 <image>
-                    <Image url="@../images/phone.png" />
-                 </image>
-              </ImageView>
           
               
               <ImageView fx:id="paperImageView" fitHeight="47.0" fitWidth="53.0" layoutX="528.0" layoutY="473.0" onMouseClicked="#handlePaperClick" pickOnBounds="true" preserveRatio="true">

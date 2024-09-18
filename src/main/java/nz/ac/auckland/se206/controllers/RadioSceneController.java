@@ -7,6 +7,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.Parent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import java.io.IOException;
 
 public class RadioSceneController {
   private boolean isPlayingaudio = false;
@@ -149,4 +157,21 @@ public class RadioSceneController {
     Thread backgroundThread = new Thread(backgroundTask);
     backgroundThread.start();
   }
+  
+  @FXML
+  private void onBackButtonAction(ActionEvent event) {
+    try{
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/crime-scene.fxml"));
+      Parent root = loader.load();
+      Node source = (Node) event.getSource();
+      javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
+      root.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+      stage.setScene(new Scene(root));
+      stage.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+
+    }
+  }
+
 }
