@@ -18,9 +18,9 @@
               </ImageView>
               
               <fx:include source="timer.fxml" />
-            <ImageView fx:id="paperImageView" fitHeight="394.0" fitWidth="198.0" layoutX="293.0" layoutY="238.0" onMouseClicked="#handlePaperClick" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="paperImageView" fitHeight="452.0" fitWidth="616.0" layoutX="155.0" layoutY="52.0" onMouseClicked="#handlePaperClick" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/crumple-1.png" />
+                  <Image url="@../images/clues/paper.png" />
                </image>
             </ImageView>
             <Button fx:id="btnBack" layoutX="362.0" layoutY="515.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="Go Back" />

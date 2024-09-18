@@ -20,10 +20,10 @@ public class PaperController extends SoundPlayer {
 
   private int clickCount = 0; // To track the number of clicks
   private final String[] paperImages = {
-    "/images/crumple-1.png",
-    "/images/crumple-2.png",
-    "/images/crumple-3.png",
-    "/images/crumple-4.png"
+    "/images/clues/paper.png",
+    "/images/clues/paper2.png",
+    "/images/clues/paper3.png",
+    "/images/clues/paper4again.png"
   };
 
   @FXML
