@@ -1,9 +1,7 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
-import java.net.URL;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,20 +19,20 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.util.RoomManager;
+import nz.ac.auckland.se206.util.SoundPlayer;
 import nz.ac.auckland.se206.util.TimerManager;
 
 /**
  * Controller class for the room view. Handles user interactions within the room where the user can
  * chat with customers and guess their profession.
  */
-public class RoomController {
+public class RoomController extends SoundPlayer {
 
   private static boolean isFirstTimeInit = true;
   private static GameStateContext context = new GameStateContext();
@@ -447,35 +445,6 @@ public class RoomController {
     if (suspectSailor != null) {
       suspectSailor.setStyle(""); // Remove the drop shadow effect
     }
-  }
-
-  private void playSound(String filePath) {
-    // runs finding a particular audiofile as a background task
-    Task<Void> backgroundTask =
-        new Task<>() {
-          @Override
-          protected Void call() {
-            // checks if a given audio file exists and if it does,plays it
-            URL resource = getClass().getResource(filePath);
-            if (resource == null) {
-              Platform.runLater(() -> System.out.println("File not found: " + filePath));
-              return null;
-            }
-            // if audio file is found, plays and then stops once it is finished
-            Media media = new Media(resource.toString());
-            Platform.runLater(
-                () -> {
-                  if (mediaPlayer != null) {
-                    mediaPlayer.stop();
-                  }
-                  mediaPlayer = new MediaPlayer(media);
-                  mediaPlayer.play();
-                });
-            return null;
-          }
-        };
-    Thread backgroundThread = new Thread(backgroundTask);
-    backgroundThread.start();
   }
 
   @FXML

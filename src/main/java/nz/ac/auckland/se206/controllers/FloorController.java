@@ -1,12 +1,9 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.FadeTransition;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,12 +12,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+import nz.ac.auckland.se206.util.SoundPlayer;
 
-public class FloorController {
+public class FloorController extends SoundPlayer {
 
   @FXML private Circle screw1;
   @FXML private Circle screw2;
@@ -139,31 +136,5 @@ public class FloorController {
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-
-  private void playSound(String filePath) {
-    Task<Void> backgroundTask =
-        new Task<>() {
-          @Override
-          protected Void call() {
-            URL resource = getClass().getResource(filePath);
-            if (resource == null) {
-              Platform.runLater(() -> System.out.println("File not found: " + filePath));
-              return null;
-            }
-            Media media = new Media(resource.toString());
-            Platform.runLater(
-                () -> {
-                  if (mediaPlayer != null) {
-                    mediaPlayer.stop();
-                  }
-                  mediaPlayer = new MediaPlayer(media);
-                  mediaPlayer.play();
-                });
-            return null;
-          }
-        };
-    Thread backgroundThread = new Thread(backgroundTask);
-    backgroundThread.start();
   }
 }
