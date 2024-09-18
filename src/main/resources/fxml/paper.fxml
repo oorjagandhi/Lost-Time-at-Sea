@@ -5,9 +5,18 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="room" focusTraversable="true" prefHeight="599.0" prefWidth="789.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.PaperController">
+<AnchorPane fx:id="room"
+            focusTraversable="true"
+            prefHeight="599.0"
+            prefWidth="789.0"
+            style="-fx-background-color: #dbd7cc;"
+            stylesheets="@../css/styles.css"
+            xmlns="http://javafx.com/javafx/22"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="nz.ac.auckland.se206.controllers.PaperController">
    <children>
       <Pane layoutY="-1.0">
           <children>
@@ -16,14 +25,15 @@
                     <Image url="@../images/floor.png" />
                  </image>
               </ImageView>
-              
-              <fx:include source="timer.fxml" />
-            <ImageView fx:id="paperImageView" fitHeight="394.0" fitWidth="198.0" layoutX="293.0" layoutY="238.0" onMouseClicked="#handlePaperClick" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/crumple-1.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="btnBack" layoutX="362.0" layoutY="515.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="Go Back" />
+              <StackPane layoutX="327.0" layoutY="53.0" prefHeight="83.0" prefWidth="135.0">
+                  <fx:include source="timer.fxml" />
+              </StackPane>
+              <ImageView fx:id="paperImageView" fitHeight="413.0" fitWidth="528.0" layoutX="142.0" layoutY="94.0" onMouseClicked="#handlePaperClick" pickOnBounds="true" preserveRatio="true">
+                 <image>
+                    <Image url="@../images/clues/paper.png" />
+                 </image>
+              </ImageView>
+              <Button fx:id="btnBack" layoutX="365.0" layoutY="513.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="Go Back" />
           </children>
       </Pane>
       <!-- Container for the popup -->

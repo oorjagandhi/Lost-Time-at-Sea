@@ -3,87 +3,54 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
 
-
-<AnchorPane fx:id="room" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" prefHeight="599.0" prefWidth="789.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RoomController">
+<AnchorPane fx:id="room" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" prefHeight="605.0" prefWidth="835.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RoomController">
    <children>
-      <Pane layoutY="-1.0">
+      <Pane>
           <children>
-              <ImageView fitHeight="464.0" fitWidth="825.0" layoutX="2.0" layoutY="150.0" preserveRatio="true">
-                 <image>
-                    <Image url="@../images/crime-scene.jpg" />
-                 </image>
-              </ImageView>
+            <ImageView fitHeight="605.0" fitWidth="835.0" preserveRatio="false">
+               <image>
+                  <Image url="@../images/clues/crimescene.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="radioImageView" fitHeight="124.0" fitWidth="186.0" layoutX="151.0" layoutY="188.0" onMouseClicked="#handleRadioClick" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/clues/radio2.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="floorBoardImageView" fitHeight="121.0" fitWidth="119.0" layoutX="327.0" layoutY="457.0" onMouseClicked="#handleFloorBoardClick" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/clues/floorboard2.png" />
+               </image>
+            </ImageView>
               <Rectangle fx:id="rectSecurity" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="265.0" layoutX="169.0" layoutY="286.0" onMouseClicked="#handleSecurityClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="77.0" />
               <Rectangle fx:id="rectArtist" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="266.0" layoutX="273.0" layoutY="283.0" onMouseClicked="#handleArtistClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="71.0" />
               
-              <!-- Centered Text Labels -->
-              <Label alignment="CENTER" layoutX="23.0" layoutY="12.0" prefWidth="789.0" text="Guess Who?">
-                 <font>
-                    <Font name="Baloo Bhaijaan Regular" size="38.0" />
-                 </font>
-                 <textFill>
-                    <LinearGradient endX="0.27078384798099764" endY="1.0" startX="0.27078384798099764">
-                       <stops>
-                          <Stop>
-                             <color>
-                                <Color red="0.8684210777282715" green="0.8264071345329285" blue="0.6392543911933899" />
-                             </color>
-                          </Stop>
-                          <Stop offset="0.006711409395973154">
-                             <color>
-                                <Color red="0.8684210777282715" green="0.8264071345329285" blue="0.6392543911933899" />
-                             </color>
-                          </Stop>
-                          <Stop offset="1.0">
-                             <color>
-                                <Color red="0.5131579041481018" green="0.35160818696022034" blue="0.35160818696022034" />
-                             </color>
-                          </Stop>
-                       </stops>
-                    </LinearGradient>
-                 </textFill>
-              </Label>
+              <Button fx:id="btnGuess" alignment="CENTER" layoutX="690.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="68.0" prefWidth="144.0" text="Make a Guess" textAlignment="CENTER" />
               
-              <Button fx:id="btnGuess" alignment="CENTER" layoutX="370.0" layoutY="70.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" text="Make a Guess" textAlignment="CENTER" />
-              
-              <StackPane layoutY="10.0" prefWidth="835.0">
+              <StackPane layoutX="350.0" layoutY="49.0" prefHeight="83.0" prefWidth="135.0">
                   <fx:include source="timer.fxml" />
               </StackPane>
-              
-              <ImageView fitHeight="33.0" fitWidth="49.0" layoutX="109.0" layoutY="538.0" onMouseClicked="#handlePhoneClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" pickOnBounds="true" preserveRatio="true">
-                 <image>
-                    <Image url="@../images/phone.png" />
-                 </image>
-              </ImageView>
-              <Button fx:id="changeToRadioScene" layoutX="52.0" layoutY="287.0" mnemonicParsing="false" onAction="#onChangeToRadioScene" prefHeight="23.0" prefWidth="153.0" text="change to radio scene" />
           
               
-              <ImageView fx:id="paperImageView" fitHeight="47.0" fitWidth="53.0" layoutX="297.0" layoutY="477.0" onMouseClicked="#handlePaperClick" pickOnBounds="true" preserveRatio="true">
+              <ImageView fx:id="paperImageView" fitHeight="47.0" fitWidth="53.0" layoutX="528.0" layoutY="473.0" onMouseClicked="#handlePaperClick" pickOnBounds="true" preserveRatio="true">
                   <image>
                       <Image url="@../images/crumple-1.png" />
                   </image>
               </ImageView>
-              
-              <Rectangle fx:id="floorBoard" arcHeight="5.0" arcWidth="5.0" fill="#b26d14" height="54.0" layoutX="661.0" layoutY="511.0" onMouseClicked="#handleFloorBoardClick" stroke="BLACK" strokeType="INSIDE" width="99.0" />
 
-              <MenuButton styleClass="nav-button" layoutX="41.0" layoutY="65.0" mnemonicParsing="false" text="MOVE ROOMS">
+              <MenuButton layoutY="2.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="152.0" styleClass="nav-button" text="MOVE ROOMS">
               <items>
-                <MenuItem onAction="#onSwitchToCrimeScene" styleClass="nav-button" mnemonicParsing="false" text="CAPTAINS QUARTERS (CRIME SCENE)" />
-                <MenuItem onAction="#onSwitchToMaidRoom" styleClass="nav-button" mnemonicParsing="false" text="MAID (BEDROOM)" />
-                <MenuItem onAction="#onSwitchToBar" styleClass="nav-button" mnemonicParsing="false" text="BARTENDER (BAR)" />
-                <MenuItem onAction="#onSwitchToDeck" styleClass="nav-button" mnemonicParsing="false" text="FIRST MATE (DECK)" />
+                <MenuItem mnemonicParsing="false" onAction="#onSwitchToCrimeScene" styleClass="nav-button" text="CAPTAINS QUARTERS (CRIME SCENE)" />
+                <MenuItem mnemonicParsing="false" onAction="#onSwitchToMaidRoom" styleClass="nav-button" text="MAID (BEDROOM)" />
+                <MenuItem mnemonicParsing="false" onAction="#onSwitchToBar" styleClass="nav-button" text="BARTENDER (BAR)" />
+                <MenuItem mnemonicParsing="false" onAction="#onSwitchToDeck" styleClass="nav-button" text="FIRST MATE (DECK)" />
               </items>
             </MenuButton>
           </children>
