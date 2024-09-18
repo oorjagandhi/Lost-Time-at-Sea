@@ -2,7 +2,9 @@ package nz.ac.auckland.se206;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import javafx.scene.input.MouseEvent;
 import nz.ac.auckland.se206.states.GameOver;
 import nz.ac.auckland.se206.states.GameStarted;
@@ -22,6 +24,7 @@ public class GameStateContext {
   private final GameOver gameOverState;
   private GameState gameState;
   private boolean clueInteracted = false;
+  private Set<String> suspectsInteracted;
   private boolean suspectInteracted = false;
   private Runnable updateGuessButtonStateCallback;
 
@@ -36,6 +39,8 @@ public class GameStateContext {
     rectanglesToProfession.put("rectSecurity", "Security");
     rectanglesToProfession.put("rectArtist", "Artist");
     rectanglesToProfession.put("rectCollector", "Collector");
+
+    suspectsInteracted = new HashSet<>();
   }
 
   /**
@@ -123,13 +128,13 @@ public class GameStateContext {
     updateGuessButtonState();
   }
 
-  public void setSuspectInteracted(boolean interacted) {
-    this.suspectInteracted = interacted;
+  public void setSuspectInteracted(String suspectId) {
+    suspectsInteracted.add(suspectId);
     updateGuessButtonState();
   }
 
   public boolean canGuess() {
-    return clueInteracted && suspectInteracted;
+    return clueInteracted && suspectsInteracted.size() >= 3;
   }
 
   public void setUpdateGuessButtonStateCallback(Runnable callback) {
