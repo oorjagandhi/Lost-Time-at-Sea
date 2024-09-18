@@ -15,13 +15,17 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import java.io.IOException;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class RadioSceneController {
   private boolean isPlayingaudio = false;
   private int frequency = 1;
   private MediaPlayer mediaPlayer;
   private Task<Void> backgroundTask;
-  private int totalAudio = 5;
+  private int totalAudios = 5;
+
+  @FXML private ImageView frequencyImage;
 
   /**
    * the play button is clicked if the audio is playing, pause it. if the audio is paused, play it
@@ -53,8 +57,9 @@ public class RadioSceneController {
     stopAudio();
     frequency--;
     if (frequency < 1) {
-      frequency = totalAudio;
+      frequency = totalAudios;
     }
+    frequencyImage.setImage(new Image("/images/clues/sevenseg" + frequency + ".png"));
     playAudio();
   }
 
@@ -68,9 +73,10 @@ public class RadioSceneController {
     System.out.println("Increase Frequency button clicked");
     stopAudio();
     frequency++;
-    if (frequency > totalAudio) {
+    if (frequency > totalAudios) {
       frequency = 1;
     }
+    frequencyImage.setImage(new Image("/images/clues/sevenseg" + frequency + ".png"));
     playAudio();
   }
 
@@ -160,6 +166,7 @@ public class RadioSceneController {
   
   @FXML
   private void onBackButtonAction(ActionEvent event) {
+    stopAudio();
     try{
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/crime-scene.fxml"));
       Parent root = loader.load();
