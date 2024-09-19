@@ -22,15 +22,38 @@ public class TimerController extends SoundPlayer {
 
   @FXML
   public void initialize() {
-    // Initial label update
     updateTimerLabel();
-    // Start the timer if not already running
     if (!timerManager.isTimerRunning()) {
       timerManager.startTimer();
     }
 
-    // Register an update method to be called every second
+    timerManager.setGuessingStartListener(this::switchToGuessingScene);
+
     timerManager.setTickListener(this::updateTimerLabel);
+
+    if (!timerManager.isTimerRunning()) {
+      timerManager.startTimer();
+    }
+  }
+
+  private void switchToGuessingScene() {
+    // Load and switch to the guessing scene
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/guessing.fxml"));
+    switchScene(loader);
+  }
+
+  private void switchScene(FXMLLoader loader) {
+    Platform.runLater(
+        () -> {
+          try {
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            App.getStage().setScene(scene);
+            App.getStage().show();
+          } catch (IOException e) {
+            e.printStackTrace(); // Handle exceptions appropriately
+          }
+        });
   }
 
   private void updateTimerLabel() {

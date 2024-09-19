@@ -135,8 +135,7 @@ public class GameStateContext {
   }
 
   public boolean canGuess() {
-    return true;
-    // return clueInteracted && suspectsInteracted.size() >= 3;
+    return clueInteracted && suspectsInteracted.size() >= 3;
   }
 
   public boolean isWon() {

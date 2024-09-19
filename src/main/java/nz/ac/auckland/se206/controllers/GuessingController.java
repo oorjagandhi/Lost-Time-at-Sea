@@ -226,6 +226,7 @@ public class GuessingController {
             + "Acknowledge the correct guess.\n"
             + "Point out inaccuracies or missing details in their explanation.\n"
             + "Correct their explanation by mentioning the relevant clues.\n"
+            + "Avoid saying the motive explicitly.\n"
             + "For Outcome 3:\n"
             + "Congratulate the player.\n"
             + "Affirm the correctness of their explanation.\n"

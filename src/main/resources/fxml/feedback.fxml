@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
 
 <AnchorPane fx:id="room" prefHeight="605.0" prefWidth="835.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.FeedbackController">
     <children>
@@ -18,5 +18,9 @@
               -fx-border-width: 2; -fx-background-radius: 15; -fx-border-radius: 15;">
             <Text fx:id="responseText" text="Your text here" wrappingWidth="695.0" style="-fx-font-size: 18px;" />
         </VBox>
+        
+        <!-- Play Again Button at the bottom center -->
+        <Button fx:id="playAgainButton" text="Play Again" onAction="#handlePlayAgain"
+                layoutX="392.5" layoutY="550.0" style="-fx-font-size: 18px;"/>
     </children>
 </AnchorPane>
