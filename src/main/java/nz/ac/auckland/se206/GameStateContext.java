@@ -29,8 +29,10 @@ public class GameStateContext {
   private boolean won = false;
   private Runnable updateGuessButtonStateCallback;
 
+  private static GameStateContext gameStateContext;
+
   /** Constructs a new GameStateContext and initializes the game states and professions. */
-  public GameStateContext() {
+  private GameStateContext() {
     gameStartedState = new GameStarted(this);
     guessingState = new Guessing(this);
     gameOverState = new GameOver(this);
@@ -42,6 +44,13 @@ public class GameStateContext {
     rectanglesToProfession.put("rectCollector", "Collector");
 
     suspectsInteracted = new HashSet<>();
+  }
+
+  public static GameStateContext getInstance() {
+    if (gameStateContext == null) {
+      gameStateContext = new GameStateContext();
+    }
+    return gameStateContext;
   }
 
   /**

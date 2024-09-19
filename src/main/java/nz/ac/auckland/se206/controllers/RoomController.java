@@ -35,7 +35,7 @@ import nz.ac.auckland.se206.util.TimerManager;
 public class RoomController extends SoundPlayer {
 
   private static boolean isFirstTimeInit = true;
-  private static GameStateContext context = new GameStateContext();
+  private static GameStateContext context = GameStateContext.getInstance();
   private String currentSuspect;
 
   @FXML private ImageView radioImageView;
@@ -76,8 +76,6 @@ public class RoomController extends SoundPlayer {
   @FXML
   public void initialize() throws IOException {
     System.out.println("Initializing RoomController...");
-
-    timerManager.setGuessingStartListener(this::guessingStartListener);
 
     updateGuessButtonState();
     context.setUpdateGuessButtonStateCallback(this::updateGuessButtonAvailability);
@@ -268,12 +266,10 @@ public class RoomController extends SoundPlayer {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/guessing.fxml"));
       Parent root = loader.load();
 
-      // Get the controller of the guessing.fxml
-      GuessingController guessingController = loader.getController();
-      // Pass the context to the GuessingController
-      guessingController.setContext(context);
-
       Scene scene = new Scene(root);
+
+      scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+
       Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
       stage.setScene(scene);
       stage.show();

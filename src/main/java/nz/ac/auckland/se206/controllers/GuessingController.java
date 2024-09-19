@@ -27,7 +27,6 @@ import nz.ac.auckland.se206.GameStateContext;
 
 public class GuessingController {
 
-  private GameStateContext context;
   private String selectedSuspect;
 
   @FXML private Label whyLabel;
@@ -41,10 +40,6 @@ public class GuessingController {
   @FXML private ImageView suspectBartender;
 
   @FXML private ImageView suspectSailor;
-
-  public void setContext(GameStateContext context) {
-    this.context = context;
-  }
 
   @FXML
   private void initialize() throws IOException {
@@ -111,7 +106,9 @@ public class GuessingController {
   public void handleSubmitGuess() {
     if (selectedSuspect != null && !explanationTextArea.getText().trim().isEmpty()) {
       try {
+
         // Call handleRectangleClick to make a guess
+        GameStateContext context = GameStateContext.getInstance();
         context.handleRectangleClick(null, selectedSuspect);
 
         // Get the user's explanation

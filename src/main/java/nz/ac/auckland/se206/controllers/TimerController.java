@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.media.MediaPlayer;
 import nz.ac.auckland.se206.App;
+import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.util.SoundPlayer;
 import nz.ac.auckland.se206.util.TimerManager;
 
@@ -37,8 +38,17 @@ public class TimerController extends SoundPlayer {
   }
 
   private void switchToGuessingScene() {
+    // Ensure UI updates are performed on the JavaFX application thread
+    Platform.runLater(
+        () -> {
+          GameStateContext context = GameStateContext.getInstance();
+          timerManager.setCanGuess(context.canGuess());
+          context.setState(context.getGuessingState());
+        });
+
     // Load and switch to the guessing scene
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/guessing.fxml"));
+
     switchScene(loader);
   }
 
@@ -49,6 +59,7 @@ public class TimerController extends SoundPlayer {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             App.getStage().setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             App.getStage().show();
           } catch (IOException e) {
             e.printStackTrace(); // Handle exceptions appropriately
