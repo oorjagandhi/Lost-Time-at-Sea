@@ -26,9 +26,9 @@
                </image>
             </ImageView>
               
-              <Button fx:id="btnGuess" alignment="CENTER" layoutX="693.0" layoutY="45.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" text="Make a Guess" textAlignment="CENTER" />
+              <Button fx:id="btnGuess" alignment="CENTER" layoutX="676.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="32.0" prefWidth="140.0" text="MAKE A GUESS" textAlignment="CENTER" />
               
-              <StackPane layoutY="10.0" prefWidth="835.0">
+              <StackPane layoutX="350.0" layoutY="20.0" prefHeight="40.0" prefWidth="135.0">
                   <fx:include source="timer.fxml" />
               </StackPane>
             <!-- Container for the chat -->
@@ -42,9 +42,9 @@
             <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="172.0" layoutX="339.0" layoutY="144.0" onMouseEntered="#handleMouseEnterrectSuspect" onMouseExited="#handleMouseExitrectSuspect" stroke="TRANSPARENT" strokeType="INSIDE" width="111.0" />
           </children>
       </Pane>
-            <MenuButton layoutX="41.0" layoutY="65.0" mnemonicParsing="false" styleClass="nav-button" text="MOVE ROOMS">
+            <MenuButton layoutX="37.0" layoutY="30.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="140.0" styleClass="nav-button" text="MOVE ROOMS">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#onSwitchToCrimeScene" styleClass="nav-button" text="CRIME SCENE" />
+                <MenuItem mnemonicParsing="false" onAction="#onSwitchToCrimeScene" styleClass="nav-button" text="CAPTAINS QUARTERS (CRIME SCENE)" />
                 <MenuItem mnemonicParsing="false" onAction="#onSwitchToMaidRoom" styleClass="nav-button" text="MAID (BEDROOM)" />
                 <MenuItem mnemonicParsing="false" onAction="#onSwitchToBar" styleClass="nav-button" text="BARTENDER (BAR)" />
                 <MenuItem mnemonicParsing="false" onAction="#onSwitchToDeck" styleClass="nav-button" text="FIRST MATE (DECK)" />
