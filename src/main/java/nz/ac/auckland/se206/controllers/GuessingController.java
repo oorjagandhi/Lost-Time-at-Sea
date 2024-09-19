@@ -2,9 +2,12 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
@@ -19,6 +22,7 @@ import nz.ac.auckland.apiproxy.chat.openai.ChatMessage;
 import nz.ac.auckland.apiproxy.chat.openai.Choice;
 import nz.ac.auckland.apiproxy.config.ApiProxyConfig;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
+import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
 
 public class GuessingController {
@@ -38,8 +42,6 @@ public class GuessingController {
 
   @FXML private ImageView suspectSailor;
 
-  @FXML private FeedbackController feedbackController;
-
   public void setContext(GameStateContext context) {
     this.context = context;
   }
@@ -50,10 +52,6 @@ public class GuessingController {
     setupHoverEffect(suspectMaid);
     setupHoverEffect(suspectBartender);
     setupHoverEffect(suspectSailor);
-
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/feedback.fxml"));
-    loader.load();
-    feedbackController = loader.getController();
   }
 
   private void setupHoverEffect(ImageView suspect) {
@@ -118,9 +116,20 @@ public class GuessingController {
 
         // Get the user's explanation
         String userExplanation = explanationTextArea.getText().trim();
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/feedback.fxml"));
+        Parent root = loader.load();
+        FeedbackController feedbackController = loader.getController();
         // Evaluate the explanation using OpenAI
-        evaluateExplanation(userExplanation);
+        String responseContent = evaluateExplanation(userExplanation);
+        Platform.runLater(
+            () -> {
+              feedbackController.updateResponseText(responseContent);
+              feedbackController.updateStatus(context.isWon());
+            });
+        // Load the game over screen for losing
+        Scene scene = new Scene(root);
+        App.getStage().setScene(scene);
+        App.getStage().show();
 
       } catch (IOException e) {
         e.printStackTrace();
@@ -135,7 +144,7 @@ public class GuessingController {
     }
   }
 
-  private void evaluateExplanation(String userExplanation) {
+  private String evaluateExplanation(String userExplanation) {
     // Prepare the prompt
     String prompt =
         "You are an AI assistant tasked with evaluating a player's explanation for their guess in a"
@@ -171,12 +180,13 @@ public class GuessingController {
 
       // Process the response
       String responseContent = responseMessage.getContent();
-      feedbackController.updateResponseText(responseContent);
 
       System.out.println("Response: " + responseContent);
+      return responseContent;
 
     } catch (ApiProxyException e) {
       e.printStackTrace();
     }
+    return prompt;
   }
 }

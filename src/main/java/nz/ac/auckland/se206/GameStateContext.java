@@ -26,6 +26,7 @@ public class GameStateContext {
   private boolean clueInteracted = false;
   private Set<String> suspectsInteracted;
   private boolean suspectInteracted = false;
+  private boolean won = false;
   private Runnable updateGuessButtonStateCallback;
 
   /** Constructs a new GameStateContext and initializes the game states and professions. */
@@ -136,6 +137,14 @@ public class GameStateContext {
   public boolean canGuess() {
     return true;
     // return clueInteracted && suspectsInteracted.size() >= 3;
+  }
+
+  public boolean isWon() {
+    return won;
+  }
+
+  public void setWon(boolean won) {
+    this.won = won;
   }
 
   public void setUpdateGuessButtonStateCallback(Runnable callback) {

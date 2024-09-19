@@ -4,13 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.util.TimerManager;
 
@@ -44,30 +40,20 @@ public class Guessing implements GameState {
    */
   @Override
   public void handleRectangleClick(MouseEvent event, String rectangleId) throws IOException {
+    timerManager.stopTimer();
     // Check if the clicked rectangle is the bartender
     if (rectangleId.equals("suspectBartender")) {
-      timerManager.stopTimer();
       playSound("/sounds/correct.mp3");
       // Transition to game over state with a win
       context.setState(context.getGameOverState());
+      context.setWon(true);
       System.out.println("Correct! You guessed the thief");
-      // Load the game over screen for winning
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/feedback.fxml"));
-      Parent root = loader.load();
-      Scene scene = new Scene(root);
-      App.getStage().setScene(scene);
-      App.getStage().show();
     } else {
       playSound("/sounds/wrong.mp3");
       // Transition to game over state with a loss
       context.setState(context.getGameOverState());
+      context.setWon(false);
       System.out.println("Incorrect! You guessed the wrong suspect");
-      // Load the game over screen for losing
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/feedback.fxml"));
-      Parent root = loader.load();
-      Scene scene = new Scene(root);
-      App.getStage().setScene(scene);
-      App.getStage().show();
     }
   }
 

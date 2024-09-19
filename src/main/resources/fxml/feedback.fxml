@@ -2,10 +2,14 @@
 
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane fx:id="room" prefHeight="605.0" prefWidth="835.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.FeedbackController">
     <children>
-        <Text fx:id="responseText" layoutX="50.0" layoutY="50.0" text="Your text here" />
+        <VBox fx:id="colorBox" layoutX="50.0" layoutY="50.0" prefWidth="20" prefHeight="20">
+            <Text fx:id="status"  text="Success or Fail"  />
+        </VBox>
+        <Text fx:id="responseText" layoutX="100.0" layoutY="100.0" wrappingWidth="100" text="Your text here" />
 
     </children>
 </AnchorPane>
