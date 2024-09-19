@@ -23,7 +23,7 @@ public class PaperController extends SoundPlayer {
     "/images/clues/paper.png",
     "/images/clues/paper2.png",
     "/images/clues/paper3.png",
-    "/images/clues/paper4again.png"
+    "/images/clues/paper5.png"
   };
 
   @FXML

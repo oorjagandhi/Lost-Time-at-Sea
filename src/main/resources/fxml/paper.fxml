@@ -8,23 +8,20 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="room"
-            focusTraversable="true"
-            prefHeight="599.0"
-            prefWidth="789.0"
-            style="-fx-background-color: #dbd7cc;"
-            stylesheets="@../css/styles.css"
-            xmlns="http://javafx.com/javafx/22"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="nz.ac.auckland.se206.controllers.PaperController">
+<AnchorPane fx:id="room" focusTraversable="true" prefHeight="605.0" prefWidth="835.0" style="-fx-background-color: #dbd7cc;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.PaperController">
    <children>
-      <Pane layoutY="-1.0">
+      <Pane prefHeight="605.0" prefWidth="835.0">
           <children>
-              <ImageView fitHeight="452.0" fitWidth="789.0" layoutY="149.0" preserveRatio="true">
+              <ImageView fitHeight="605.0" fitWidth="835.0" preserveRatio="true">
                  <image>
-                    <Image url="@../images/floor.png" />
+                    <Image url="@../images/clues/paper-closeup2.png" />
                  </image>
               </ImageView>
+            <ImageView fitHeight="605.0" fitWidth="859.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/clues/paper-closeup3.png" />
+               </image>
+            </ImageView>
               <StackPane layoutX="327.0" layoutY="53.0" prefHeight="83.0" prefWidth="135.0">
                   <fx:include source="timer.fxml" />
               </StackPane>
