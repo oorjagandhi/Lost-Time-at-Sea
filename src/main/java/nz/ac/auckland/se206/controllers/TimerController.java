@@ -79,15 +79,15 @@ public class TimerController extends SoundPlayer {
                 timerManager.isGuessTime() ? "-fx-text-fill: red;" : "-fx-text-fill: white;");
           } else {
             timerManager.stopTimer();
-            showYouLoose();
+            noTime();
             // playSound("/sounds/outoftime.mp3");
           }
         });
   }
 
-  private void showYouLoose() {
+  private void noTime() {
     // goes to the loss scene if the player has lost
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/you_lose.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/feedback-notime.fxml"));
     Parent root;
     try {
       root = loader.load();
