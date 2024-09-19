@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="room" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" prefHeight="605.0" prefWidth="835.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RoomController">
    <children>
-      <Pane layoutY="-1.0">
+      <Pane>
           <children>
               <ImageView fitHeight="605.0" fitWidth="835.0" preserveRatio="false">
                  <image>
@@ -28,7 +28,7 @@
               
               <Button fx:id="btnGuess" alignment="CENTER" layoutX="707.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" text="Make a Guess" textAlignment="CENTER" />
               
-              <StackPane layoutY="10.0" prefWidth="835.0">
+              <StackPane layoutX="350.0" layoutY="20.0" prefHeight="40.0" prefWidth="135.0">
                   <fx:include source="timer.fxml" />
               </StackPane>
             <!-- Container for the chat -->
@@ -44,9 +44,9 @@
                </image>
             </ImageView>
             <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="444.0" layoutX="163.0" layoutY="154.0" onMouseEntered="#handleMouseEnterrectSuspect" onMouseExited="#handleMouseExitrectSuspect" stroke="TRANSPARENT" strokeType="INSIDE" width="137.0" />
-            <MenuButton layoutX="41.0" layoutY="65.0" mnemonicParsing="false" styleClass="nav-button" text="MOVE ROOMS">
+            <MenuButton layoutX="37.0" layoutY="30.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="140.0" styleClass="nav-button" text="MOVE ROOMS">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#onSwitchToCrimeScene" styleClass="nav-button" text="CRIME SCENE" />
+                <MenuItem mnemonicParsing="false" onAction="#onSwitchToCrimeScene" styleClass="nav-button" text="CAPTAINS QUARTERS (CRIME SCENE)" />
                 <MenuItem mnemonicParsing="false" onAction="#onSwitchToMaidRoom" styleClass="nav-button" text="MAID (BEDROOM)" />
                 <MenuItem mnemonicParsing="false" onAction="#onSwitchToBar" styleClass="nav-button" text="BARTENDER (BAR)" />
                 <MenuItem mnemonicParsing="false" onAction="#onSwitchToDeck" styleClass="nav-button" text="FIRST MATE (DECK)" />
