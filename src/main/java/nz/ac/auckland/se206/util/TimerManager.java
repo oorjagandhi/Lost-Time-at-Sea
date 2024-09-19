@@ -26,7 +26,7 @@ public class TimerManager {
   private boolean canGuess = true;
 
   private TimerManager() {
-    this.time = 20; // initial time of 5 minutes
+    this.time = 300; // initial time of 5 minutes
   }
 
   public void configureTimer() {

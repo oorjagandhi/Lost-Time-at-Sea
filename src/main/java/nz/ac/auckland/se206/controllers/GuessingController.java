@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
@@ -41,25 +42,50 @@ public class GuessingController {
 
   @FXML private ImageView suspectSailor;
 
+  @FXML private Button submitGuessButton;
+
   @FXML
   private void initialize() throws IOException {
     // Set up hover effect for suspects
     setupHoverEffect(suspectMaid);
     setupHoverEffect(suspectBartender);
     setupHoverEffect(suspectSailor);
+
+    bindSubmitButtonVisibility();
+  }
+
+  // Bind the visibility of the submit button to the explanation text area
+  private void bindSubmitButtonVisibility() {
+    explanationTextArea
+        .textProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              updateSubmitButtonVisibility();
+            });
+  }
+
+  // Update the visibility of the submit button based on the explanation text area
+  private void updateSubmitButtonVisibility() {
+    boolean isInputValid =
+        selectedSuspect != null && !explanationTextArea.getText().trim().isEmpty();
+    submitGuessButton.setVisible(isInputValid);
+    submitGuessButton.setManaged(isInputValid);
   }
 
   private void setupHoverEffect(ImageView suspect) {
     // Apply hover effect
     suspect.setOnMouseEntered(
         event -> {
-          suspect.setStyle("-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);");
+          // Only apply the yellow shadow if it's not the selected suspect
+          if (!suspect.getId().equals(selectedSuspect)) {
+            suspect.setStyle("-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);");
+          }
         });
 
     // Remove hover effect when not hovering
     suspect.setOnMouseExited(
         event -> {
-          // Only remove hover effect if it's not the selected suspect
+          // Only remove the hover effect if it's not the selected suspect
           if (!suspect.getId().equals(selectedSuspect)) {
             suspect.setStyle("");
           }
@@ -69,18 +95,24 @@ public class GuessingController {
   @FXML
   private void handleSuspectClick(MouseEvent event) {
     ImageView source = (ImageView) event.getSource();
-    // Remove the red glow from previously selected suspect if any
+
+    // Clear the red outline from the previously selected suspect, if any
     if (selectedSuspect != null) {
-      Node previouslySelected = suspectMaid.getScene().lookup("#" + selectedSuspect);
+      // Find the previously selected suspect by its ID and remove the red outline
+      Node previouslySelected = explanationBox.getScene().lookup("#" + selectedSuspect);
       if (previouslySelected != null) {
-        previouslySelected.setStyle("");
+        previouslySelected.setStyle(""); // Remove the red outline
       }
     }
-    // Apply red glow to the selected suspect
+
+    // Set the red outline for the newly selected suspect
     source.setStyle("-fx-effect: dropshadow(gaussian, red, 20, 0.8, 0, 0);");
-    selectedSuspect = source.getId(); // Get the ID of the clicked suspect
-    updateWhyLabel(); // Update the label with the selected suspect's name
-    fadeInExplanationBox(); // Show the explanation text box with fade-in effect
+    selectedSuspect = source.getId(); // Update the selected suspect ID
+
+    // Update other UI elements based on the selected suspect
+    updateWhyLabel();
+    fadeInExplanationBox();
+    updateSubmitButtonVisibility();
   }
 
   private void updateWhyLabel() {

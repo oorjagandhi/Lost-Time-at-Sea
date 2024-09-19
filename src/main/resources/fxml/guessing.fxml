@@ -13,11 +13,12 @@
 <AnchorPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.GuessingController"
             prefHeight="605.0" prefWidth="835.0">
     <children>
+      <StackPane layoutY="10.0" prefWidth="835.0">
+        <fx:include source="timer.fxml" />
+      </StackPane>
         <!-- Main container to center everything -->
         <VBox alignment="CENTER" prefHeight="605.0" prefWidth="835.0" spacing="20.0">
-            <StackPane layoutY="10.0" prefWidth="835.0">
-                <fx:include source="timer.fxml" />
-            </StackPane>
+            
             <!-- Instruction text -->
             <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Guess who stole the captain's watch" />
             <!-- Container for the suspect rectangles -->
@@ -42,11 +43,11 @@
             <!-- TextBox for why the selected person is the thief, initially hidden -->
             <VBox fx:id="explanationBox" alignment="CENTER" managed="false" spacing="10.0" visible="false">
                 <Label fx:id="whyLabel" text="Why is [person selected] the thief?" />
-                <TextArea fx:id="explanationTextArea" prefRowCount="4" wrapText="true" />
+                <TextArea fx:id="explanationTextArea" style="-fx-control-inner-background: white;" prefRowCount="4" wrapText="true" maxWidth="600.0" />
             </VBox>
 
             <!-- Button to submit the guess -->
-            <Button onAction="#handleSubmitGuess" text="Submit Guess" />
+            <Button fx:id="submitGuessButton" text="Submit Guess" onAction="#handleSubmitGuess" visible="false" managed="false"/>
         </VBox>
     </children>
 </AnchorPane>
