@@ -214,6 +214,19 @@ public class RoomController extends SoundPlayer {
     System.out.println("Suspect clicked");
     Node source = (Node) event.getSource();
     String suspectId = source.getId(); // e.g., "suspectMaid" or "suspectBartender"
+
+    // Check if the game is in the guessing state
+    if (context.getState().equals(context.getGuessingState())) {
+      try {
+        // Call handleRectangleClick to make a guess
+        context.handleRectangleClick(event, suspectId);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      return; // Exit early since we are making a guess
+    }
+
+    // If not in the guessing state, proceed with the regular interaction
     chatController.clearChat();
     updateGuessButtonAvailability();
 
@@ -247,13 +260,24 @@ public class RoomController extends SoundPlayer {
    */
   @FXML
   private void handleGuessClick(ActionEvent event) throws IOException {
-    // Check if the player is ready to guess
     if (context.canGuess()) {
-      // Set the game state to guessing if the player has interacted with the required elements
       context.setState(context.getGuessingState());
       System.out.println("Transitioning to guessing state. Ready to make a guess.");
+
+      // Load the guessing screen
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/guessing.fxml"));
+      Parent root = loader.load();
+
+      // Get the controller of the guessing.fxml
+      GuessingController guessingController = loader.getController();
+      // Pass the context to the GuessingController
+      guessingController.setContext(context);
+
+      Scene scene = new Scene(root);
+      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      stage.setScene(scene);
+      stage.show();
     } else {
-      // Inform the player that they need to interact with both a clue and a suspect
       System.out.println("You must interact with both a clue and a suspect before you can guess.");
     }
   }
