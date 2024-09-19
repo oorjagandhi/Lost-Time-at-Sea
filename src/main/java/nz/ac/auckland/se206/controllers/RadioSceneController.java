@@ -7,6 +7,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -37,7 +38,15 @@ public class RadioSceneController {
     }
     increaseFrequency.setOnMouseClicked(event -> handleIncreaseClick(event));
     decreaseFrequency.setOnMouseClicked(event -> handleDecreaseClick(event));
+
+    // deal with the hovering effect
     play.setOnMouseClicked(event -> handlePlayClick(event));
+    increaseFrequency.setOnMouseEntered(this::handleMouseEnter);
+    decreaseFrequency.setOnMouseEntered(this::handleMouseEnter);
+    play.setOnMouseEntered(this::handleMouseEnter);
+    increaseFrequency.setOnMouseExited(this::handleMouseExit);
+    decreaseFrequency.setOnMouseExited(this::handleMouseExit);
+    play.setOnMouseExited(this::handleMouseExit);
   }
 
   /**
@@ -100,6 +109,18 @@ public class RadioSceneController {
 
     isPlayingaudio = false;
     backgroundTask.cancel();
+  }
+
+  private void handleMouseEnter(MouseEvent event) {
+    ImageView imageView = (ImageView) event.getSource();
+    imageView.setCursor(Cursor.HAND);
+    imageView.setStyle("-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);");
+  }
+
+  private void handleMouseExit(MouseEvent event) {
+    ImageView imageView = (ImageView) event.getSource();
+    imageView.setCursor(Cursor.DEFAULT);
+    imageView.setStyle("");
   }
 
   /**
