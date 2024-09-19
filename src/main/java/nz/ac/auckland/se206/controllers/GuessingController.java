@@ -120,7 +120,7 @@ public class GuessingController {
         Parent root = loader.load();
         FeedbackController feedbackController = loader.getController();
         // Evaluate the explanation using OpenAI
-        String responseContent = evaluateExplanation(userExplanation);
+        String responseContent = evaluateExplanation(selectedSuspect, userExplanation);
         Platform.runLater(
             () -> {
               feedbackController.updateResponseText(responseContent);
@@ -144,21 +144,97 @@ public class GuessingController {
     }
   }
 
-  private String evaluateExplanation(String userExplanation) {
+  private String evaluateExplanation(String selectedSuspect, String userExplanation) {
+    System.out.println("Selected Suspect: " + selectedSuspect);
     // Prepare the prompt
     String prompt =
-        "You are an AI assistant tasked with evaluating a player's explanation for their guess in a"
-            + " game.\n"
-            + "The player has guessed that "
-            + selectedSuspect.substring(7)
-            + " is the thief.\n"
+        "You are an AI assistant in a mystery game where the player must identify the thief who"
+            + " stole the captain's watch on a ship. Your task is to analyze the player's"
+            + " explanation of who they believe the thief is and why. Based on their explanation,"
+            + " provide feedback according to the following guidelines.\n"
+            + "Game Context:\n"
+            + "Thief: The bartender is the actual thief.\n"
+            + "Suspects: The bartender, the first mate, and the maid.\n"
+            + "Clues:\n"
+            + "Crumpled paper of speech (Clue 1):\n"
+            + "Found in the crime scene.\n"
+            + "Contains a speech draft by the first mate.\n"
+            + "Indicates the first mate wants to replace the captain.\n"
+            + "Radio Recording (Clue 2):\n"
+            + "Features a female voice talking to her mother about needing money for her sick"
+            + " younger brother.\n"
+            + "Suggests a motive related to financial need.\n"
+            + "Voice could belong to the bartender or the maid.\n"
+            + "Floor board (Clue 3):\n"
+            + "A loose floorboard in the captain's cabin.\n"
+            + "Contains a missing earring and cleaning supplies.\n"
+            + "The bartender mentions she lost an earring.\n"
+            + "Links the bartender to the crime scene.\n"
+            + "Cleaning Supplies (Clue 4):\n"
+            + "Also found under the loose floorboard in the captain's cabin.\n"
+            + "The maid mentions that some of her cleaning supplies are missing.\n"
+            + "This is a red herring intended to mislead the player into suspecting the maid.\n"
+            + "The bartender took the cleaning supplies to clean up after the robbery and"
+            + " inadvertently left them under the floorboard.\n"
+            + "Additional Details:\n"
+            + "Bartender's Motive:\n"
+            + "Needs money for her sick younger brother's medical treatment.\n"
+            + "Admits her brother is ill when asked.\n"
+            + "May have taken the maid's cleaning supplies to cover her tracks after stealing the"
+            + " watch.\n"
+            + "First Mate's Motive:\n"
+            + "Dislikes the captain and believes she could lead better.\n"
+            + "Plans to overthrow the captain.\n"
+            + "Reveals her dissatisfaction when questioned.\n"
+            + "Maid's Motive:\n"
+            + "Feels mistreated by other crewmates who treat her poorly.\n"
+            + "Wants to leave the ship due to the mistreatment.\n"
+            + "Mentions that her cleaning supplies are missing, suggesting someone may have taken"
+            + " them.\n"
+            + "The presence of her cleaning supplies under the floorboard serves as a red"
+            + " herring.\n"
+            + "Your Task:\n"
+            + "Analyze the Player's Explanation:\n"
+            + "Determine if the player correctly identified the thief (the bartender).\n"
+            + "Assess whether their explanation correctly references the relevant clues.\n"
+            + "Provide Feedback Based on Three Possible Outcomes:\n"
+            + "Outcome 1: Incorrect Guess or No Guess\n"
+            + "Inform the player that their guess is incorrect.\n"
+            + "Tell them to try again, and to chat to suspects more and take a closer look at the"
+            + " clues.\n"
+            + "Do not mention the actual thief, and do not mention specific clues.\n"
+            + "Outcome 2: Correct Guess with Incorrect/Incomplete Explanation\n"
+            + "Acknowledge that they guessed the correct thief.\n"
+            + "Point out that their explanation is missing key details or contains inaccuracies.\n"
+            + "Encourage them by mentioning the relevant clues they should consider.\n"
+            + "Outcome 3: Correct Guess with Correct Explanation\n"
+            + "Praise the player for correctly identifying the thief.\n"
+            + "Confirm that their reasoning is accurate and well-supported by the clues.\n"
+            + "Encourage them to continue their good investigative work.\n"
+            + "Formatting and Tone:\n"
+            + "Address the player directly in a friendly and encouraging manner.\n"
+            + "Keep the feedback concise and focused on the player's explanation.\n"
+            + "Do not reveal unnecessary game details or additional spoilers.\n"
+            + "Instructions for Generating the Response:\n"
+            + "Step 1: Identify which outcome applies based on the player's explanation.\n"
+            + "Step 2: Craft a response according to the guidelines for that outcome.\n"
+            + "Step 3: Use the following structure in your response:\n"
+            + "For Outcome 1:\n"
+            + "You guessed incorrect.\n"
+            + "Encourage them to try again.\n"
+            + "For Outcome 2:\n"
+            + "Acknowledge the correct guess.\n"
+            + "Point out inaccuracies or missing details in their explanation.\n"
+            + "Correct their explanation by mentioning the relevant clues.\n"
+            + "For Outcome 3:\n"
+            + "Congratulate the player.\n"
+            + "Affirm the correctness of their explanation.\n"
+            + "Encourage them to keep up the good work.\n"
+            + "The player guessed that the thief is the "
+            + selectedSuspect
             + "Their explanation is: \""
             + userExplanation
-            + "\"\n"
-            + "Based on the game context, please determine if the explanation is correct or"
-            + " incorrect, and provide feedback.\n"
-            + "If the explanation is correct, respond with 'Correct: [Your feedback]'.\n"
-            + "If the explanation is incorrect, respond with 'Incorrect: [Your feedback]'.\n";
+            + "\"";
 
     // Call OpenAI API to evaluate the explanation
     try {

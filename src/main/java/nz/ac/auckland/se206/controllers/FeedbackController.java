@@ -20,7 +20,7 @@ public class FeedbackController {
   // Method to update the text
   public void updateStatus(boolean won) {
     System.out.println("Updating response text to: " + won);
-    status.setText(won ? "won" : "lost");
+    status.setText(won ? "You guessed the correct thief!" : "You guessed the incorrect thief.");
     if (won) {
       room.setStyle("-fx-background-color: green;");
     } else {
