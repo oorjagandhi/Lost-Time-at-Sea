@@ -44,25 +44,26 @@ public class Guessing implements GameState {
    */
   @Override
   public void handleRectangleClick(MouseEvent event, String rectangleId) throws IOException {
-    // Check if the clicked rectangle is the correct one
-    if (rectangleId.equals(context.getRectIdToGuess())) {
+    // Check if the clicked rectangle is the bartender
+    if (rectangleId.equals("suspectBartender")) {
       timerManager.stopTimer();
       playSound("/sounds/correct.mp3");
-      // Transition to game over state
+      // Transition to game over state with a win
       context.setState(context.getGameOverState());
       System.out.println("Correct! You guessed the thief");
-      // Load the game over screen
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/you_win.fxml"));
+      // Load the game over screen for winning
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/feedback.fxml"));
       Parent root = loader.load();
       Scene scene = new Scene(root);
       App.getStage().setScene(scene);
       App.getStage().show();
     } else {
       playSound("/sounds/wrong.mp3");
-      // Transition to game over state
+      // Transition to game over state with a loss
       context.setState(context.getGameOverState());
-      // Load the game over screen
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/you_lose.fxml"));
+      System.out.println("Incorrect! You guessed the wrong suspect");
+      // Load the game over screen for losing
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/feedback.fxml"));
       Parent root = loader.load();
       Scene scene = new Scene(root);
       App.getStage().setScene(scene);

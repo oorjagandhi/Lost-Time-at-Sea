@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="room" prefHeight="605.0" prefWidth="835.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.FeedbackController">
+    <children>
+        <Text fx:id="responseText" layoutX="50.0" layoutY="50.0" text="Your text here" />
+
+    </children>
+</AnchorPane>

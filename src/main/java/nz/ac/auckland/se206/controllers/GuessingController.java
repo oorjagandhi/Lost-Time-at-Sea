@@ -3,13 +3,22 @@ package nz.ac.auckland.se206.controllers;
 import java.io.IOException;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionRequest;
+import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionResult;
+import nz.ac.auckland.apiproxy.chat.openai.ChatMessage;
+import nz.ac.auckland.apiproxy.chat.openai.Choice;
+import nz.ac.auckland.apiproxy.config.ApiProxyConfig;
+import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.GameStateContext;
 
 public class GuessingController {
@@ -29,16 +38,22 @@ public class GuessingController {
 
   @FXML private ImageView suspectSailor;
 
+  @FXML private FeedbackController feedbackController;
+
   public void setContext(GameStateContext context) {
     this.context = context;
   }
 
   @FXML
-  private void initialize() {
+  private void initialize() throws IOException {
     // Set up hover effect for suspects
     setupHoverEffect(suspectMaid);
     setupHoverEffect(suspectBartender);
     setupHoverEffect(suspectSailor);
+
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/feedback.fxml"));
+    loader.load();
+    feedbackController = loader.getController();
   }
 
   private void setupHoverEffect(ImageView suspect) {
@@ -100,13 +115,68 @@ public class GuessingController {
       try {
         // Call handleRectangleClick to make a guess
         context.handleRectangleClick(null, selectedSuspect);
+
+        // Get the user's explanation
+        String userExplanation = explanationTextArea.getText().trim();
+
+        // Evaluate the explanation using OpenAI
+        evaluateExplanation(userExplanation);
+
       } catch (IOException e) {
         e.printStackTrace();
       }
     } else {
-      // Show some error message or handle the case where no suspect is selected or explanation is
-      // missing
-      System.out.println("Please select a suspect and provide an explanation.");
+      // Show an error message if no suspect is selected or explanation is missing
+      Alert alert = new Alert(AlertType.WARNING);
+      alert.setTitle("Incomplete Submission");
+      alert.setHeaderText(null);
+      alert.setContentText("Please select a suspect and provide an explanation.");
+      alert.showAndWait();
+    }
+  }
+
+  private void evaluateExplanation(String userExplanation) {
+    // Prepare the prompt
+    String prompt =
+        "You are an AI assistant tasked with evaluating a player's explanation for their guess in a"
+            + " game.\n"
+            + "The player has guessed that "
+            + selectedSuspect.substring(7)
+            + " is the thief.\n"
+            + "Their explanation is: \""
+            + userExplanation
+            + "\"\n"
+            + "Based on the game context, please determine if the explanation is correct or"
+            + " incorrect, and provide feedback.\n"
+            + "If the explanation is correct, respond with 'Correct: [Your feedback]'.\n"
+            + "If the explanation is incorrect, respond with 'Incorrect: [Your feedback]'.\n";
+
+    // Call OpenAI API to evaluate the explanation
+    try {
+      ApiProxyConfig config = ApiProxyConfig.readConfig();
+      ChatCompletionRequest chatCompletionRequest =
+          new ChatCompletionRequest(config)
+              .setN(1)
+              .setTemperature(0.1)
+              .setTopP(0.3)
+              .setMaxTokens(150);
+
+      ChatMessage systemMessage = new ChatMessage("system", prompt);
+      chatCompletionRequest.addMessage(systemMessage);
+
+      // Execute the request
+      ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
+      Choice result = chatCompletionResult.getChoices().iterator().next();
+      ChatMessage responseMessage = result.getChatMessage();
+
+      // Process the response
+      String responseContent = responseMessage.getContent();
+      feedbackController.updateResponseText(responseContent);
+
+      System.out.println("Response: " + responseContent);
+
+    } catch (ApiProxyException e) {
+      e.printStackTrace();
     }
   }
 }
