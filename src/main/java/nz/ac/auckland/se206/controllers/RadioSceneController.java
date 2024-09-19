@@ -1,22 +1,21 @@
 package nz.ac.auckland.se206.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import java.io.IOException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class RadioSceneController {
   private boolean isPlayingaudio = false;
@@ -26,6 +25,29 @@ public class RadioSceneController {
   private int totalAudios = 5;
 
   @FXML private ImageView frequencyImage;
+  @FXML private ImageView increaseFrequency;
+  @FXML private ImageView decreaseFrequency;
+  @FXML private ImageView play;
+
+  @FXML
+  private void initialize() {
+    if (increaseFrequency != null && decreaseFrequency != null && play != null) {
+      increaseFrequency.setCursor(javafx.scene.Cursor.HAND);
+      decreaseFrequency.setCursor(javafx.scene.Cursor.HAND);
+      play.setCursor(javafx.scene.Cursor.HAND);
+    }
+    increaseFrequency.setOnMouseClicked(event -> handleIncreaseClick(event));
+    decreaseFrequency.setOnMouseClicked(event -> handleDecreaseClick(event));
+
+    // deal with the hovering effect
+    play.setOnMouseClicked(event -> handlePlayClick(event));
+    increaseFrequency.setOnMouseEntered(this::handleMouseEnter);
+    decreaseFrequency.setOnMouseEntered(this::handleMouseEnter);
+    play.setOnMouseEntered(this::handleMouseEnter);
+    increaseFrequency.setOnMouseExited(this::handleMouseExit);
+    decreaseFrequency.setOnMouseExited(this::handleMouseExit);
+    play.setOnMouseExited(this::handleMouseExit);
+  }
 
   /**
    * the play button is clicked if the audio is playing, pause it. if the audio is paused, play it
@@ -33,7 +55,7 @@ public class RadioSceneController {
    * @param event
    */
   @FXML
-  private void onPlay(ActionEvent event) {
+  private void handlePlayClick(MouseEvent event) {
     System.out.println("Play button clicked");
     if (isPlayingaudio) {
       // pause the audio
@@ -52,7 +74,7 @@ public class RadioSceneController {
    * @param event
    */
   @FXML
-  private void onDecreaseFrequency(ActionEvent event) {
+  private void handleDecreaseClick(MouseEvent event) {
     System.out.println("Decrease Frequency button clicked");
     stopAudio();
     frequency--;
@@ -69,7 +91,7 @@ public class RadioSceneController {
    * @param event
    */
   @FXML
-  private void onIncreaseFrequency(ActionEvent event) {
+  private void handleIncreaseClick(MouseEvent event) {
     System.out.println("Increase Frequency button clicked");
     stopAudio();
     frequency++;
@@ -87,6 +109,18 @@ public class RadioSceneController {
 
     isPlayingaudio = false;
     backgroundTask.cancel();
+  }
+
+  private void handleMouseEnter(MouseEvent event) {
+    ImageView imageView = (ImageView) event.getSource();
+    imageView.setCursor(Cursor.HAND);
+    imageView.setStyle("-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);");
+  }
+
+  private void handleMouseExit(MouseEvent event) {
+    ImageView imageView = (ImageView) event.getSource();
+    imageView.setCursor(Cursor.DEFAULT);
+    imageView.setStyle("");
   }
 
   /**
@@ -163,11 +197,11 @@ public class RadioSceneController {
     Thread backgroundThread = new Thread(backgroundTask);
     backgroundThread.start();
   }
-  
+
   @FXML
   private void onBackButtonAction(ActionEvent event) {
     stopAudio();
-    try{
+    try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/crime-scene.fxml"));
       Parent root = loader.load();
       Node source = (Node) event.getSource();
@@ -177,8 +211,6 @@ public class RadioSceneController {
       stage.show();
     } catch (IOException e) {
       e.printStackTrace();
-
     }
   }
-
 }
