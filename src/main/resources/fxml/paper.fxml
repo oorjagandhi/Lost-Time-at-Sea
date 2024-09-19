@@ -19,7 +19,7 @@
               </ImageView>
             <ImageView fitHeight="605.0" fitWidth="859.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/clues/paper-closeup2.png" />
+                  <Image url="@../images/clues/paper-closeup3.png" />
                </image>
             </ImageView>
               <StackPane layoutX="327.0" layoutY="53.0" prefHeight="83.0" prefWidth="135.0">

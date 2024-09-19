@@ -16,7 +16,7 @@
           <children>
             <ImageView fitHeight="605.0" fitWidth="835.0" preserveRatio="false">
                <image>
-                  <Image url="@../images/clues/crimescene.png" />
+                  <Image url="@../images/clues/crimescene2.png" />
                </image>
             </ImageView>
             <ImageView fx:id="radioImageView" fitHeight="124.0" fitWidth="186.0" layoutX="151.0" layoutY="188.0" onMouseClicked="#handleRadioClick" pickOnBounds="true" preserveRatio="true">
@@ -39,9 +39,9 @@
               </StackPane>
           
               
-              <ImageView fx:id="paperImageView" fitHeight="47.0" fitWidth="53.0" layoutX="528.0" layoutY="473.0" onMouseClicked="#handlePaperClick" pickOnBounds="true" preserveRatio="true">
+              <ImageView fx:id="paperImageView" fitHeight="47.0" fitWidth="53.0" layoutX="560.0" layoutY="469.0" onMouseClicked="#handlePaperClick" pickOnBounds="true" preserveRatio="true">
                   <image>
-                      <Image url="@../images/crumple-1.png" />
+                      <Image url="@../images/clues/paper.png" />
                   </image>
               </ImageView>
 
