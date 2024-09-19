@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.StackPane?>
+<AnchorPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.GuessingController"
+            prefHeight="605.0" prefWidth="835.0">
+    <children>
+      <StackPane layoutY="10.0" prefWidth="835.0">
+        <fx:include source="timer.fxml" />
+      </StackPane>
+        <!-- Main container to center everything -->
+        <VBox alignment="CENTER" prefHeight="605.0" prefWidth="835.0" spacing="20.0">
+            
+            <!-- Instruction text -->
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Guess who stole the captain's watch" />
+            <!-- Container for the suspect rectangles -->
+            <HBox alignment="CENTER" spacing="20.0">
+                <ImageView fx:id="suspectMaid" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#handleSuspectClick" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/maid-circle.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="suspectBartender" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#handleSuspectClick" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/bartender-circle.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="suspectSailor" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#handleSuspectClick" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/sailor-circle.png" />
+                    </image>
+                </ImageView>
+            </HBox>
+
+            <!-- TextBox for why the selected person is the thief, initially hidden -->
+            <VBox fx:id="explanationBox" alignment="CENTER" managed="false" spacing="10.0" visible="false">
+                <Label fx:id="whyLabel" text="Why is [person selected] the thief?" />
+                <TextArea fx:id="explanationTextArea" style="-fx-control-inner-background: white;" prefRowCount="4" wrapText="true" maxWidth="600.0" />
+            </VBox>
+
+            <!-- Button to submit the guess -->
+            <Button fx:id="submitGuessButton" text="Submit Guess" onAction="#handleSubmitGuess" visible="false" managed="false"/>
+        </VBox>
+    </children>
+</AnchorPane>

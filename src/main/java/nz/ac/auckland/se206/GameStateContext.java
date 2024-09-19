@@ -2,7 +2,9 @@ package nz.ac.auckland.se206;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import javafx.scene.input.MouseEvent;
 import nz.ac.auckland.se206.states.GameOver;
 import nz.ac.auckland.se206.states.GameStarted;
@@ -22,11 +24,15 @@ public class GameStateContext {
   private final GameOver gameOverState;
   private GameState gameState;
   private boolean clueInteracted = false;
+  private Set<String> suspectsInteracted;
   private boolean suspectInteracted = false;
+  private boolean won = false;
   private Runnable updateGuessButtonStateCallback;
 
+  private static GameStateContext gameStateContext;
+
   /** Constructs a new GameStateContext and initializes the game states and professions. */
-  public GameStateContext() {
+  private GameStateContext() {
     gameStartedState = new GameStarted(this);
     guessingState = new Guessing(this);
     gameOverState = new GameOver(this);
@@ -36,6 +42,15 @@ public class GameStateContext {
     rectanglesToProfession.put("rectSecurity", "Security");
     rectanglesToProfession.put("rectArtist", "Artist");
     rectanglesToProfession.put("rectCollector", "Collector");
+
+    suspectsInteracted = new HashSet<>();
+  }
+
+  public static GameStateContext getInstance() {
+    if (gameStateContext == null) {
+      gameStateContext = new GameStateContext();
+    }
+    return gameStateContext;
   }
 
   /**
@@ -123,13 +138,21 @@ public class GameStateContext {
     updateGuessButtonState();
   }
 
-  public void setSuspectInteracted(boolean interacted) {
-    this.suspectInteracted = interacted;
+  public void setSuspectInteracted(String suspectId) {
+    suspectsInteracted.add(suspectId);
     updateGuessButtonState();
   }
 
   public boolean canGuess() {
-    return clueInteracted && suspectInteracted;
+    return clueInteracted && suspectsInteracted.size() >= 3;
+  }
+
+  public boolean isWon() {
+    return won;
+  }
+
+  public void setWon(boolean won) {
+    this.won = won;
   }
 
   public void setUpdateGuessButtonStateCallback(Runnable callback) {

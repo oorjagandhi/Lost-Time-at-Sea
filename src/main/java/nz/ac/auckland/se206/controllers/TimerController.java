@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.media.MediaPlayer;
 import nz.ac.auckland.se206.App;
+import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.util.SoundPlayer;
 import nz.ac.auckland.se206.util.TimerManager;
 
@@ -22,15 +23,48 @@ public class TimerController extends SoundPlayer {
 
   @FXML
   public void initialize() {
-    // Initial label update
     updateTimerLabel();
-    // Start the timer if not already running
     if (!timerManager.isTimerRunning()) {
       timerManager.startTimer();
     }
 
-    // Register an update method to be called every second
+    timerManager.setGuessingStartListener(this::switchToGuessingScene);
+
     timerManager.setTickListener(this::updateTimerLabel);
+
+    if (!timerManager.isTimerRunning()) {
+      timerManager.startTimer();
+    }
+  }
+
+  private void switchToGuessingScene() {
+    // Ensure UI updates are performed on the JavaFX application thread
+    Platform.runLater(
+        () -> {
+          GameStateContext context = GameStateContext.getInstance();
+          timerManager.setCanGuess(context.canGuess());
+          context.setState(context.getGuessingState());
+        });
+
+    // Load and switch to the guessing scene
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/guessing.fxml"));
+
+    switchScene(loader);
+  }
+
+  private void switchScene(FXMLLoader loader) {
+    Platform.runLater(
+        () -> {
+          try {
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            App.getStage().setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            App.getStage().show();
+          } catch (IOException e) {
+            e.printStackTrace(); // Handle exceptions appropriately
+          }
+        });
   }
 
   private void updateTimerLabel() {
@@ -45,15 +79,15 @@ public class TimerController extends SoundPlayer {
                 timerManager.isGuessTime() ? "-fx-text-fill: red;" : "-fx-text-fill: white;");
           } else {
             timerManager.stopTimer();
-            showYouLoose();
+            noTime();
             // playSound("/sounds/outoftime.mp3");
           }
         });
   }
 
-  private void showYouLoose() {
+  private void noTime() {
     // goes to the loss scene if the player has lost
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/you_lose.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/feedback-notime.fxml"));
     Parent root;
     try {
       root = loader.load();

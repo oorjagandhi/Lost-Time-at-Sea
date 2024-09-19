@@ -35,12 +35,11 @@ import nz.ac.auckland.se206.util.TimerManager;
 public class RoomController extends SoundPlayer {
 
   private static boolean isFirstTimeInit = true;
-  private static GameStateContext context = new GameStateContext();
+  private static GameStateContext context = GameStateContext.getInstance();
   private String currentSuspect;
 
   @FXML private ImageView radioImageView;
   @FXML private ImageView floorBoardImageView;
-
 
   @FXML private Rectangle rectSecurity;
   @FXML private Rectangle rectArtist;
@@ -77,8 +76,6 @@ public class RoomController extends SoundPlayer {
   @FXML
   public void initialize() throws IOException {
     System.out.println("Initializing RoomController...");
-
-    timerManager.setGuessingStartListener(this::guessingStartListener);
 
     updateGuessButtonState();
     context.setUpdateGuessButtonStateCallback(this::updateGuessButtonAvailability);
@@ -215,21 +212,36 @@ public class RoomController extends SoundPlayer {
     System.out.println("Suspect clicked");
     Node source = (Node) event.getSource();
     String suspectId = source.getId(); // e.g., "suspectMaid" or "suspectBartender"
+
+    // Check if the game is in the guessing state
+    if (context.getState().equals(context.getGuessingState())) {
+      try {
+        // Call handleRectangleClick to make a guess
+        context.handleRectangleClick(event, suspectId);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      return; // Exit early since we are making a guess
+    }
+
+    // If not in the guessing state, proceed with the regular interaction
     chatController.clearChat();
     updateGuessButtonAvailability();
-    context.setSuspectInteracted(true);
 
     // Handle the suspect interaction
     switch (suspectId) {
       case "suspectMaid":
+        context.setSuspectInteracted("maid");
         currentSuspect = "maid";
         showChat("maid");
         break;
       case "suspectBartender":
+        context.setSuspectInteracted("bartender");
         currentSuspect = "bartender";
         showChat("bartender");
         break;
       case "suspectSailor":
+        context.setSuspectInteracted("sailor");
         currentSuspect = "sailor";
         showChat("sailor");
         break;
@@ -246,13 +258,22 @@ public class RoomController extends SoundPlayer {
    */
   @FXML
   private void handleGuessClick(ActionEvent event) throws IOException {
-    // Check if the player is ready to guess
     if (context.canGuess()) {
-      // Set the game state to guessing if the player has interacted with the required elements
       context.setState(context.getGuessingState());
       System.out.println("Transitioning to guessing state. Ready to make a guess.");
+
+      // Load the guessing screen
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/guessing.fxml"));
+      Parent root = loader.load();
+
+      Scene scene = new Scene(root);
+
+      scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+
+      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      stage.setScene(scene);
+      stage.show();
     } else {
-      // Inform the player that they need to interact with both a clue and a suspect
       System.out.println("You must interact with both a clue and a suspect before you can guess.");
     }
   }
@@ -261,7 +282,7 @@ public class RoomController extends SoundPlayer {
   private void handleSecurityClick(MouseEvent event) throws IOException {
     // handles opening the chat for the security and updates suspect interaction
     chatController.clearChat();
-    context.setSuspectInteracted(true);
+    context.setSuspectInteracted("rectSecurity");
     updateGuessButtonAvailability();
     // Open chat with the security guard
     if (context.getState().equals(context.getGuessingState())) {
@@ -277,7 +298,7 @@ public class RoomController extends SoundPlayer {
     // handles opening the chat for the collector and updates suspect itneraction
     chatController.clearChat();
     updateGuessButtonAvailability();
-    context.setSuspectInteracted(true);
+    context.setSuspectInteracted("rectCollector");
     if (context.getState().equals(context.getGuessingState())) {
       context.handleRectangleClick(event, "rectCollector");
     } else {
@@ -291,55 +312,12 @@ public class RoomController extends SoundPlayer {
     // handles opening the cha tfor the artist and updates suspect interaction
     chatController.clearChat();
     updateGuessButtonAvailability();
-    context.setSuspectInteracted(true);
+    context.setSuspectInteracted("rectArtist");
     if (context.getState().equals(context.getGuessingState())) {
       context.handleRectangleClick(event, "rectArtist");
     } else {
       showChat("artist");
       System.out.println("artist");
-    }
-  }
-
-  @FXML
-  private void handleBartenderClick(MouseEvent event) throws IOException {
-    // handles opening the chat for the bartender and updates suspect interaction
-    System.out.println("PLEASEPLAESEPLAESE");
-    chatController.clearChat();
-    updateGuessButtonAvailability();
-    context.setSuspectInteracted(true);
-    if (context.getState().equals(context.getGuessingState())) {
-      context.handleRectangleClick(event, "suspectBartender");
-    } else {
-      showChat("bartender");
-      System.out.println("bartender");
-    }
-  }
-
-  @FXML
-  private void handleMaidClick(MouseEvent event) throws IOException {
-    // handles opening the chat for the maid and updates suspect interaction
-    chatController.clearChat();
-    updateGuessButtonAvailability();
-    context.setSuspectInteracted(true);
-    if (context.getState().equals(context.getGuessingState())) {
-      context.handleRectangleClick(event, "suspectMaid");
-    } else {
-      showChat("maid");
-      System.out.println("maid");
-    }
-  }
-
-  @FXML
-  private void handleSailorClick(MouseEvent event) throws IOException {
-    // handles opening the chat for the sailor and updates suspect interaction
-    chatController.clearChat();
-    updateGuessButtonAvailability();
-    context.setSuspectInteracted(true);
-    if (context.getState().equals(context.getGuessingState())) {
-      context.handleRectangleClick(event, "suspectMaid");
-    } else {
-      showChat("maid");
-      System.out.println("maid");
     }
   }
 
@@ -454,10 +432,9 @@ public class RoomController extends SoundPlayer {
     }
   }
 
-
-
   @FXML
   private void handleRadioClick(MouseEvent event) {
+    context.setClueInteracted(true);
     System.out.println("Radio clicked, attempting to load radio.fxml...");
     try {
       // Load the FXML file for the radio scene
@@ -575,6 +552,7 @@ public class RoomController extends SoundPlayer {
 
   @FXML
   private void handlePaperClick(MouseEvent event) {
+    context.setClueInteracted(true);
     System.out.println("Paper clicked, attempting to load paper.fxml...");
     try {
       // Load the FXML file for the paper scene
@@ -642,5 +620,13 @@ public class RoomController extends SoundPlayer {
       }
     }
     suspectIcon.setImage(new Image(getClass().getResourceAsStream(imagePath)));
+  }
+
+  @FXML
+  private void handleClueClick(MouseEvent event) {
+    // Assuming this method is triggered by clicking on a clue
+    context.setClueInteracted(true);
+    updateGuessButtonAvailability();
+    // Additional code for clue interaction...
   }
 }

@@ -15,18 +15,18 @@ public class TimerManager {
   }
 
   private Timeline timeline;
-
   private int time;
-  private int guessTime = 10;
+  private int guessTime = 60; // 1 min to guess
 
   private Runnable tickListener;
   private Runnable guessingStartListener;
+  private Runnable guessTimeEndListener; // Add this line
 
   private boolean isGuessTime = false;
   private boolean canGuess = true;
 
   private TimerManager() {
-    this.time = 120; // initial time of 2 minutes
+    this.time = 300; // initial time of 5 minutes
   }
 
   public void configureTimer() {
@@ -69,7 +69,10 @@ public class TimerManager {
 
   private void onFinishGuessTimer() {
     timeline.stop();
-    // Implement what happens when the guess timer finishes
+    if (guessTimeEndListener != null) {
+      guessTimeEndListener.run();
+    }
+    // Other logic if required
   }
 
   public void startTimer() {
@@ -103,11 +106,23 @@ public class TimerManager {
     this.guessingStartListener = guessingStartListener;
   }
 
+  public void setGuessTimeEndListener(Runnable guessTimeEndListener) {
+    this.guessTimeEndListener = guessTimeEndListener;
+  }
+
   public void setCanGuess(boolean canGuess) {
     this.canGuess = canGuess;
   }
 
   public boolean isCanGuess() {
     return canGuess;
+  }
+
+  public void resetTimer() {
+    stopTimer();
+    this.time = 300; // 5 min timer
+    this.isGuessTime = false;
+    this.canGuess = true;
+    configureTimer(); // Reconfigure the timer
   }
 }
