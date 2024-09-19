@@ -134,7 +134,8 @@ public class GameStateContext {
   }
 
   public boolean canGuess() {
-    return clueInteracted && suspectsInteracted.size() >= 3;
+    return true;
+    // return clueInteracted && suspectsInteracted.size() >= 3;
   }
 
   public void setUpdateGuessButtonStateCallback(Runnable callback) {
