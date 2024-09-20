@@ -25,6 +25,6 @@
         </VBox>
         
         <!-- Play Again Button at the bottom center -->
-        <Button fx:id="playAgainButton" layoutX="392.5" layoutY="550.0" onAction="#handlePlayAgain" style="-fx-font-size: 18px;" text="Play Again" />
+        <Button fx:id="playAgainButton" layoutX="392.5" layoutY="550.0" onAction="#onPlayAgain" style="-fx-font-size: 18px;" text="Play Again" />
     </children>
 </AnchorPane>
