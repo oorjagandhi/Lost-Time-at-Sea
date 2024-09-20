@@ -35,6 +35,7 @@ public class FeedbackController extends SoundPlayer {
       playSound("/sounds/congrats.mp3");
       room.setStyle("-fx-background-color: green;");
     } else {
+      playSound("/sounds/sad.mp3");
       room.setStyle("-fx-background-color: red;");
     }
   }

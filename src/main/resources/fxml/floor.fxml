@@ -29,7 +29,7 @@
               <StackPane layoutX="350.0" layoutY="20.0" prefHeight="40.0" prefWidth="135.0">
                   <fx:include source="timer.fxml" />
               </StackPane>
-              <Button fx:id="btnBack" layoutX="365.0" layoutY="513.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="BACK" styleClass="nav-button"/>
+              <Button fx:id="btnBack" layoutX="400.0" layoutY="513.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="BACK" styleClass="nav-button"/>
               <ImageView fx:id="floorBoard" fitHeight="448.0" fitWidth="219.0" layoutX="307.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
                  <image>
                     <Image url="@../images/clues/floorboard-clue.png" />
