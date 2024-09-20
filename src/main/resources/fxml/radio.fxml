@@ -13,10 +13,10 @@
             <Image url="@../images/clues/radio-closeup.png" />
          </image>
       </ImageView>
-      <StackPane layoutX="327.0" layoutY="53.0" prefHeight="83.0" prefWidth="135.0">
-        <fx:include source="timer.fxml" />
+      <StackPane layoutX="350.0" layoutY="20.0" prefHeight="40.0" prefWidth="135.0">
+          <fx:include source="timer.fxml" />
       </StackPane>
-      <Button fx:id="btnBack" layoutX="387.0" layoutY="579.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="Go Back" />
+      <Button fx:id="btnBack" layoutX="365.0" layoutY="513.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="Go Back" />
       <ImageView fx:id="frequencyImage" fitHeight="50.0" fitWidth="167.0" layoutX="259.0" layoutY="247.8" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/clues/sevenseg1.png" />

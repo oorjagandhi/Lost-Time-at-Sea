@@ -134,4 +134,11 @@ public class TimerManager {
     this.canGuess = true;
     configureTimer(); // Reconfigure the timer
   }
+
+  public void startGuessingTimer() {
+    System.out.println("Starting guessing timer");
+    if (!isGuessTime) { // Check if the guessing time hasn't already started
+      switchToGuessTime(); // Use the existing method that configures and starts the guessing timer
+    }
+  }
 }
