@@ -10,13 +10,11 @@ import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.MediaPlayer;
 import nz.ac.auckland.se206.util.SoundPlayer;
 
 public class PaperController extends SoundPlayer {
 
   @FXML private ImageView paperImageView;
-  private MediaPlayer mediaPlayer;
 
   private int clickCount = 0; // To track the number of clicks
   private final String[] paperImages = {

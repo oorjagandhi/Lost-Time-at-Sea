@@ -19,7 +19,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
@@ -67,8 +66,6 @@ public class RoomController extends SoundPlayer {
   private final TimerManager timerManager = TimerManager.getInstance();
   private final RoomManager roomManager = RoomManager.getInstance();
 
-  private MediaPlayer mediaPlayer;
-
   /**
    * Initializes the room view. If it's the first time initialization, it will provide instructions
    * via text-to-speech.
@@ -80,7 +77,7 @@ public class RoomController extends SoundPlayer {
     updateGuessButtonState();
     context.setUpdateGuessButtonStateCallback(this::updateGuessButtonAvailability);
     if (!roomManager.isUserWelcomed()) {
-      // playSound("/sounds/welcome.mp3");
+      playSound("/sounds/welcome.mp3");
     }
     roomManager.setUserWelcomed(true);
 
@@ -137,15 +134,6 @@ public class RoomController extends SoundPlayer {
                 Platform.runLater(() -> updateSuspectIcon(isNowLoading));
               });
     }
-  }
-
-  private void guessingStartListener() {
-    // Ensure UI updates are performed on the JavaFX application thread
-    Platform.runLater(
-        () -> {
-          timerManager.setCanGuess(context.canGuess());
-          context.setState(context.getGuessingState());
-        });
   }
 
   /**

@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.media.MediaPlayer;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.util.SoundPlayer;
@@ -19,19 +18,22 @@ public class TimerController extends SoundPlayer {
 
   private final TimerManager timerManager = TimerManager.getInstance();
 
-  private MediaPlayer mediaPlayer;
-
+  // Method to handle the initialization of the timer
   @FXML
   public void initialize() {
+    // Configure the timer
     updateTimerLabel();
     if (!timerManager.isTimerRunning()) {
       timerManager.startTimer();
     }
 
+    // Set the guessing start listener
     timerManager.setGuessingStartListener(this::switchToGuessingScene);
 
+    // Set the guess time end listener
     timerManager.setTickListener(this::updateTimerLabel);
 
+    // Play the background music
     if (!timerManager.isTimerRunning()) {
       timerManager.startTimer();
     }
@@ -80,7 +82,6 @@ public class TimerController extends SoundPlayer {
           } else {
             timerManager.stopTimer();
             noTime();
-            // playSound("/sounds/outoftime.mp3");
           }
         });
   }

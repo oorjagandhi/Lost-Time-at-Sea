@@ -23,8 +23,8 @@ public class GameStateContext {
   private final Guessing guessingState;
   private final GameOver gameOverState;
   private GameState gameState;
-  private boolean clueInteracted = false;
   private Set<String> suspectsInteracted;
+  private boolean clueInteracted = false;
   private boolean suspectInteracted = false;
   private boolean won = false;
   private Runnable updateGuessButtonStateCallback;

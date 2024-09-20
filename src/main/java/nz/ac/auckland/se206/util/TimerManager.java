@@ -29,10 +29,13 @@ public class TimerManager {
     this.time = 300; // initial time of 5 minutes
   }
 
+  // Method to configure the timer
   public void configureTimer() {
+    // Stop the timer if it is running
     if (timeline != null) {
       timeline.stop();
     }
+    // Create a new timeline
     timeline =
         new Timeline(
             new KeyFrame(
@@ -43,9 +46,11 @@ public class TimerManager {
                     tickListener.run();
                   }
                 }));
+    // Set the cycle count to indefinite
     timeline.setCycleCount(Timeline.INDEFINITE);
   }
 
+  // Method to update the timer
   private void updateTimer() {
     time--;
     if (time < 0) {
@@ -57,29 +62,33 @@ public class TimerManager {
     }
   }
 
+  // Method to switch to guess time
   private void switchToGuessTime() {
     time = guessTime;
     isGuessTime = true;
     configureTimer();
     timeline.playFromStart();
+    // Notify the guessing start listener
     if (guessingStartListener != null) {
       guessingStartListener.run();
     }
   }
 
+  // Method to handle the end of the guess time
   private void onFinishGuessTimer() {
     timeline.stop();
     if (guessTimeEndListener != null) {
       guessTimeEndListener.run();
     }
-    // Other logic if required
   }
 
+  // Method to start the timer
   public void startTimer() {
     configureTimer();
     timeline.playFromStart();
   }
 
+  // Method to stop the timer
   public void stopTimer() {
     if (timeline != null) {
       timeline.stop();

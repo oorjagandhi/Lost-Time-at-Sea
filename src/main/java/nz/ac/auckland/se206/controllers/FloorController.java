@@ -12,7 +12,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.util.SoundPlayer;
@@ -26,7 +25,6 @@ public class FloorController extends SoundPlayer {
 
   private List<Circle> screws;
   private boolean allScrewsRemoved = false;
-  private MediaPlayer mediaPlayer;
 
   @FXML
   public void initialize() {
