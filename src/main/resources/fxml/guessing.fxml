@@ -46,7 +46,7 @@
 
                <!-- TextBox for why the selected person is the thief, initially hidden -->
             <VBox fx:id="explanationBox" alignment="CENTER" managed="false" spacing="10.0" visible="false">
-                <Label fx:id="whyLabel" text="Why is [person selected] the thief?" />
+                <Label fx:id="whyLabel" text="Why is [person selected] the thief?" textFill="WHITE" />
                 <TextArea fx:id="explanationTextArea" maxWidth="600.0" prefRowCount="4" style="-fx-control-inner-background: white;" wrapText="true" />
             </VBox>
 
