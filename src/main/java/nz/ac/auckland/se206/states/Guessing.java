@@ -43,13 +43,11 @@ public class Guessing implements GameState {
     timerManager.stopTimer();
     // Check if the clicked rectangle is the bartender
     if (rectangleId.equals("suspectBartender")) {
-      playSound("/sounds/correct.mp3");
       // Transition to game over state with a win
       context.setState(context.getGameOverState());
       context.setWon(true);
       System.out.println("Correct! You guessed the thief");
     } else {
-      playSound("/sounds/wrong.mp3");
       // Transition to game over state with a loss
       context.setState(context.getGameOverState());
       context.setWon(false);
