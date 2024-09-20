@@ -52,7 +52,7 @@
 
                <!-- Button to submit the guess -->
 
-            <Button fx:id="submitGuessButton" managed="false" onAction="#handleSubmitGuess" text="SUBMIT" visible="false" styleClass="nav-button"/>
+            <Button fx:id="submitGuessButton" managed="false" onAction="#submitGuess" text="SUBMIT" visible="false" styleClass="nav-button"/>
 
         </VBox>
     </children>

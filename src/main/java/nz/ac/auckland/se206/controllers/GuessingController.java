@@ -143,7 +143,8 @@ public class GuessingController {
       Platform.runLater(
           () -> {
             String responseContent = evaluateExplanation(selectedSuspect, userExplanation);
-            showFeedbackScreen(responseContent);
+            boolean won = checkIfUserWon(selectedSuspect);
+            showFeedbackScreen(responseContent, won);
           });
     } else {
       // Show an error message if no suspect is selected or explanation is missing
@@ -153,6 +154,11 @@ public class GuessingController {
       alert.setContentText("Please select a suspect and provide an explanation.");
       alert.showAndWait();
     }
+  }
+
+  private boolean checkIfUserWon(String selectedSuspect) {
+    // Assuming "suspectBartender" is the correct suspect ID
+    return "suspectBartender".equals(selectedSuspect);
   }
 
   private void showProcessingScreen() {
@@ -167,12 +173,13 @@ public class GuessingController {
     }
   }
 
-  private void showFeedbackScreen(String responseContent) {
+  private void showFeedbackScreen(String responseContent, boolean won) {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/feedback.fxml"));
       Parent feedbackRoot = loader.load();
       FeedbackController feedbackController = loader.getController();
       feedbackController.updateResponseText(responseContent);
+      feedbackController.updateStatus(won); // Add this line
       Scene feedbackScene = new Scene(feedbackRoot);
       App.getStage().setScene(feedbackScene);
       App.getStage().show();

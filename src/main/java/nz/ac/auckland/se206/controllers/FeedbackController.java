@@ -11,9 +11,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.GameStateContext;
+import nz.ac.auckland.se206.util.SoundPlayer;
 import nz.ac.auckland.se206.util.TimerManager;
 
-public class FeedbackController {
+public class FeedbackController extends SoundPlayer {
 
   @FXML private Text responseText;
   @FXML private Text status;
@@ -31,6 +32,7 @@ public class FeedbackController {
     System.out.println("Updating response text to: " + won);
     status.setText(won ? "You guessed the correct thief!" : "You guessed the incorrect thief.");
     if (won) {
+      playSound("/sounds/congrats.mp3");
       room.setStyle("-fx-background-color: green;");
     } else {
       room.setStyle("-fx-background-color: red;");

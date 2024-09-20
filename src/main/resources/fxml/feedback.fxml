@@ -9,7 +9,7 @@
 
 <AnchorPane fx:id="room" prefHeight="605.0" prefWidth="835.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.FeedbackController">
     <children>
-      <ImageView fitHeight="605.0" fitWidth="858.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="605.0" fitWidth="835.0" opacity="0.5" pickOnBounds="true" preserveRatio="false">
          <image>
             <Image url="@../images/crimesceneblur2.png" />
          </image>
@@ -25,6 +25,6 @@
         </VBox>
         
         <!-- Play Again Button at the bottom center -->
-        <Button fx:id="playAgainButton" layoutX="392.5" layoutY="550.0" onAction="#handlePlayAgain" style="-fx-font-size: 18px;" text="PLAY AGAIN" styleClass="nav-button" />
+        <Button fx:id="playAgainButton" layoutX="392.5" layoutY="550.0" onAction="#onPlayAgain" style="-fx-font-size: 18px;" text="PLAY AGAIN" styleClass="nav-button" />
     </children>
 </AnchorPane>

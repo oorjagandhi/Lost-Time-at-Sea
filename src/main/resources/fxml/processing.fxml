@@ -11,7 +11,7 @@
                 <Image url="@/images/temp-crimesceneblur3.png" />
             </image>
         </ImageView>
-        <Text fx:id="status1" layoutY="255.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: white;" text="Analyzing your detective work... " textAlignment="CENTER" wrappingWidth="835.0" />
-        <Text fx:id="status2" layoutY="312.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: white;" text="Let's see if you've cracked the case!" textAlignment="CENTER" wrappingWidth="835.0" />
+        <Text  layoutY="255.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: white;" text="Analyzing your detective work... " textAlignment="CENTER" wrappingWidth="835.0" />
+        <Text layoutY="312.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: white;" text="Let's see if you've cracked the case!" textAlignment="CENTER" wrappingWidth="835.0" />
     </children>
 </AnchorPane>
