@@ -19,16 +19,16 @@ public class GameStateContext {
 
   private static GameStateContext gameStateContext;
 
-  private final String rectIdToGuess = "rectSecurity";
   private final Map<String, String> rectanglesToProfession;
+  private final String rectIdToGuess = "rectSecurity";
   private final GameStarted gameStartedState;
   private final Guessing guessingState;
   private final GameOver gameOverState;
-  private GameState gameState;
-  private Set<String> suspectsInteracted;
   private boolean clueInteracted = false;
   private boolean won = false;
   private Runnable updateGuessButtonStateCallback;
+  private Set<String> suspectsInteracted;
+  private GameState gameState;
 
   /** Constructs a new GameStateContext and initializes the game states and professions. */
   private GameStateContext() {
