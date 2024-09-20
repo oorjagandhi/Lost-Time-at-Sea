@@ -23,6 +23,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
+import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.util.RoomManager;
 import nz.ac.auckland.se206.util.SoundPlayer;
@@ -258,6 +259,12 @@ public class RoomController extends SoundPlayer {
    */
   @FXML
   private void handleGuessClick(ActionEvent event) throws IOException {
+
+    TimerManager timerManager = TimerManager.getInstance();
+    timerManager.startGuessingTimer();
+
+    switchToGuessingScene();
+
     if (context.canGuess()) {
       context.setState(context.getGuessingState());
       System.out.println("Transitioning to guessing state. Ready to make a guess.");
@@ -628,5 +635,21 @@ public class RoomController extends SoundPlayer {
     context.setClueInteracted(true);
     updateGuessButtonAvailability();
     // Additional code for clue interaction...
+  }
+
+  private void switchToGuessingScene() {
+    Platform.runLater(
+        () -> {
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/guessing.fxml"));
+          try {
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            App.getStage().setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            App.getStage().show();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        });
   }
 }
