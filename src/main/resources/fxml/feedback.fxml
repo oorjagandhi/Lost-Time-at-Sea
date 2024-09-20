@@ -11,7 +11,7 @@
     <children>
       <ImageView fitHeight="605.0" fitWidth="858.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/crimesceneblur.png" />
+            <Image url="@../images/crimesceneblur2.png" />
          </image>
       </ImageView>
         <!-- VBox for status message -->
