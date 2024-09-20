@@ -32,7 +32,7 @@
               <Rectangle fx:id="rectSecurity" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="265.0" layoutX="169.0" layoutY="286.0" onMouseClicked="#handleSecurityClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="77.0" />
               <Rectangle fx:id="rectArtist" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="266.0" layoutX="273.0" layoutY="283.0" onMouseClicked="#handleArtistClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="71.0" />
               
-              <Button fx:id="btnGuess" alignment="CENTER" layoutX="676.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="32.0" prefWidth="140.0" text="MAKE A GUESS" textAlignment="CENTER" />
+              <Button fx:id="btnGuess" alignment="CENTER" layoutX="676.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="32.0" prefWidth="140.0" text="MAKE A GUESS" textAlignment="CENTER" styleClass="nav-button" />
               
               <StackPane layoutX="350.0" layoutY="20.0" prefHeight="40.0" prefWidth="135.0">
                   <fx:include source="timer.fxml" />

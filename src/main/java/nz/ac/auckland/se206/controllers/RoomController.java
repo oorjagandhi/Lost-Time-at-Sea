@@ -324,16 +324,17 @@ public class RoomController extends SoundPlayer {
   @FXML
   private void handleMouseEnter(MouseEvent event) {
     Node source = (Node) event.getSource();
+    source.getScene().setCursor(Cursor.HAND); // Set cursor to hand on hover
     ImageView suspectImageView = getSuspectImageView(source);
     if (suspectImageView != null) {
-      suspectImageView.setStyle(
-          "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
+      suspectImageView.setStyle("-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);");
     }
   }
 
   @FXML
   private void handleMouseExit(MouseEvent event) {
     Node source = (Node) event.getSource();
+    source.getScene().setCursor(Cursor.DEFAULT); // Reset cursor to default when not hovering
     ImageView suspectImageView = getSuspectImageView(source);
     if (suspectImageView != null) {
       suspectImageView.setStyle(""); // Remove the drop shadow effect

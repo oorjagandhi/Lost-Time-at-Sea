@@ -10,6 +10,7 @@
 .nav-button:hover {
   -fx-background-color: #b1b1b1;
   -fx-text-fill: rgb(0, 0, 0);
+  -fx-cursor: hand; 
 }
 
 .nav-button:disabled {
@@ -60,11 +61,13 @@
 .menu-item:selected {
     -fx-text-fill: black;
     -fx-background-color: transparent; /* Or set to your desired color */
+    -fx-cursor: hand; 
 }
 
 /* Customize hover background color */
 .menu-item:hover {
     -fx-background-color: #b1b1b1;
+    -fx-cursor: hand; 
 }
 
 /* Customize focused and armed background color */
@@ -72,6 +75,7 @@
 .menu-item:focused:hover,
 .menu-item:armed {
     -fx-background-color: #b1b1b1;
+    -fx-cursor: hand; 
 }
 
 /* Disabled MenuItems */
@@ -88,6 +92,7 @@
 /* Hover effect for menu item labels */
 .menu-item-label:hover {
   -fx-background-color: #b1b1b1;
+  -fx-cursor: hand; 
 }
 
 .current-room-label {
