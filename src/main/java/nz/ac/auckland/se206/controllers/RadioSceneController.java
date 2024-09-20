@@ -77,11 +77,15 @@ public class RadioSceneController {
   private void handleDecreaseClick(MouseEvent event) {
     System.out.println("Decrease Frequency button clicked");
     stopAudio();
+    // if the frequency is smaller than 1, change to the last audio
     frequency--;
     if (frequency < 1) {
       frequency = totalAudios;
     }
+    // change the image
     frequencyImage.setImage(new Image("/images/clues/sevenseg" + frequency + ".png"));
+
+    // play the audio
     playAudio();
   }
 
@@ -95,9 +99,11 @@ public class RadioSceneController {
     System.out.println("Increase Frequency button clicked");
     stopAudio();
     frequency++;
+    // if the frequency is larger than the total number of audios, change to the first audio
     if (frequency > totalAudios) {
       frequency = 1;
     }
+    // change the image
     frequencyImage.setImage(new Image("/images/clues/sevenseg" + frequency + ".png"));
     playAudio();
   }
@@ -200,16 +206,21 @@ public class RadioSceneController {
 
   @FXML
   private void onBackButtonAction(ActionEvent event) {
+    // stop the audio
     stopAudio();
+
+    // Load the crime scene FXML
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/crime-scene.fxml"));
       Parent root = loader.load();
       Node source = (Node) event.getSource();
       javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
+      // Add the stylesheet
       root.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
       stage.setScene(new Scene(root));
       stage.show();
     } catch (IOException e) {
+      // Auto-generated catch block
       e.printStackTrace();
     }
   }

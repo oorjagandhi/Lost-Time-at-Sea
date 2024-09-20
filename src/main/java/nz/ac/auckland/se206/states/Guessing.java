@@ -69,7 +69,9 @@ public class Guessing implements GameState {
     context.handleGuessClick();
   }
 
+  // Play the sound file at the given file path
   private void playSound(String filePath) {
+    // Create a background task to play the sound file
     Task<Void> backgroundTask =
         new Task<>() {
           @Override
@@ -79,6 +81,7 @@ public class Guessing implements GameState {
               Platform.runLater(() -> System.out.println("File not found: " + filePath));
               return null;
             }
+            // Play the sound file
             Media media = new Media(resource.toString());
             Platform.runLater(
                 () -> {
@@ -91,6 +94,7 @@ public class Guessing implements GameState {
             return null;
           }
         };
+    // Start the background task
     Thread backgroundThread = new Thread(backgroundTask);
     backgroundThread.start();
   }

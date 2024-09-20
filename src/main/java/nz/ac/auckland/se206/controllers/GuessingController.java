@@ -173,6 +173,7 @@ public class GuessingController {
     }
   }
 
+  // Evaluate the player's explanation using OpenAI's chat completion API
   private String evaluateExplanation(String selectedSuspect, String userExplanation) {
     System.out.println("Selected Suspect: " + selectedSuspect);
     // Prepare the prompt
@@ -276,6 +277,7 @@ public class GuessingController {
               .setTopP(0.3)
               .setMaxTokens(150);
 
+      // Add the prompt and user explanation to the request
       ChatMessage systemMessage = new ChatMessage("system", prompt);
       chatCompletionRequest.addMessage(systemMessage);
 
@@ -287,6 +289,7 @@ public class GuessingController {
       // Process the response
       String responseContent = responseMessage.getContent();
 
+      // Print the response
       System.out.println("Response: " + responseContent);
       return responseContent;
 
