@@ -24,6 +24,7 @@ import nz.ac.auckland.apiproxy.chat.openai.Choice;
 import nz.ac.auckland.apiproxy.config.ApiProxyConfig;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.App;
+import nz.ac.auckland.se206.util.TimerManager;
 
 public class GuessingController {
 
@@ -136,6 +137,7 @@ public class GuessingController {
   @FXML
   private void submitGuess() {
     if (selectedSuspect != null && !explanationTextArea.getText().trim().isEmpty()) {
+      TimerManager.getInstance().stopTimer();
       showProcessingScreen(); // Show the processing screen immediately
       String userExplanation = explanationTextArea.getText().trim();
 
