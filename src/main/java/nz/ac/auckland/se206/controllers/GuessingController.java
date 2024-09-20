@@ -24,7 +24,6 @@ import nz.ac.auckland.apiproxy.chat.openai.Choice;
 import nz.ac.auckland.apiproxy.config.ApiProxyConfig;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.App;
-import nz.ac.auckland.se206.GameStateContext;
 
 public class GuessingController {
 
@@ -137,32 +136,16 @@ public class GuessingController {
   @FXML
   private void submitGuess() {
     if (selectedSuspect != null && !explanationTextArea.getText().trim().isEmpty()) {
-      try {
+      showProcessingScreen(); // Show the processing screen immediately
+      String userExplanation = explanationTextArea.getText().trim();
 
-        // Call handleRectangleClick to make a guess
-        GameStateContext context = GameStateContext.getInstance();
-        context.handleRectangleClick(null, selectedSuspect);
-
-        // Get the user's explanation
-        String userExplanation = explanationTextArea.getText().trim();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/feedback.fxml"));
-        Parent root = loader.load();
-        FeedbackController feedbackController = loader.getController();
-        // Evaluate the explanation using OpenAI
-        String responseContent = evaluateExplanation(selectedSuspect, userExplanation);
-        Platform.runLater(
-            () -> {
-              feedbackController.updateResponseText(responseContent);
-              feedbackController.updateStatus(context.isWon());
-            });
-        // Load the game over screen for losing
-        Scene scene = new Scene(root);
-        App.getStage().setScene(scene);
-        App.getStage().show();
-
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      // Asynchronously evaluate the explanation and update UI
+      Platform.runLater(
+          () -> {
+            String responseContent = evaluateExplanation(selectedSuspect, userExplanation);
+            boolean won = checkIfUserWon(selectedSuspect);
+            showFeedbackScreen(responseContent, won);
+          });
     } else {
       // Show an error message if no suspect is selected or explanation is missing
       Alert alert = new Alert(AlertType.WARNING);
@@ -170,6 +153,38 @@ public class GuessingController {
       alert.setHeaderText(null);
       alert.setContentText("Please select a suspect and provide an explanation.");
       alert.showAndWait();
+    }
+  }
+
+  private boolean checkIfUserWon(String selectedSuspect) {
+    // Assuming "suspectBartender" is the correct suspect ID
+    return "suspectBartender".equals(selectedSuspect);
+  }
+
+  private void showProcessingScreen() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/processing.fxml"));
+      Parent processingRoot = loader.load();
+      Scene processingScene = new Scene(processingRoot);
+      App.getStage().setScene(processingScene);
+      App.getStage().show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void showFeedbackScreen(String responseContent, boolean won) {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/feedback.fxml"));
+      Parent feedbackRoot = loader.load();
+      FeedbackController feedbackController = loader.getController();
+      feedbackController.updateResponseText(responseContent);
+      feedbackController.updateStatus(won); // Add this line
+      Scene feedbackScene = new Scene(feedbackRoot);
+      App.getStage().setScene(feedbackScene);
+      App.getStage().show();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 

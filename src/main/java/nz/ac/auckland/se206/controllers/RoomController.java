@@ -25,6 +25,7 @@ import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.util.RoomManager;
+import nz.ac.auckland.se206.util.SceneSwitcher;
 import nz.ac.auckland.se206.util.SoundPlayer;
 import nz.ac.auckland.se206.util.TimerManager;
 
@@ -250,7 +251,7 @@ public class RoomController extends SoundPlayer {
     TimerManager timerManager = TimerManager.getInstance();
     timerManager.startGuessingTimer();
 
-    switchToGuessingScene();
+    //    switchToGuessingScene();
 
     if (context.canGuess()) {
       context.setState(context.getGuessingState());
@@ -260,13 +261,8 @@ public class RoomController extends SoundPlayer {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/guessing.fxml"));
       Parent root = loader.load();
 
-      Scene scene = new Scene(root);
-
-      scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
-
       Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-      stage.setScene(scene);
-      stage.show();
+      SceneSwitcher.switchScene(stage, root);
     } else {
       System.out.println("You must interact with both a clue and a suspect before you can guess.");
     }
@@ -327,16 +323,17 @@ public class RoomController extends SoundPlayer {
   @FXML
   private void handleMouseEnter(MouseEvent event) {
     Node source = (Node) event.getSource();
+    source.getScene().setCursor(Cursor.HAND); // Set cursor to hand on hover
     ImageView suspectImageView = getSuspectImageView(source);
     if (suspectImageView != null) {
-      suspectImageView.setStyle(
-          "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
+      suspectImageView.setStyle("-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);");
     }
   }
 
   @FXML
   private void handleMouseExit(MouseEvent event) {
     Node source = (Node) event.getSource();
+    source.getScene().setCursor(Cursor.DEFAULT); // Reset cursor to default when not hovering
     ImageView suspectImageView = getSuspectImageView(source);
     if (suspectImageView != null) {
       suspectImageView.setStyle(""); // Remove the drop shadow effect

@@ -30,7 +30,7 @@
                     <Image url="@../images/clues/paper.png" />
                  </image>
               </ImageView>
-              <Button fx:id="btnBack" layoutX="365.0" layoutY="513.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="Go Back" />
+              <Button fx:id="btnBack" layoutX="365.0" layoutY="513.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="BACK" styleClass="nav-button"/>
           </children>
       </Pane>
       <!-- Container for the popup -->

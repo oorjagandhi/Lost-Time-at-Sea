@@ -16,7 +16,7 @@
       <StackPane layoutX="350.0" layoutY="20.0" prefHeight="40.0" prefWidth="135.0">
           <fx:include source="timer.fxml" />
       </StackPane>
-      <Button fx:id="btnBack" layoutX="365.0" layoutY="513.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="Go Back" />
+      <Button fx:id="btnBack" layoutX="365.0" layoutY="513.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="BACK" styleClass="nav-button"/>
       <ImageView fx:id="frequencyImage" fitHeight="50.0" fitWidth="167.0" layoutX="259.0" layoutY="247.8" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/clues/sevenseg1.png" />
