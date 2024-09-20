@@ -31,6 +31,7 @@
               <StackPane layoutX="350.0" layoutY="20.0" prefHeight="40.0" prefWidth="135.0">
                   <fx:include source="timer.fxml" />
               </StackPane>
+            <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="444.0" layoutX="163.0" layoutY="154.0" onMouseEntered="#handleMouseEnterrectSuspect" onMouseExited="#handleMouseExitrectSuspect" stroke="TRANSPARENT" strokeType="INSIDE" width="137.0" />
             <!-- Container for the chat -->
             <VBox fx:id="chatContainer" layoutX="79.0" layoutY="327.0" prefHeight="190.0" prefWidth="661.0" visible="false" />
             <ImageView fx:id="suspectIcon" fitHeight="156.0" fitWidth="156.0" layoutX="78.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true" visible="false">
@@ -43,7 +44,6 @@
                   <Image url="@../images/sailor_closeup.png" />
                </image>
             </ImageView>
-            <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="444.0" layoutX="163.0" layoutY="154.0" onMouseEntered="#handleMouseEnterrectSuspect" onMouseExited="#handleMouseExitrectSuspect" stroke="TRANSPARENT" strokeType="INSIDE" width="137.0" />
             <MenuButton layoutX="37.0" layoutY="30.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="140.0" styleClass="nav-button" text="MOVE ROOMS">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#onSwitchToCrimeScene" styleClass="nav-button" text="CAPTAINS QUARTERS (CRIME SCENE)" />

@@ -76,11 +76,11 @@ public class PaperController extends SoundPlayer {
   @FXML
   private void onBackButtonAction(ActionEvent event) {
     try {
-      // Load the FXML file for the room
+      // Load the FXML file to go back to the crime scene
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/crime-scene.fxml"));
       Parent roomContent = loader.load();
 
-      // Get the current stage
+      // Get the current room
       Node source = (Node) event.getSource();
       javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
 

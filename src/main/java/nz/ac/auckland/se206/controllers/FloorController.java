@@ -118,7 +118,7 @@ public class FloorController extends SoundPlayer {
   @FXML
   private void onBackButtonAction(ActionEvent event) {
     try {
-      // Load the FXML file for the room
+      // Load the FXML file for the crimescene
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/crime-scene.fxml"));
       Parent roomContent = loader.load();
 
@@ -128,7 +128,7 @@ public class FloorController extends SoundPlayer {
 
       roomContent.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
 
-      // Set the scene to the room
+      // Set the scene to the crimescene
       stage.setScene(new javafx.scene.Scene(roomContent));
       stage.show();
     } catch (IOException e) {

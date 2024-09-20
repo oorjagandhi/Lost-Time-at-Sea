@@ -32,9 +32,9 @@ public class RadioSceneController {
   @FXML
   private void initialize() {
     if (increaseFrequency != null && decreaseFrequency != null && play != null) {
-      increaseFrequency.setCursor(javafx.scene.Cursor.HAND);
-      decreaseFrequency.setCursor(javafx.scene.Cursor.HAND);
-      play.setCursor(javafx.scene.Cursor.HAND);
+      increaseFrequency.setCursor(Cursor.HAND);
+      decreaseFrequency.setCursor(Cursor.HAND);
+      play.setCursor(Cursor.HAND);
     }
     increaseFrequency.setOnMouseClicked(event -> handleIncreaseClick(event));
     decreaseFrequency.setOnMouseClicked(event -> handleDecreaseClick(event));

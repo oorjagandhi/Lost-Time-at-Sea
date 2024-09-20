@@ -134,7 +134,7 @@ public class GuessingController {
   }
 
   @FXML
-  public void handleSubmitGuess() {
+  private void submitGuess() {
     if (selectedSuspect != null && !explanationTextArea.getText().trim().isEmpty()) {
       showProcessingScreen(); // Show the processing screen immediately
       String userExplanation = explanationTextArea.getText().trim();

@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.util.TimerManager;
 
 public class FeedbackController {
@@ -38,11 +39,17 @@ public class FeedbackController {
 
   // Handle the Play Again action
   @FXML
-  private void handlePlayAgain(ActionEvent event) {
+  private void onPlayAgain(ActionEvent event) {
     System.out.println("Play Again button clicked");
 
     // Reset the timer
     TimerManager.getInstance().resetTimer();
+
+    // reset clues
+    GameStateContext.getInstance().setClueInteracted(false);
+
+    // reset suspects
+    GameStateContext.getInstance().clearSuspects();
 
     // Load the crime scene FXML
     try {

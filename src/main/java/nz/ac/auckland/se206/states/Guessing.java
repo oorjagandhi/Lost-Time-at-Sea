@@ -1,24 +1,19 @@
 package nz.ac.auckland.se206.states;
 
 import java.io.IOException;
-import java.net.URL;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import nz.ac.auckland.se206.GameStateContext;
+import nz.ac.auckland.se206.util.SoundPlayer;
 import nz.ac.auckland.se206.util.TimerManager;
 
 /**
  * The Guessing state of the game. Handles the logic for when the player is making a guess about the
  * profession of the characters in the game.
  */
-public class Guessing implements GameState {
+public class Guessing extends SoundPlayer implements GameState {
 
   private final GameStateContext context;
 
-  private MediaPlayer mediaPlayer;
   private final TimerManager timerManager = TimerManager.getInstance();
 
   /**
@@ -65,35 +60,5 @@ public class Guessing implements GameState {
   public void handleGuessClick() throws IOException {
     context.setState(context.getGuessingState());
     context.handleGuessClick();
-  }
-
-  // Play the sound file at the given file path
-  private void playSound(String filePath) {
-    // Create a background task to play the sound file
-    Task<Void> backgroundTask =
-        new Task<>() {
-          @Override
-          protected Void call() {
-            URL resource = getClass().getResource(filePath);
-            if (resource == null) {
-              Platform.runLater(() -> System.out.println("File not found: " + filePath));
-              return null;
-            }
-            // Play the sound file
-            Media media = new Media(resource.toString());
-            Platform.runLater(
-                () -> {
-                  if (mediaPlayer != null) {
-                    mediaPlayer.stop();
-                  }
-                  mediaPlayer = new MediaPlayer(media);
-                  mediaPlayer.play();
-                });
-            return null;
-          }
-        };
-    // Start the background task
-    Thread backgroundThread = new Thread(backgroundTask);
-    backgroundThread.start();
   }
 }

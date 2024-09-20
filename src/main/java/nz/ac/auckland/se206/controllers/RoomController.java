@@ -65,7 +65,6 @@ public class RoomController extends SoundPlayer {
   @FXML private VBox chatContainer;
   @FXML private ChatController chatController;
 
-  private final TimerManager timerManager = TimerManager.getInstance();
   private final RoomManager roomManager = RoomManager.getInstance();
 
   /**
@@ -369,6 +368,7 @@ public class RoomController extends SoundPlayer {
     if (chatController != null) {
       chatController.setProfession(profession);
       chatContainer.setVisible(true);
+      chatController.setInputFocus();
       suspectIcon.setVisible(true);
       // Set the suspect icon to the appropriate image
       updateSuspectIcon(false);
@@ -467,6 +467,7 @@ public class RoomController extends SoundPlayer {
 
   @FXML
   private void handleFloorBoardClick(MouseEvent event) {
+    context.setClueInteracted(true);
     System.out.println("Floor clicked, attempting to load floor.fxml...");
     try {
       // Load the FXML file for the floorboard scene
@@ -624,8 +625,10 @@ public class RoomController extends SoundPlayer {
 
   private void switchToGuessingScene() {
     Platform.runLater(
+        // loads the guessing scene when it is needed
         () -> {
           FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/guessing.fxml"));
+          // attempts to load guessing scene
           try {
             Parent root = loader.load();
             Scene scene = new Scene(root);

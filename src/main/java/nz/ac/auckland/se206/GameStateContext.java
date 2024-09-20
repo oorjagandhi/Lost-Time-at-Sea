@@ -17,6 +17,8 @@ import nz.ac.auckland.se206.states.Guessing;
  */
 public class GameStateContext {
 
+  private static GameStateContext gameStateContext;
+
   private final String rectIdToGuess = "rectSecurity";
   private final Map<String, String> rectanglesToProfession;
   private final GameStarted gameStartedState;
@@ -25,11 +27,8 @@ public class GameStateContext {
   private GameState gameState;
   private Set<String> suspectsInteracted;
   private boolean clueInteracted = false;
-  private boolean suspectInteracted = false;
   private boolean won = false;
   private Runnable updateGuessButtonStateCallback;
-
-  private static GameStateContext gameStateContext;
 
   /** Constructs a new GameStateContext and initializes the game states and professions. */
   private GameStateContext() {
@@ -143,9 +142,13 @@ public class GameStateContext {
     updateGuessButtonState();
   }
 
+  public void clearSuspects() {
+    suspectsInteracted.clear();
+    updateGuessButtonState();
+  }
+
   public boolean canGuess() {
-    return true;
-    // return clueInteracted && suspectsInteracted.size() >= 3;
+    return clueInteracted && suspectsInteracted.size() >= 3;
   }
 
   public boolean isWon() {
