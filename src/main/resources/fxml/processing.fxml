@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<AnchorPane fx:id="room" prefHeight="605.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.FeedbackController">
+    <children>
+        <ImageView fitHeight="605.0" fitWidth="835.0" pickOnBounds="true" preserveRatio="false">
+            <image>
+                <Image url="@/images/temp-crimesceneblur3.png" />
+            </image>
+        </ImageView>
+        <Text fx:id="status1" layoutY="255.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: white;" text="Analyzing your detective work... " textAlignment="CENTER" wrappingWidth="835.0" />
+        <Text fx:id="status2" layoutY="312.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: white;" text="Let's see if you've cracked the case!" textAlignment="CENTER" wrappingWidth="835.0" />
+    </children>
+</AnchorPane>
