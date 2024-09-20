@@ -143,8 +143,13 @@ public class GameStateContext {
     updateGuessButtonState();
   }
 
+  public void clearSuspects() {
+    suspectsInteracted.clear();
+    updateGuessButtonState();
+  }
+
   public boolean canGuess() {
-    return true;
+    return clueInteracted && suspectsInteracted.size() >= 3;
     // return clueInteracted && suspectsInteracted.size() >= 3;
   }
 
