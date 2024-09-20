@@ -26,10 +26,10 @@
                     <Image url="@../images/clues/floorboard-closeup.png" />   
                  </image>
               </ImageView>
-              <StackPane layoutX="350.0" layoutY="49.0" prefHeight="83.0" prefWidth="135.0">
+              <StackPane layoutX="350.0" layoutY="20.0" prefHeight="40.0" prefWidth="135.0">
                   <fx:include source="timer.fxml" />
               </StackPane>
-              <Button fx:id="btnBack" layoutX="387.0" layoutY="579.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="Go Back" />
+              <Button fx:id="btnBack" layoutX="365.0" layoutY="513.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="Go Back" />
               <ImageView fx:id="floorBoard" fitHeight="448.0" fitWidth="219.0" layoutX="307.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
                  <image>
                     <Image url="@../images/clues/floorboard-clue.png" />

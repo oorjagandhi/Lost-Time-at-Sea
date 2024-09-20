@@ -22,7 +22,7 @@
                   <Image url="@../images/clues/paper-closeup3.png" />
                </image>
             </ImageView>
-              <StackPane layoutX="327.0" layoutY="53.0" prefHeight="83.0" prefWidth="135.0">
+              <StackPane layoutX="350.0" layoutY="20.0" prefHeight="40.0" prefWidth="135.0">
                   <fx:include source="timer.fxml" />
               </StackPane>
               <ImageView fx:id="paperImageView" fitHeight="413.0" fitWidth="528.0" layoutX="142.0" layoutY="94.0" onMouseClicked="#handlePaperClick" pickOnBounds="true" preserveRatio="true">
