@@ -371,6 +371,7 @@ public class RoomController extends SoundPlayer {
     if (chatController != null) {
       chatController.setProfession(profession);
       chatContainer.setVisible(true);
+      chatController.setInputFocus();
       suspectIcon.setVisible(true);
       // Set the suspect icon to the appropriate image
       updateSuspectIcon(false);

@@ -171,4 +171,8 @@ public class ChatController {
   public void sendMessage() throws ApiProxyException, IOException {
     onSendMessage(null);
   }
+
+  public void setInputFocus() {
+    txtInput.requestFocus();
+  }
 }
