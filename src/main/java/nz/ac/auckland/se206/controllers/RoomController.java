@@ -64,7 +64,6 @@ public class RoomController extends SoundPlayer {
   @FXML private VBox chatContainer;
   @FXML private ChatController chatController;
 
-  private final TimerManager timerManager = TimerManager.getInstance();
   private final RoomManager roomManager = RoomManager.getInstance();
 
   /**
