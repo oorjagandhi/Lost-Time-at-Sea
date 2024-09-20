@@ -51,7 +51,7 @@
             </VBox>
 
                <!-- Button to submit the guess -->
-            <Button fx:id="submitGuessButton" managed="false" onAction="#handleSubmitGuess" text="Submit Guess" visible="false" />
+            <Button fx:id="submitGuessButton" managed="false" onAction="#submitGuess" text="Submit Guess" visible="false" />
         </VBox>
     </children>
 </AnchorPane>

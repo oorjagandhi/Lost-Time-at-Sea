@@ -135,7 +135,7 @@ public class GuessingController {
   }
 
   @FXML
-  public void handleSubmitGuess() {
+  private void submitGuess() {
     if (selectedSuspect != null && !explanationTextArea.getText().trim().isEmpty()) {
       try {
 

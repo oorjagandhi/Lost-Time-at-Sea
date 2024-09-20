@@ -39,7 +39,7 @@ public class FeedbackController {
 
   // Handle the Play Again action
   @FXML
-  private void handlePlayAgain(ActionEvent event) {
+  private void onPlayAgain(ActionEvent event) {
     System.out.println("Play Again button clicked");
 
     // Reset the timer
