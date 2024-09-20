@@ -470,6 +470,7 @@ public class RoomController extends SoundPlayer {
 
   @FXML
   private void handleFloorBoardClick(MouseEvent event) {
+    context.setClueInteracted(true);
     System.out.println("Floor clicked, attempting to load floor.fxml...");
     try {
       // Load the FXML file for the floorboard scene
