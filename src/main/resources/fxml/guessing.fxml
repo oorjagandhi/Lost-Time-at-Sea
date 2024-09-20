@@ -7,20 +7,24 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.layout.StackPane?>
-<AnchorPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.GuessingController"
-            prefHeight="605.0" prefWidth="835.0">
+<AnchorPane prefHeight="605.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.GuessingController">
     <children>
+      <ImageView fitHeight="605.0" fitWidth="955.0" layoutX="-5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/crimesceneblur.png" />
+         </image>
+      </ImageView>
       <StackPane layoutY="10.0" prefWidth="835.0">
         <fx:include source="timer.fxml" />
       </StackPane>
         <!-- Main container to center everything -->
         <VBox alignment="CENTER" prefHeight="605.0" prefWidth="835.0" spacing="20.0">
             
-            <!-- Instruction text -->
-            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Guess who stole the captain's watch" />
+               <!-- Instruction text -->
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Guess who stole the captain's watch" textFill="WHITE" />
             <!-- Container for the suspect rectangles -->
             <HBox alignment="CENTER" spacing="20.0">
                 <ImageView fx:id="suspectMaid" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#handleSuspectClick" pickOnBounds="true" preserveRatio="true">
@@ -40,14 +44,14 @@
                 </ImageView>
             </HBox>
 
-            <!-- TextBox for why the selected person is the thief, initially hidden -->
+               <!-- TextBox for why the selected person is the thief, initially hidden -->
             <VBox fx:id="explanationBox" alignment="CENTER" managed="false" spacing="10.0" visible="false">
                 <Label fx:id="whyLabel" text="Why is [person selected] the thief?" />
-                <TextArea fx:id="explanationTextArea" style="-fx-control-inner-background: white;" prefRowCount="4" wrapText="true" maxWidth="600.0" />
+                <TextArea fx:id="explanationTextArea" maxWidth="600.0" prefRowCount="4" style="-fx-control-inner-background: white;" wrapText="true" />
             </VBox>
 
-            <!-- Button to submit the guess -->
-            <Button fx:id="submitGuessButton" text="Submit Guess" onAction="#handleSubmitGuess" visible="false" managed="false"/>
+               <!-- Button to submit the guess -->
+            <Button fx:id="submitGuessButton" managed="false" onAction="#handleSubmitGuess" text="Submit Guess" visible="false" />
         </VBox>
     </children>
 </AnchorPane>
