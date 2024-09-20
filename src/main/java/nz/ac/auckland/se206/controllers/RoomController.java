@@ -627,8 +627,10 @@ public class RoomController extends SoundPlayer {
 
   private void switchToGuessingScene() {
     Platform.runLater(
+        // loads the guessing scene when it is needed
         () -> {
           FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/guessing.fxml"));
+          // attempts to load guessing scene
           try {
             Parent root = loader.load();
             Scene scene = new Scene(root);
