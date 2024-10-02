@@ -6,21 +6,43 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="201.0" prefWidth="662.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ChatController">
-   <BorderPane opacity="0.55" prefHeight="8.0" prefWidth="662.0" style="-fx-background-color: black;" />
+<VBox prefHeight="201.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/22"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="nz.ac.auckland.se206.controllers.ChatController">
+   <!-- Top Border -->
+   <BorderPane opacity="0.55" prefHeight="8.0" prefWidth="662.0"
+               style="-fx-background-color: black;" />
+   <!-- Main Chat Area -->
    <HBox prefHeight="151.0" prefWidth="662.0">
       <children>
-         <BorderPane fx:id="border1" opacity="0.55" prefHeight="151.0" prefWidth="155.0" style="-fx-background-color: black;" />
-          <VBox fx:id="chatBox" prefHeight="151.0" prefWidth="498.0" style="-fx-background-color: black;" />
-         <BorderPane opacity="0.55" prefHeight="25.0" prefWidth="10.0" style="-fx-background-color: black;" />
+         <!-- Left Border (or placeholder for icon) -->
+         <BorderPane fx:id="border1" opacity="0.55" prefHeight="151.0" prefWidth="155.0"
+                     style="-fx-background-color: black;" />
+         <!-- Chat Messages Container -->
+         <VBox fx:id="chatBox" prefHeight="151.0" prefWidth="498.0" maxHeight="151.0" style="-fx-background-color: black;" />
+         <!-- Right Border -->
+         <BorderPane opacity="0.55" prefHeight="151.0" prefWidth="10.0"
+                     style="-fx-background-color: black;" />
       </children>
    </HBox>
-   <BorderPane opacity="0.55" prefHeight="9.0" prefWidth="662.0" style="-fx-background-color: black;" />
-    <HBox prefHeight="25.0" prefWidth="662.0">
-      <BorderPane opacity="0.55" prefHeight="25.0" prefWidth="10.0" style="-fx-background-color: black;" />
-        <TextField fx:id="txtInput" style="-fx-background-color: rgba(40,40,40,1); -fx-text-fill: white;" HBox.hgrow="ALWAYS" />
-        <Button fx:id="btnSend" onAction="#onSendMessage" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: rgb(50,50,50);" text="Send" textFill="WHITE" />
-      <BorderPane opacity="0.55" prefHeight="25.0" prefWidth="10.0" style="-fx-background-color: black;" />
-    </HBox>
-   <BorderPane opacity="0.55" prefHeight="8.0" prefWidth="662.0" style="-fx-background-color: black;" />
+   <!-- Middle Border -->
+   <BorderPane opacity="0.55" prefHeight="9.0" prefWidth="662.0"
+               style="-fx-background-color: black;" />
+   <!-- Input Field and Send Button -->
+   <HBox prefHeight="25.0" prefWidth="662.0">
+      <children>
+         <BorderPane opacity="0.55" prefHeight="25.0" prefWidth="10.0"
+                     style="-fx-background-color: black;" />
+         <TextField fx:id="txtInput" HBox.hgrow="ALWAYS"
+                    style="-fx-background-color: rgba(40,40,40,1); -fx-text-fill: white;" />
+         <Button fx:id="btnSend" onAction="#onSendMessage" prefHeight="26.0"
+                 prefWidth="80.0" text="Send" textFill="WHITE"
+                 style="-fx-background-color: rgb(50,50,50);" />
+         <BorderPane opacity="0.55" prefHeight="25.0" prefWidth="10.0"
+                     style="-fx-background-color: black;" />
+      </children>
+   </HBox>
+   <!-- Bottom Border -->
+   <BorderPane opacity="0.55" prefHeight="8.0" prefWidth="662.0"
+               style="-fx-background-color: black;" />
 </VBox>

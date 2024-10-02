@@ -37,6 +37,8 @@ public class ChatController {
   private ChatCompletionRequest chatCompletionRequest;
   private String profession;
 
+  private static final int MAX_MESSAGES = 5;
+
   /**
    * Initializes the chat view.
    *
@@ -98,32 +100,47 @@ public class ChatController {
     Pos alignment;
     if ("user".equals(msg.getRole())) {
       displayRole = "You";
-      titleColor = Color.GREEN;
+      titleColor = Color.LIGHTGREEN;
       alignment = Pos.CENTER_RIGHT;
     } else if ("assistant".equals(msg.getRole())) {
       displayRole = capitalize(profession);
-      titleColor = Color.BLUE;
+      titleColor = Color.LIGHTBLUE;
       alignment = Pos.CENTER_LEFT;
     } else {
-      displayRole = msg.getRole();
-      titleColor = Color.BLACK; // default color
+      displayRole = capitalize(msg.getRole());
+      titleColor = Color.WHITE; // default color
       alignment = Pos.CENTER_LEFT;
     }
 
     // Create HBox for the message
     HBox messageBox = new HBox();
     messageBox.setAlignment(alignment);
-    messageBox.setStyle("-fx-background-color: black; -fx-padding: 5;"); // Ensure black background
+    messageBox.setStyle("-fx-background-color: black; -fx-padding: 5;");
 
     // Create Labels for the title and content
     Label titleLabel = new Label(displayRole + ": ");
     titleLabel.setTextFill(titleColor);
+    titleLabel.setStyle("-fx-font-weight: bold;");
     Label contentLabel = new Label(msg.getContent());
     contentLabel.setTextFill(Color.WHITE);
 
     messageBox.getChildren().addAll(titleLabel, contentLabel);
 
-    chatBox.getChildren().add(messageBox);
+    // Add the message to the chatBox and manage overflow
+    Platform.runLater(
+        () -> {
+          chatBox.getChildren().add(messageBox);
+          System.out.println("Message added. Total messages: " + chatBox.getChildren().size());
+          manageChatBoxOverflow();
+        });
+  }
+
+  private void manageChatBoxOverflow() {
+    // Remove oldest messages if the total exceeds MAX_MESSAGES
+    while (chatBox.getChildren().size() > MAX_MESSAGES) {
+      chatBox.getChildren().remove(0); // Remove the oldest message
+      System.out.println("Removed oldest message. Total messages: " + chatBox.getChildren().size());
+    }
   }
 
   private String capitalize(String str) {
@@ -191,7 +208,6 @@ public class ChatController {
       return;
     }
     txtInput.clear();
-    chatBox.getChildren().clear(); // Clear previous messages
     ChatMessage msg = new ChatMessage("user", message);
     appendChatMessage(msg);
     runGpt(msg);
