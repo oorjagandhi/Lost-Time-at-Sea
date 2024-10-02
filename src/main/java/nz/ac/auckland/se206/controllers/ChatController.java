@@ -37,7 +37,7 @@ public class ChatController {
   private ChatCompletionRequest chatCompletionRequest;
   private String profession;
 
-  private static final int MAX_MESSAGES = 4;
+  private static final int MAX_MESSAGES = 3;
 
   /**
    * Initializes the chat view.

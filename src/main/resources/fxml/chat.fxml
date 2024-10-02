@@ -22,7 +22,7 @@
          <BorderPane fx:id="border1" opacity="0.55" prefHeight="151.0" prefWidth="155.0"
                      style="-fx-background-color: black;" />
          <!-- Chat Messages Container -->
-         <VBox fx:id="chatBox" prefHeight="151.0" prefWidth="498.0" maxHeight="151.0" style="-fx-background-color: black;" />
+         <VBox fx:id="chatBox" prefHeight="151.0" prefWidth="498.0" maxHeight="151.0" style="-fx-background-color: black;" styleClass="chat-font"/>
          <!-- Right Border -->
          <BorderPane opacity="0.55" prefHeight="151.0" prefWidth="10.0"
                      style="-fx-background-color: black;" />
@@ -37,9 +37,10 @@
          <BorderPane opacity="0.55" prefHeight="25.0" prefWidth="10.0"
                      style="-fx-background-color: black;" />
          <TextField fx:id="txtInput" HBox.hgrow="ALWAYS"
-                    promptText="Type your message here..." 
-                    style="-fx-background-color: rgba(40,40,40,1); -fx-text-fill: white; -fx-prompt-text-fill: gray;" />
-         <Button fx:id="btnSend" onAction="#onSendMessage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: rgb(50,50,50);">
+                    promptText="type your message here..." 
+                    style="-fx-background-color: rgba(40,40,40,1); -fx-text-fill: white; -fx-prompt-text-fill: gray;" 
+                    styleClass="prompt-font" />
+         <Button fx:id="btnSend" onAction="#onSendMessage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: rgb(50,50,50);" styleClass="chat-font">
             <graphic>
                <ImageView fitWidth="16.0" fitHeight="16.0">
                   <Image url="@../images/send.png" />

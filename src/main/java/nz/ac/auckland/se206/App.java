@@ -103,7 +103,9 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) throws IOException {
-    Font.loadFont(getClass().getResourceAsStream("/fonts/timer-text.ttf"), 24);
+    Font font1 = Font.loadFont(getClass().getResourceAsStream("/fonts/timer-text.ttf"), 24);
+    Font font2 =
+        Font.loadFont(getClass().getResourceAsStream("/fonts/MonoSpaceTypewriter.ttf"), 24);
     Parent root = loadFxml("crime-scene");
     scene = new Scene(root);
     stage.setScene(scene);

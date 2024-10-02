@@ -41,15 +41,21 @@
   -fx-text-inner-color: white;
 }
 
-/* Custom font */
-@font-face {
-  font-family: 'Open 24 Display St';
-  src: url('../fonts/timer-text.ttf');
-}
+
 
 .custom-font {
   -fx-font-family: 'Open 24 Display St';
   -fx-font-size: 40px;
+}
+
+.prompt-font {
+  -fx-font-family: 'MonoSpaceTypewriter';
+  -fx-font-size: 13px;
+}
+
+.chat-font {
+  -fx-font-family: 'MonoSpaceTypewriter';
+  -fx-font-size: 11px;
 }
 
 /* Updated styles for MenuItems */
