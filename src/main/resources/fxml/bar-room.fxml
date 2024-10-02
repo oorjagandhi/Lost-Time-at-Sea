@@ -20,7 +20,7 @@
                     <Image url="@../images/bar2.png" />
                  </image>
               </ImageView>
-            <ImageView fx:id="suspectBartender" fitHeight="183.0" fitWidth="162.0" layoutX="324.0" layoutY="140.0" onMouseClicked="#handleSuspectClick" pickOnBounds="true" preserveRatio="true" rotate="5.0">
+            <ImageView fx:id="suspectBartender" fitHeight="183.0" fitWidth="162.0" layoutX="324.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" rotate="5.0">
                <image>
                   <Image url="@../images/bartender2.png" />
                </image>

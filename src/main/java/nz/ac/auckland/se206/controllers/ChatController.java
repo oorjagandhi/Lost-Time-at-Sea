@@ -7,9 +7,13 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionRequest;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionResult;
 import nz.ac.auckland.apiproxy.chat.openai.ChatMessage;
@@ -24,7 +28,7 @@ import nz.ac.auckland.se206.prompts.PromptEngineering;
  */
 public class ChatController {
 
-  @FXML private TextArea txtaChat;
+  @FXML private VBox chatBox;
   @FXML private TextField txtInput;
   @FXML private Button btnSend;
 
@@ -63,6 +67,7 @@ public class ChatController {
    */
   public void setProfession(String profession) {
     this.profession = profession;
+    chatBox.getChildren().clear(); // Clear chat when profession changes
     try {
       ApiProxyConfig config = ApiProxyConfig.readConfig();
       chatCompletionRequest =
@@ -71,27 +76,54 @@ public class ChatController {
               .setTemperature(0.1)
               .setTopP(0.3)
               .setMaxTokens(60);
-      runGpt(new ChatMessage("system", getSystemPrompt()));
+      // Initialize conversation with a system prompt
+      chatCompletionRequest.addMessage(new ChatMessage("system", getSystemPrompt()));
+
+      // Send initial assistant message
+      sendInitialAssistantMessage();
+
     } catch (ApiProxyException e) {
       e.printStackTrace();
     }
   }
 
   /**
-   * Appends a chat message to the chat text area.
+   * Appends a chat message to the chat box.
    *
    * @param msg the chat message to append
    */
   private void appendChatMessage(ChatMessage msg) {
     String displayRole;
+    Color titleColor;
+    Pos alignment;
     if ("user".equals(msg.getRole())) {
       displayRole = "You";
+      titleColor = Color.GREEN;
+      alignment = Pos.CENTER_RIGHT;
     } else if ("assistant".equals(msg.getRole())) {
       displayRole = capitalize(profession);
+      titleColor = Color.BLUE;
+      alignment = Pos.CENTER_LEFT;
     } else {
       displayRole = msg.getRole();
+      titleColor = Color.BLACK; // default color
+      alignment = Pos.CENTER_LEFT;
     }
-    txtaChat.appendText(displayRole + ": " + msg.getContent() + "\n\n");
+
+    // Create HBox for the message
+    HBox messageBox = new HBox();
+    messageBox.setAlignment(alignment);
+    messageBox.setStyle("-fx-background-color: black; -fx-padding: 5;"); // Ensure black background
+
+    // Create Labels for the title and content
+    Label titleLabel = new Label(displayRole + ": ");
+    titleLabel.setTextFill(titleColor);
+    Label contentLabel = new Label(msg.getContent());
+    contentLabel.setTextFill(Color.WHITE);
+
+    messageBox.getChildren().addAll(titleLabel, contentLabel);
+
+    chatBox.getChildren().add(messageBox);
   }
 
   private String capitalize(String str) {
@@ -159,13 +191,14 @@ public class ChatController {
       return;
     }
     txtInput.clear();
+    chatBox.getChildren().clear(); // Clear previous messages
     ChatMessage msg = new ChatMessage("user", message);
     appendChatMessage(msg);
     runGpt(msg);
   }
 
   public void clearChat() {
-    txtaChat.clear();
+    chatBox.getChildren().clear();
   }
 
   public void sendMessage() throws ApiProxyException, IOException {
@@ -174,5 +207,34 @@ public class ChatController {
 
   public void setInputFocus() {
     txtInput.requestFocus();
+  }
+
+  public void sendInitialAssistantMessage() {
+    isLoading.set(true);
+    Task<Void> backgroundTask =
+        new Task<>() {
+          @Override
+          protected Void call() {
+            try {
+              // Since the conversation only has the system prompt, we can execute the chat
+              // completion request
+              ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
+              Choice result = chatCompletionResult.getChoices().iterator().next();
+              ChatMessage responseMessage = result.getChatMessage();
+              Platform.runLater(
+                  () -> {
+                    chatCompletionRequest.addMessage(responseMessage);
+                    appendChatMessage(responseMessage);
+                  });
+            } catch (Exception e) {
+              e.printStackTrace();
+            } finally {
+              Platform.runLater(() -> isLoading.set(false));
+            }
+            return null;
+          }
+        };
+    Thread backgroundThread = new Thread(backgroundTask);
+    backgroundThread.start();
   }
 }

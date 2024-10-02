@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
+import java.io.InputStream;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -82,44 +83,7 @@ public class RoomController extends SoundPlayer {
     }
     roomManager.setUserWelcomed(true);
 
-    if (floorBoardImageView != null) {
-      floorBoardImageView.setOnMouseEntered(this::handleMouseEnterfloorBoardImageView);
-      floorBoardImageView.setOnMouseExited(this::handleMouseExitfloorBoardImageView);
-    }
-
-    if (paperImageView != null) {
-      paperImageView.setOnMouseEntered(this::handleMouseEnterpaperImageView);
-      paperImageView.setOnMouseExited(this::handleMouseExitpaperImageView);
-    }
-
-    if (radioImageView != null) {
-      radioImageView.setOnMouseEntered(this::handleMouseEnterradioImageView);
-      radioImageView.setOnMouseExited(this::handleMouseExitradioImageView);
-    }
-
-    if (rectSuspect != null) {
-      rectSuspect.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> handleRectangleHover());
-      rectSuspect.addEventFilter(MouseEvent.MOUSE_EXITED, event -> handleRectangleHoverExit());
-      rectSuspect.addEventFilter(
-          MouseEvent.MOUSE_CLICKED,
-          event -> {
-            // Pass click event to the underlying ImageView (suspectBartender in this case)
-            if (suspectBartender != null) {
-              suspectBartender.fireEvent(event);
-            }
-            if (suspectMaid != null) {
-              suspectMaid.fireEvent(event);
-            }
-            if (suspectSailor != null) {
-              suspectSailor.fireEvent(event);
-            }
-          });
-    }
-
-    System.out.println("suspectMaid: " + suspectMaid);
-    System.out.println("suspectBartender: " + suspectBartender);
-    System.out.println("suspectSailor: " + suspectSailor);
-
+    // Initialize chat controller
     if (chatContainer != null) {
       // Load chat.fxml manually
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/chat.fxml"));
@@ -134,6 +98,17 @@ public class RoomController extends SoundPlayer {
               (obs, wasLoading, isNowLoading) -> {
                 Platform.runLater(() -> updateSuspectIcon(isNowLoading));
               });
+    }
+
+    // **Set the profession based on the current room or suspect**
+    setProfessionForCurrentScene();
+
+    // **Update suspect icon**
+    updateSuspectIcon(false);
+
+    // **Optionally set input focus to the chat input field**
+    if (chatController != null) {
+      chatController.setInputFocus();
     }
   }
 
@@ -194,48 +169,6 @@ public class RoomController extends SoundPlayer {
               true,
               true,
               null));
-    }
-  }
-
-  public void handleSuspectClick(MouseEvent event) {
-    System.out.println("Suspect clicked");
-    Node source = (Node) event.getSource();
-    String suspectId = source.getId(); // e.g., "suspectMaid" or "suspectBartender"
-
-    // Check if the game is in the guessing state
-    if (context.getState().equals(context.getGuessingState())) {
-      try {
-        // Call handleRectangleClick to make a guess
-        context.handleRectangleClick(event, suspectId);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      return; // Exit early since we are making a guess
-    }
-
-    // If not in the guessing state, proceed with the regular interaction
-    chatController.clearChat();
-    updateGuessButtonAvailability();
-
-    // Handle the suspect interaction
-    switch (suspectId) {
-      case "suspectMaid":
-        context.setSuspectInteracted("maid");
-        currentSuspect = "maid";
-        showChat("maid");
-        break;
-      case "suspectBartender":
-        context.setSuspectInteracted("bartender");
-        currentSuspect = "bartender";
-        showChat("bartender");
-        break;
-      case "suspectSailor":
-        context.setSuspectInteracted("sailor");
-        currentSuspect = "sailor";
-        showChat("sailor");
-        break;
-      default:
-        System.out.println("Unknown suspect ID: " + suspectId);
     }
   }
 
@@ -595,24 +528,28 @@ public class RoomController extends SoundPlayer {
           break;
       }
     } else {
-      // Use the original image depending on the current suspect
       switch (currentSuspect) {
         case "maid":
-          imagePath = "/images/cleaner-closeup2.png"; // Replace with the maid's icon image
+          imagePath = "/images/cleaner-closeup2.png"; // Maid's icon image
           break;
         case "bartender":
-          imagePath = "/images/bartender-closeup.png"; // Replace with the bartender's icon image
+          imagePath = "/images/bartender-closeup.png"; // Bartender's icon image
           break;
         case "sailor":
-          imagePath = "/images/sailor_closeup1.png"; // Replace with the sailor's icon image
+          imagePath = "/images/sailor_closeup1.png"; // Sailor's icon image
           break;
         default:
-          // Default image if current suspect is not set
-          imagePath = "/images/default-icon.png"; // Replace with a default icon if needed
+          imagePath = "/images/default-icon.png"; // Default icon
           break;
       }
     }
-    suspectIcon.setImage(new Image(getClass().getResourceAsStream(imagePath)));
+    // Ensure the image path is correct and the image exists
+    InputStream imageStream = getClass().getResourceAsStream(imagePath);
+    if (imageStream != null) {
+      suspectIcon.setImage(new Image(imageStream));
+    } else {
+      System.err.println("Error: Image not found at path: " + imagePath);
+    }
   }
 
   @FXML
@@ -639,5 +576,26 @@ public class RoomController extends SoundPlayer {
             e.printStackTrace();
           }
         });
+  }
+
+  private void setProfessionForCurrentScene() {
+    // Determine the profession based on the room or suspect
+    // For example, if this is the maid's room
+    // You can use FXML IDs or other indicators to determine the suspect
+
+    // Example:
+    if (suspectMaid != null) {
+      currentSuspect = "maid";
+    } else if (suspectBartender != null) {
+      currentSuspect = "bartender";
+    } else if (suspectSailor != null) {
+      currentSuspect = "sailor";
+    } else {
+      currentSuspect = "unknown";
+    }
+
+    if (chatController != null) {
+      chatController.setProfession(currentSuspect);
+    }
   }
 }
