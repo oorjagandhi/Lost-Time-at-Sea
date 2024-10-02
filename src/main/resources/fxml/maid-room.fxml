@@ -31,7 +31,7 @@
               <StackPane layoutX="350.0" layoutY="20.0" prefHeight="40.0" prefWidth="135.0">
                   <fx:include source="timer.fxml" />
               </StackPane>
-            <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="353.0" layoutX="83.0" layoutY="217.0" onMouseClicked="#handleRectangleClick" onMouseEntered="#handleMouseEnterrectSuspect" onMouseExited="#handleMouseExitrectSuspect" stroke="TRANSPARENT" strokeType="INSIDE" width="150.0" />
+            <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="353.0" layoutX="83.0" layoutY="217.0" onMouseClicked="#handleRectangleClick" stroke="TRANSPARENT" strokeType="INSIDE" width="150.0" />
             <!-- Container for the chat -->
             <VBox fx:id="chatContainer" layoutX="79.0" layoutY="327.0" prefHeight="190.0" prefWidth="661.0" />
       

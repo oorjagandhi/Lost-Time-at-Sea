@@ -37,7 +37,7 @@ public class ChatController {
   private ChatCompletionRequest chatCompletionRequest;
   private String profession;
 
-  private static final int MAX_MESSAGES = 5;
+  private static final int MAX_MESSAGES = 4;
 
   /**
    * Initializes the chat view.
@@ -97,39 +97,48 @@ public class ChatController {
   private void appendChatMessage(ChatMessage msg) {
     String displayRole;
     Color titleColor;
-    Pos alignment;
     if ("user".equals(msg.getRole())) {
       displayRole = "You";
       titleColor = Color.LIGHTGREEN;
-      alignment = Pos.CENTER_RIGHT;
     } else if ("assistant".equals(msg.getRole())) {
       displayRole = capitalize(profession);
       titleColor = Color.LIGHTBLUE;
-      alignment = Pos.CENTER_LEFT;
     } else {
       displayRole = capitalize(msg.getRole());
       titleColor = Color.WHITE; // default color
-      alignment = Pos.CENTER_LEFT;
     }
 
-    // Create HBox for the message
+    // Create HBox for the message content
     HBox messageBox = new HBox();
-    messageBox.setAlignment(alignment);
     messageBox.setStyle("-fx-background-color: black; -fx-padding: 5;");
+    messageBox.setSpacing(5); // Add spacing between title and content
 
     // Create Labels for the title and content
     Label titleLabel = new Label(displayRole + ": ");
     titleLabel.setTextFill(titleColor);
     titleLabel.setStyle("-fx-font-weight: bold;");
+
     Label contentLabel = new Label(msg.getContent());
     contentLabel.setTextFill(Color.WHITE);
+    contentLabel.setWrapText(true);
+    contentLabel.setMaxWidth(400); // Adjust as needed
 
+    // Add the labels to the messageBox
     messageBox.getChildren().addAll(titleLabel, contentLabel);
 
-    // Add the message to the chatBox and manage overflow
+    // Create a container to align the messageBox to left or right
+    HBox messageContainer = new HBox();
+    if ("user".equals(msg.getRole())) {
+      messageContainer.setAlignment(Pos.CENTER_RIGHT);
+    } else {
+      messageContainer.setAlignment(Pos.CENTER_LEFT);
+    }
+    messageContainer.getChildren().add(messageBox);
+
+    // Add the messageContainer to the chatBox
     Platform.runLater(
         () -> {
-          chatBox.getChildren().add(messageBox);
+          chatBox.getChildren().add(messageContainer);
           System.out.println("Message added. Total messages: " + chatBox.getChildren().size());
           manageChatBoxOverflow();
         });
