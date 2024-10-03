@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.controllers.ChatController;
+import nz.ac.auckland.se206.util.SoundPlayer;
 
 /**
  * This is the entry point of the JavaFX application. This class initializes and runs the JavaFX
@@ -21,6 +22,7 @@ public class App extends Application {
 
   private static Scene scene;
   private static Stage stage;
+  SoundPlayer soundPlayer = new SoundPlayer();
 
   /**
    * The main method that launches the JavaFX application.
@@ -103,6 +105,7 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) throws IOException {
+    soundPlayer.playBackgroundTracks();
     Font font1 = Font.loadFont(getClass().getResourceAsStream("/fonts/timer-text.ttf"), 24);
     Font font2 =
         Font.loadFont(getClass().getResourceAsStream("/fonts/MonoSpaceTypewriter.ttf"), 24);
