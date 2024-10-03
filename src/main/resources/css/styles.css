@@ -58,6 +58,17 @@
   -fx-font-size: 11px;
 }
 
+.title-font {
+  -fx-font-family: 'Copperplate Gothic Std';
+  -fx-font-size: 36px;
+}
+
+.feedback-font {
+  -fx-font-family: 'MonoSpaceTypewriter';
+  -fx-font-size: 14px;
+}
+
+
 /* Updated styles for MenuItems */
 .menu-item,
 .menu-item:hover,

@@ -106,6 +106,7 @@ public class App extends Application {
     Font font1 = Font.loadFont(getClass().getResourceAsStream("/fonts/timer-text.ttf"), 24);
     Font font2 =
         Font.loadFont(getClass().getResourceAsStream("/fonts/MonoSpaceTypewriter.ttf"), 24);
+    Font font3 = Font.loadFont(getClass().getResourceAsStream("/fonts/title.ttf"), 24);
     Parent root = loadFxml("crime-scene");
     scene = new Scene(root);
     stage.setScene(scene);

@@ -30,7 +30,7 @@ public class FeedbackController extends SoundPlayer {
   // Method to update the text
   public void updateStatus(boolean won) {
     System.out.println("Updating response text to: " + won);
-    status.setText(won ? "You guessed the correct thief!" : "You guessed the incorrect thief.");
+    status.setText(won ? "you guessed the correct thief!" : "you guessed the incorrect thief.");
     if (won) {
       playSound("/sounds/congrats.mp3");
       room.setStyle("-fx-background-color: green;");
