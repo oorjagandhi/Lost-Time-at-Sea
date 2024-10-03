@@ -81,7 +81,7 @@ public class TimerController extends SoundPlayer {
                 timerManager.isGuessTime() ? "-fx-text-fill: red;" : "-fx-text-fill: white;");
           } else {
             timerManager.stopTimer();
-            noTime();
+            // noTime();
           }
         });
   }

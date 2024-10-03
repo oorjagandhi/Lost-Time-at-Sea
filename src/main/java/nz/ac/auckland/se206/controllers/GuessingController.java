@@ -2,6 +2,7 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -52,6 +53,41 @@ public class GuessingController {
     setupHoverEffect(suspectSailor);
 
     bindSubmitButtonVisibility();
+
+    // create a thread to check the time at every second
+    Thread timerThread =
+        new Thread(
+            () -> {
+              boolean hasExecuted = false; // Flag to prevent duplicate execution
+              while (true) {
+                try {
+                  Thread.sleep(1000); // Sleep for 1 second
+
+                  // Check if the timer has reached 0 and if the action has not been executed yet
+                  if (TimerManager.getInstance().getTime() <= 0 && !hasExecuted) {
+                    hasExecuted = true; // Set the flag to true to prevent further execution
+                    TimerManager.getInstance().stopTimer(); // Stop the timer
+                    System.out.println("!!!!!!!!!!!!!!!!!!" + explanationTextArea.getText());
+                    System.out.println(
+                        "!!!!!!!!!!!!!!!!!!" + explanationTextArea.getText().isEmpty());
+
+                    // Check the content of the text area and call the appropriate method
+                    if (!explanationTextArea.getText().isEmpty()) {
+                      Platform.runLater(this::submitGuess);
+                      System.out.println("1");
+                    } else {
+                      Platform.runLater(this::noTime);
+                      System.out.println("2");
+                    }
+
+                    break; // Exit the while loop
+                  }
+                } catch (InterruptedException e) {
+                  e.printStackTrace();
+                }
+              }
+            });
+    timerThread.start();
   }
 
   // Bind the visibility of the submit button to the explanation text area
@@ -62,6 +98,21 @@ public class GuessingController {
             (observable, oldValue, newValue) -> {
               updateSubmitButtonVisibility();
             });
+  }
+
+  private void noTime() {
+    // goes to the loss scene if the player has lost
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/feedback-notime.fxml"));
+    Parent root;
+    try {
+      root = loader.load();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    // opens the scene
+    Scene scene = new Scene(root);
+    App.getStage().setScene(scene);
+    App.getStage().show();
   }
 
   // Update the visibility of the submit button based on the explanation text area

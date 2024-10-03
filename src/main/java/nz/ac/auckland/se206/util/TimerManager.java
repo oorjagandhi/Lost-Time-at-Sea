@@ -16,7 +16,7 @@ public class TimerManager {
 
   private Timeline timeline;
   private int time;
-  private int guessTime = 60; // 1 min to guess
+  private int guessTime = 5; // 1 min to guess
 
   private Runnable tickListener;
   private Runnable guessingStartListener;
