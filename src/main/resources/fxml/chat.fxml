@@ -39,14 +39,14 @@
                     promptText="type your message here..." 
                     style="-fx-background-color: rgba(40,40,40,1); -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-background-radius: 0;" 
                     styleClass="prompt-font" />
-         <Button fx:id="btnSend" onAction="#onSendMessage" prefHeight="26.0" prefWidth="36.0" 
-                 style="-fx-background-color: rgb(50,50,50); -fx-background-radius: 0;" styleClass="chat-font">
-            <graphic>
-               <ImageView fitWidth="16.0" fitHeight="16.0">
-                  <Image url="@../images/send.png" />
-               </ImageView>
-            </graphic>
-         </Button>
+        <Button fx:id="btnSend" onAction="#onSendMessage" prefHeight="26.0" prefWidth="36.0" 
+                style="-fx-background-color: rgb(50,50,50); -fx-background-radius: 0; -fx-cursor: hand;" styleClass="chat-font">
+          <graphic>
+              <ImageView fitWidth="16.0" fitHeight="16.0">
+                <Image url="@../images/send.png" />
+              </ImageView>
+          </graphic>
+        </Button>
          <BorderPane opacity="0.55" prefHeight="25.0" prefWidth="10.0"
                      style="-fx-background-color: black;" />
       </children>

@@ -75,9 +75,9 @@ public class ChatController {
       chatCompletionRequest =
           new ChatCompletionRequest(config)
               .setN(1)
-              .setTemperature(0.1)
+              .setTemperature(0.2)
               .setTopP(0.3)
-              .setMaxTokens(60);
+              .setMaxTokens(40);
       // Initialize conversation with a system prompt
       chatCompletionRequest.addMessage(new ChatMessage("system", getSystemPrompt()));
 
