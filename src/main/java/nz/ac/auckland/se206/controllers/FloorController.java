@@ -12,18 +12,17 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.util.SoundPlayer;
 
 public class FloorController extends SoundPlayer {
 
-  @FXML private Circle screw1;
-  @FXML private Circle screw2;
-  @FXML private Circle screw3;
+  @FXML private ImageView screw1;
+  @FXML private ImageView screw2;
+  @FXML private ImageView screw3;
   @FXML private ImageView floorBoard;
 
-  private List<Circle> screws;
+  private List<ImageView> screws;
   private boolean allScrewsRemoved = false;
 
   @FXML
@@ -35,7 +34,7 @@ public class FloorController extends SoundPlayer {
     screws.add(screw3);
 
     // Set up event handlers for screws
-    for (Circle screw : screws) {
+    for (ImageView screw : screws) {
       screw.setOnMouseClicked(this::handleScrewClick);
       screw.setOnMouseEntered(this::handleMouseEnterScrew);
       screw.setOnMouseExited(this::handleMouseExitScrew);
@@ -51,7 +50,7 @@ public class FloorController extends SoundPlayer {
 
   // Handle screw click to fade it away
   private void handleScrewClick(MouseEvent event) {
-    Circle screw = (Circle) event.getSource();
+    ImageView screw = (ImageView) event.getSource();
     fadeOutScrew(screw);
     screws.remove(screw);
     playSound("/sounds/screw.mp3");
@@ -64,7 +63,7 @@ public class FloorController extends SoundPlayer {
   }
 
   // Apply fade-out transition to the screw
-  private void fadeOutScrew(Circle screw) {
+  private void fadeOutScrew(ImageView screw) {
     FadeTransition fade = new FadeTransition(Duration.seconds(1), screw);
     fade.setFromValue(1.0);
     fade.setToValue(0.0);
@@ -74,14 +73,14 @@ public class FloorController extends SoundPlayer {
 
   // Highlight screw on hover
   private void handleMouseEnterScrew(MouseEvent event) {
-    Circle screw = (Circle) event.getSource();
+    ImageView screw = (ImageView) event.getSource();
     screw.setCursor(Cursor.HAND);
     screw.setStyle("-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);");
   }
 
   // Remove screw highlight when mouse exits
   private void handleMouseExitScrew(MouseEvent event) {
-    Circle screw = (Circle) event.getSource();
+    ImageView screw = (ImageView) event.getSource();
     screw.setCursor(Cursor.DEFAULT);
     screw.setStyle(""); // Reset to default style
   }
