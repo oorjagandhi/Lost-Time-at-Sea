@@ -19,18 +19,20 @@
                   <Image url="@../images/clues/crimescene2.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="radioImageView" fitHeight="124.0" fitWidth="186.0" layoutX="151.0" layoutY="188.0" onMouseClicked="#handleRadioClick" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/clues/radio2.png" />
-               </image>
+            <ImageView fx:id="radioImageView" fitHeight="124.0" fitWidth="186.0" layoutX="151.0" layoutY="188.0" 
+                onMouseClicked="#handleRadioClick" onMouseEntered="#handleMouseEnterClue" onMouseExited="#handleMouseExitClue" 
+                pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../images/clues/radio2.png" />
+                </image>
             </ImageView>
-            <ImageView fx:id="floorBoardImageView" fitHeight="121.0" fitWidth="119.0" layoutX="327.0" layoutY="457.0" onMouseClicked="#handleFloorBoardClick" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/clues/floorboard2.png" />
-               </image>
+            <ImageView fx:id="floorBoardImageView" fitHeight="121.0" fitWidth="119.0" layoutX="327.0" layoutY="457.0" 
+                onMouseClicked="#handleFloorBoardClick" onMouseEntered="#handleMouseEnterClue" onMouseExited="#handleMouseExitClue" 
+                pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../images/clues/floorboard2.png" />
+                </image>
             </ImageView>
-              <Rectangle fx:id="rectSecurity" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="265.0" layoutX="169.0" layoutY="286.0" onMouseClicked="#handleSecurityClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="77.0" />
-              <Rectangle fx:id="rectArtist" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="266.0" layoutX="273.0" layoutY="283.0" onMouseClicked="#handleArtistClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="71.0" />
               
               <Button fx:id="btnGuess" alignment="CENTER" layoutX="676.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="32.0" prefWidth="140.0" text="MAKE A GUESS" textAlignment="CENTER" styleClass="nav-button" />
               
@@ -39,7 +41,9 @@
               </StackPane>
           
               
-              <ImageView fx:id="paperImageView" fitHeight="47.0" fitWidth="53.0" layoutX="560.0" layoutY="469.0" onMouseClicked="#handlePaperClick" pickOnBounds="true" preserveRatio="true">
+              <ImageView fx:id="paperImageView" fitHeight="47.0" fitWidth="53.0" layoutX="560.0" layoutY="469.0" 
+                  onMouseClicked="#handlePaperClick" onMouseEntered="#handleMouseEnterClue" onMouseExited="#handleMouseExitClue" 
+                  pickOnBounds="true" preserveRatio="true">
                   <image>
                       <Image url="@../images/clues/paper.png" />
                   </image>

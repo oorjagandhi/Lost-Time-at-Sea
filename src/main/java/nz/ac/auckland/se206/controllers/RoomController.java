@@ -1,6 +1,10 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
+import java.io.InputStream;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +25,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
@@ -38,6 +43,7 @@ public class RoomController extends SoundPlayer {
   private static boolean isFirstTimeInit = true;
   private static GameStateContext context = GameStateContext.getInstance();
   private String currentSuspect;
+  private int currentThinkingImageIndex = 0;
 
   @FXML private ImageView radioImageView;
   @FXML private ImageView floorBoardImageView;
@@ -67,6 +73,13 @@ public class RoomController extends SoundPlayer {
 
   private final RoomManager roomManager = RoomManager.getInstance();
 
+  @FXML private ImageView thinkingBubble;
+
+  private static final String[] THINKING_IMAGES = {
+    "/images/think.png", "/images/think-1.png", "/images/think-2.png", "/images/think-3.png"
+  };
+  private Timeline thinkingTimeline;
+
   /**
    * Initializes the room view. If it's the first time initialization, it will provide instructions
    * via text-to-speech.
@@ -82,44 +95,7 @@ public class RoomController extends SoundPlayer {
     }
     roomManager.setUserWelcomed(true);
 
-    if (floorBoardImageView != null) {
-      floorBoardImageView.setOnMouseEntered(this::handleMouseEnterfloorBoardImageView);
-      floorBoardImageView.setOnMouseExited(this::handleMouseExitfloorBoardImageView);
-    }
-
-    if (paperImageView != null) {
-      paperImageView.setOnMouseEntered(this::handleMouseEnterpaperImageView);
-      paperImageView.setOnMouseExited(this::handleMouseExitpaperImageView);
-    }
-
-    if (radioImageView != null) {
-      radioImageView.setOnMouseEntered(this::handleMouseEnterradioImageView);
-      radioImageView.setOnMouseExited(this::handleMouseExitradioImageView);
-    }
-
-    if (rectSuspect != null) {
-      rectSuspect.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> handleRectangleHover());
-      rectSuspect.addEventFilter(MouseEvent.MOUSE_EXITED, event -> handleRectangleHoverExit());
-      rectSuspect.addEventFilter(
-          MouseEvent.MOUSE_CLICKED,
-          event -> {
-            // Pass click event to the underlying ImageView (suspectBartender in this case)
-            if (suspectBartender != null) {
-              suspectBartender.fireEvent(event);
-            }
-            if (suspectMaid != null) {
-              suspectMaid.fireEvent(event);
-            }
-            if (suspectSailor != null) {
-              suspectSailor.fireEvent(event);
-            }
-          });
-    }
-
-    System.out.println("suspectMaid: " + suspectMaid);
-    System.out.println("suspectBartender: " + suspectBartender);
-    System.out.println("suspectSailor: " + suspectSailor);
-
+    // Initialize chat controller
     if (chatContainer != null) {
       // Load chat.fxml manually
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/chat.fxml"));
@@ -132,8 +108,27 @@ public class RoomController extends SoundPlayer {
           .isLoadingProperty()
           .addListener(
               (obs, wasLoading, isNowLoading) -> {
-                Platform.runLater(() -> updateSuspectIcon(isNowLoading));
+                Platform.runLater(
+                    () -> {
+                      updateSuspectIcon(isNowLoading);
+                      if (isNowLoading) {
+                        startThinkingAnimation();
+                      } else {
+                        stopThinkingAnimation();
+                      }
+                    });
               });
+    }
+
+    // **Set the profession based on the current room or suspect**
+    setProfessionForCurrentScene();
+
+    // **Update suspect icon**
+    updateSuspectIcon(false);
+
+    // **Optionally set input focus to the chat input field**
+    if (chatController != null) {
+      chatController.setInputFocus();
     }
   }
 
@@ -197,48 +192,6 @@ public class RoomController extends SoundPlayer {
     }
   }
 
-  public void handleSuspectClick(MouseEvent event) {
-    System.out.println("Suspect clicked");
-    Node source = (Node) event.getSource();
-    String suspectId = source.getId(); // e.g., "suspectMaid" or "suspectBartender"
-
-    // Check if the game is in the guessing state
-    if (context.getState().equals(context.getGuessingState())) {
-      try {
-        // Call handleRectangleClick to make a guess
-        context.handleRectangleClick(event, suspectId);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      return; // Exit early since we are making a guess
-    }
-
-    // If not in the guessing state, proceed with the regular interaction
-    chatController.clearChat();
-    updateGuessButtonAvailability();
-
-    // Handle the suspect interaction
-    switch (suspectId) {
-      case "suspectMaid":
-        context.setSuspectInteracted("maid");
-        currentSuspect = "maid";
-        showChat("maid");
-        break;
-      case "suspectBartender":
-        context.setSuspectInteracted("bartender");
-        currentSuspect = "bartender";
-        showChat("bartender");
-        break;
-      case "suspectSailor":
-        context.setSuspectInteracted("sailor");
-        currentSuspect = "sailor";
-        showChat("sailor");
-        break;
-      default:
-        System.out.println("Unknown suspect ID: " + suspectId);
-    }
-  }
-
   /**
    * Handles the guess button click event.
    *
@@ -269,58 +222,6 @@ public class RoomController extends SoundPlayer {
   }
 
   @FXML
-  private void handleSecurityClick(MouseEvent event) throws IOException {
-    // handles opening the chat for the security and updates suspect interaction
-    chatController.clearChat();
-    context.setSuspectInteracted("rectSecurity");
-    updateGuessButtonAvailability();
-    // Open chat with the security guard
-    if (context.getState().equals(context.getGuessingState())) {
-      context.handleRectangleClick(event, "rectSecurity");
-    } else {
-      showChat("security");
-      System.out.println("security");
-    }
-  }
-
-  @FXML
-  private void handleCollectorClick(MouseEvent event) throws IOException {
-    // handles opening the chat for the collector and updates suspect itneraction
-    chatController.clearChat();
-    updateGuessButtonAvailability();
-    context.setSuspectInteracted("rectCollector");
-    if (context.getState().equals(context.getGuessingState())) {
-      context.handleRectangleClick(event, "rectCollector");
-    } else {
-      showChat("collector");
-      System.out.println("collector");
-    }
-  }
-
-  @FXML
-  private void handleArtistClick(MouseEvent event) throws IOException {
-    // handles opening the cha tfor the artist and updates suspect interaction
-    chatController.clearChat();
-    updateGuessButtonAvailability();
-    context.setSuspectInteracted("rectArtist");
-    if (context.getState().equals(context.getGuessingState())) {
-      context.handleRectangleClick(event, "rectArtist");
-    } else {
-      showChat("artist");
-      System.out.println("artist");
-    }
-  }
-
-  private void handleRectangleHover() {
-    rectSuspect.setStyle(
-        "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
-  }
-
-  private void handleRectangleHoverExit() {
-    rectSuspect.setStyle(""); // Remove the drop shadow effect
-  }
-
-  @FXML
   private void handleMouseEnter(MouseEvent event) {
     Node source = (Node) event.getSource();
     source.getScene().setCursor(Cursor.HAND); // Set cursor to hand on hover
@@ -340,27 +241,45 @@ public class RoomController extends SoundPlayer {
     }
   }
 
-  @FXML
-  private void handlePhoneClick(MouseEvent event) {
-    if (chatContainer != null) {
-      chatContainer.setVisible(false);
+  private void startThinkingAnimation() {
+    Platform.runLater(
+        () -> {
+          thinkingBubble.setVisible(true);
+          // Set the first thinking image to be shown immediately
+          thinkingBubble.setImage(new Image(getClass().getResourceAsStream(THINKING_IMAGES[0])));
+        });
+
+    // Set up the timeline for changing the thinking bubble images
+    thinkingTimeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(0.5),
+                event -> {
+                  // Increment the index and loop back to 0 if at the end
+                  currentThinkingImageIndex =
+                      (currentThinkingImageIndex + 1) % THINKING_IMAGES.length;
+
+                  InputStream imageStream =
+                      getClass().getResourceAsStream(THINKING_IMAGES[currentThinkingImageIndex]);
+                  if (imageStream != null) {
+                    thinkingBubble.setImage(new Image(imageStream));
+                  } else {
+                    System.err.println(
+                        "Error: Image not found at path: "
+                            + THINKING_IMAGES[currentThinkingImageIndex]);
+                  }
+                }));
+
+    thinkingTimeline.setCycleCount(Animation.INDEFINITE);
+    thinkingTimeline.play();
+  }
+
+  private void stopThinkingAnimation() {
+    if (thinkingTimeline != null) {
+      thinkingTimeline.stop();
     }
-
-    context.setClueInteracted(true);
-    try {
-      // Load the FXML file for the pop-up
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/phoneZoom.fxml"));
-      Parent popupContent = loader.load();
-
-      // Clear existing content and add new pop-up content
-      popupContainer.getChildren().clear();
-      popupContainer.getChildren().add(popupContent);
-
-      // Make the pop-up visible
-      popupContainer.setVisible(true);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    currentThinkingImageIndex = 0; // Reset index for next time
+    thinkingBubble.setVisible(false);
   }
 
   private void showChat(String profession) {
@@ -452,16 +371,19 @@ public class RoomController extends SoundPlayer {
 
   @FXML
   private void onSwitchToMaidRoom(ActionEvent event) {
+    context.setSuspectInteracted("maid");
     switchScene(event, "/fxml/maid-room.fxml");
   }
 
   @FXML
   private void onSwitchToBar(ActionEvent event) {
+    context.setSuspectInteracted("bartender");
     switchScene(event, "/fxml/bar-room.fxml");
   }
 
   @FXML
   private void onSwitchToDeck(ActionEvent event) {
+    context.setSuspectInteracted("sailor");
     switchScene(event, "/fxml/deck.fxml");
   }
 
@@ -506,41 +428,19 @@ public class RoomController extends SoundPlayer {
     }
   }
 
-  // Method to handle mouse entering the paper
-  private void handleMouseEnterpaperImageView(MouseEvent event) {
-    paperImageView.setCursor(Cursor.HAND); // Change cursor to hand
-    paperImageView.setStyle(
+  @FXML
+  private void handleMouseEnterClue(MouseEvent event) {
+    ImageView source = (ImageView) event.getSource(); // Get the source ImageView
+    source.setCursor(Cursor.HAND); // Change cursor to hand to indicate interactivity
+    source.setStyle(
         "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
   }
 
-  // Method to handle mouse exiting the paper
-  private void handleMouseExitpaperImageView(MouseEvent event) {
-    paperImageView.setCursor(Cursor.DEFAULT); // Reset cursor
-    paperImageView.setStyle(""); // Remove the drop shadow effect
-  }
-
-  // add the same methods for floorBoardImageView
-  private void handleMouseEnterfloorBoardImageView(MouseEvent event) {
-    floorBoardImageView.setCursor(Cursor.HAND); // Change cursor to hand
-    floorBoardImageView.setStyle(
-        "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
-  }
-
-  private void handleMouseExitfloorBoardImageView(MouseEvent event) {
-    floorBoardImageView.setCursor(Cursor.DEFAULT); // Reset cursor
-    floorBoardImageView.setStyle(""); // Remove the drop shadow effect
-  }
-
-  // same for radioImageView
-  private void handleMouseEnterradioImageView(MouseEvent event) {
-    radioImageView.setCursor(Cursor.HAND); // Change cursor to hand
-    radioImageView.setStyle(
-        "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
-  }
-
-  private void handleMouseExitradioImageView(MouseEvent event) {
-    radioImageView.setCursor(Cursor.DEFAULT); // Reset cursor
-    radioImageView.setStyle(""); // Remove the drop shadow effect
+  @FXML
+  private void handleMouseExitClue(MouseEvent event) {
+    ImageView source = (ImageView) event.getSource(); // Get the source ImageView
+    source.setCursor(Cursor.DEFAULT); // Reset cursor
+    source.setStyle(""); // Remove the drop shadow effect
   }
 
   @FXML
@@ -595,24 +495,28 @@ public class RoomController extends SoundPlayer {
           break;
       }
     } else {
-      // Use the original image depending on the current suspect
       switch (currentSuspect) {
         case "maid":
-          imagePath = "/images/cleaner-closeup2.png"; // Replace with the maid's icon image
+          imagePath = "/images/cleaner-closeup2.png"; // Maid's icon image
           break;
         case "bartender":
-          imagePath = "/images/bartender-closeup.png"; // Replace with the bartender's icon image
+          imagePath = "/images/bartender-closeup.png"; // Bartender's icon image
           break;
         case "sailor":
-          imagePath = "/images/sailor_closeup1.png"; // Replace with the sailor's icon image
+          imagePath = "/images/sailor_closeup1.png"; // Sailor's icon image
           break;
         default:
-          // Default image if current suspect is not set
-          imagePath = "/images/default-icon.png"; // Replace with a default icon if needed
+          imagePath = "/images/default-icon.png"; // Default icon
           break;
       }
     }
-    suspectIcon.setImage(new Image(getClass().getResourceAsStream(imagePath)));
+    // Ensure the image path is correct and the image exists
+    InputStream imageStream = getClass().getResourceAsStream(imagePath);
+    if (imageStream != null) {
+      suspectIcon.setImage(new Image(imageStream));
+    } else {
+      System.err.println("Error: Image not found at path: " + imagePath);
+    }
   }
 
   @FXML
@@ -639,5 +543,26 @@ public class RoomController extends SoundPlayer {
             e.printStackTrace();
           }
         });
+  }
+
+  private void setProfessionForCurrentScene() {
+    // Determine the profession based on the room or suspect
+    // For example, if this is the maid's room
+    // You can use FXML IDs or other indicators to determine the suspect
+
+    // Example:
+    if (suspectMaid != null) {
+      currentSuspect = "maid";
+    } else if (suspectBartender != null) {
+      currentSuspect = "bartender";
+    } else if (suspectSailor != null) {
+      currentSuspect = "sailor";
+    } else {
+      currentSuspect = "unknown";
+    }
+
+    if (chatController != null) {
+      chatController.setProfession(currentSuspect);
+    }
   }
 }

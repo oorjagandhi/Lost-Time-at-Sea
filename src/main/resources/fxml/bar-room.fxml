@@ -20,7 +20,7 @@
                     <Image url="@../images/bar2.png" />
                  </image>
               </ImageView>
-            <ImageView fx:id="suspectBartender" fitHeight="183.0" fitWidth="162.0" layoutX="324.0" layoutY="140.0" onMouseClicked="#handleSuspectClick" pickOnBounds="true" preserveRatio="true" rotate="5.0">
+            <ImageView fx:id="suspectBartender" fitHeight="183.0" fitWidth="162.0" layoutX="324.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" rotate="5.0">
                <image>
                   <Image url="@../images/bartender2.png" />
                </image>
@@ -31,11 +31,12 @@
               <StackPane layoutX="350.0" layoutY="20.0" prefHeight="40.0" prefWidth="135.0">
                   <fx:include source="timer.fxml" />
               </StackPane>
-            <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="172.0" layoutX="339.0" layoutY="144.0" onMouseEntered="#handleMouseEnterrectSuspect" onMouseExited="#handleMouseExitrectSuspect" stroke="TRANSPARENT" strokeType="INSIDE" width="111.0" />
+            <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="172.0" layoutX="339.0" layoutY="144.0" stroke="TRANSPARENT" strokeType="INSIDE" width="111.0" />
+            <ImageView fx:id="thinkingBubble" fitHeight="127.0" fitWidth="53.0" layoutX="197.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true" visible="false"/>
             <!-- Container for the chat -->
-            <VBox fx:id="chatContainer" layoutX="79.0" layoutY="327.0" prefHeight="190.0" prefWidth="661.0" visible="false" />
+            <VBox fx:id="chatContainer" layoutX="79.0" layoutY="327.0" prefHeight="190.0" prefWidth="661.0" />
       
-                  <ImageView fx:id="suspectIcon" fitHeight="144.0" fitWidth="145.0" layoutX="87.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                  <ImageView fx:id="suspectIcon" fitHeight="144.0" fitWidth="145.0" layoutX="87.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/bartender-closeup.png" />
                </image>
