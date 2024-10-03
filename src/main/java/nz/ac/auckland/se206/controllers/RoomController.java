@@ -2,6 +2,9 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import java.io.InputStream;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +25,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
@@ -39,6 +43,7 @@ public class RoomController extends SoundPlayer {
   private static boolean isFirstTimeInit = true;
   private static GameStateContext context = GameStateContext.getInstance();
   private String currentSuspect;
+  private int currentThinkingImageIndex = 0;
 
   @FXML private ImageView radioImageView;
   @FXML private ImageView floorBoardImageView;
@@ -68,6 +73,13 @@ public class RoomController extends SoundPlayer {
 
   private final RoomManager roomManager = RoomManager.getInstance();
 
+  @FXML private ImageView thinkingBubble;
+
+  private static final String[] THINKING_IMAGES = {
+    "/images/think.png", "/images/think-1.png", "/images/think-2.png", "/images/think-3.png"
+  };
+  private Timeline thinkingTimeline;
+
   /**
    * Initializes the room view. If it's the first time initialization, it will provide instructions
    * via text-to-speech.
@@ -96,7 +108,15 @@ public class RoomController extends SoundPlayer {
           .isLoadingProperty()
           .addListener(
               (obs, wasLoading, isNowLoading) -> {
-                Platform.runLater(() -> updateSuspectIcon(isNowLoading));
+                Platform.runLater(
+                    () -> {
+                      updateSuspectIcon(isNowLoading);
+                      if (isNowLoading) {
+                        startThinkingAnimation();
+                      } else {
+                        stopThinkingAnimation();
+                      }
+                    });
               });
     }
 
@@ -294,6 +314,47 @@ public class RoomController extends SoundPlayer {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  private void startThinkingAnimation() {
+    Platform.runLater(
+        () -> {
+          thinkingBubble.setVisible(true);
+          // Set the first thinking image to be shown immediately
+          thinkingBubble.setImage(new Image(getClass().getResourceAsStream(THINKING_IMAGES[0])));
+        });
+
+    // Set up the timeline for changing the thinking bubble images
+    thinkingTimeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(0.5),
+                event -> {
+                  // Increment the index and loop back to 0 if at the end
+                  currentThinkingImageIndex =
+                      (currentThinkingImageIndex + 1) % THINKING_IMAGES.length;
+
+                  InputStream imageStream =
+                      getClass().getResourceAsStream(THINKING_IMAGES[currentThinkingImageIndex]);
+                  if (imageStream != null) {
+                    thinkingBubble.setImage(new Image(imageStream));
+                  } else {
+                    System.err.println(
+                        "Error: Image not found at path: "
+                            + THINKING_IMAGES[currentThinkingImageIndex]);
+                  }
+                }));
+
+    thinkingTimeline.setCycleCount(Animation.INDEFINITE);
+    thinkingTimeline.play();
+  }
+
+  private void stopThinkingAnimation() {
+    if (thinkingTimeline != null) {
+      thinkingTimeline.stop();
+    }
+    currentThinkingImageIndex = 0; // Reset index for next time
+    thinkingBubble.setVisible(false);
   }
 
   private void showChat(String profession) {

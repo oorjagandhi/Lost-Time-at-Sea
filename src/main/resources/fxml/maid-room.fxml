@@ -26,16 +26,17 @@
                </image>
             </ImageView>
               
-              <Button fx:id="btnGuess" alignment="CENTER" layoutX="676.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="32.0" prefWidth="140.0" text="MAKE A GUESS" textAlignment="CENTER" styleClass="nav-button"/>
+              <Button fx:id="btnGuess" alignment="CENTER" layoutX="676.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="32.0" prefWidth="140.0" styleClass="nav-button" text="MAKE A GUESS" textAlignment="CENTER" />
               
               <StackPane layoutX="350.0" layoutY="20.0" prefHeight="40.0" prefWidth="135.0">
                   <fx:include source="timer.fxml" />
               </StackPane>
             <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="353.0" layoutX="83.0" layoutY="217.0" onMouseClicked="#handleRectangleClick" stroke="TRANSPARENT" strokeType="INSIDE" width="150.0" />
+            <ImageView fx:id="thinkingBubble" fitHeight="127.0" fitWidth="53.0" layoutX="197.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true" visible="false"/>
             <!-- Container for the chat -->
             <VBox fx:id="chatContainer" layoutX="79.0" layoutY="327.0" prefHeight="190.0" prefWidth="661.0" />
       
-            <ImageView fx:id="suspectIcon" fitHeight="152.0" fitWidth="150.0" layoutX="85.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="suspectIcon" fitHeight="152.0" fitWidth="150.0" layoutX="85.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/cleaner-closeup2.png" />
                </image>

@@ -32,6 +32,7 @@
                   <fx:include source="timer.fxml" />
               </StackPane>
             <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="172.0" layoutX="339.0" layoutY="144.0" stroke="TRANSPARENT" strokeType="INSIDE" width="111.0" />
+            <ImageView fx:id="thinkingBubble" fitHeight="127.0" fitWidth="53.0" layoutX="197.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true" visible="false"/>
             <!-- Container for the chat -->
             <VBox fx:id="chatContainer" layoutX="79.0" layoutY="327.0" prefHeight="190.0" prefWidth="661.0" />
       
