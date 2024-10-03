@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox prefHeight="201.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/22"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="nz.ac.auckland.se206.controllers.ChatController">
@@ -38,9 +37,10 @@
                      style="-fx-background-color: black;" />
          <TextField fx:id="txtInput" HBox.hgrow="ALWAYS"
                     promptText="type your message here..." 
-                    style="-fx-background-color: rgba(40,40,40,1); -fx-text-fill: white; -fx-prompt-text-fill: gray;" 
+                    style="-fx-background-color: rgba(40,40,40,1); -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-background-radius: 0;" 
                     styleClass="prompt-font" />
-         <Button fx:id="btnSend" onAction="#onSendMessage" prefHeight="26.0" prefWidth="36.0" style="-fx-background-color: rgb(50,50,50);" styleClass="chat-font">
+         <Button fx:id="btnSend" onAction="#onSendMessage" prefHeight="26.0" prefWidth="36.0" 
+                 style="-fx-background-color: rgb(50,50,50); -fx-background-radius: 0;" styleClass="chat-font">
             <graphic>
                <ImageView fitWidth="16.0" fitHeight="16.0">
                   <Image url="@../images/send.png" />
