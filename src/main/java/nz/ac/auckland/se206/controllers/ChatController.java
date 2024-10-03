@@ -97,12 +97,30 @@ public class ChatController {
   private void appendChatMessage(ChatMessage msg) {
     String displayRole;
     Color titleColor;
+    double maxWidth = 400;
+
     if ("user".equals(msg.getRole())) {
       displayRole = "You";
       titleColor = Color.LIGHTGREEN;
     } else if ("assistant".equals(msg.getRole())) {
       displayRole = capitalize(profession);
       titleColor = Color.LIGHTBLUE;
+
+      // Set the max width based on the current suspect (profession)
+      switch (profession.toLowerCase()) {
+        case "maid":
+          maxWidth = 420; // Max width for Maid's responses
+          break;
+        case "bartender":
+          maxWidth = 400; // Max width for Bartender's responses
+          break;
+        case "sailor":
+          maxWidth = 420; // Max width for Sailor's responses
+          break;
+        default:
+          maxWidth = 400; // Default max width for unknown professions
+          break;
+      }
     } else {
       displayRole = capitalize(msg.getRole());
       titleColor = Color.WHITE; // default color
@@ -121,7 +139,7 @@ public class ChatController {
     Label contentLabel = new Label(msg.getContent());
     contentLabel.setTextFill(Color.WHITE);
     contentLabel.setWrapText(true);
-    contentLabel.setMaxWidth(400); // Adjust as needed
+    contentLabel.setMaxWidth(maxWidth); // Set the max width dynamically based on the suspect
 
     // Add the labels to the messageBox
     messageBox.getChildren().addAll(titleLabel, contentLabel);

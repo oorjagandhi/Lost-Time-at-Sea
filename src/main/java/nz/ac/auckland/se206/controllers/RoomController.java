@@ -222,58 +222,6 @@ public class RoomController extends SoundPlayer {
   }
 
   @FXML
-  private void handleSecurityClick(MouseEvent event) throws IOException {
-    // handles opening the chat for the security and updates suspect interaction
-    chatController.clearChat();
-    context.setSuspectInteracted("rectSecurity");
-    updateGuessButtonAvailability();
-    // Open chat with the security guard
-    if (context.getState().equals(context.getGuessingState())) {
-      context.handleRectangleClick(event, "rectSecurity");
-    } else {
-      showChat("security");
-      System.out.println("security");
-    }
-  }
-
-  @FXML
-  private void handleCollectorClick(MouseEvent event) throws IOException {
-    // handles opening the chat for the collector and updates suspect itneraction
-    chatController.clearChat();
-    updateGuessButtonAvailability();
-    context.setSuspectInteracted("rectCollector");
-    if (context.getState().equals(context.getGuessingState())) {
-      context.handleRectangleClick(event, "rectCollector");
-    } else {
-      showChat("collector");
-      System.out.println("collector");
-    }
-  }
-
-  @FXML
-  private void handleArtistClick(MouseEvent event) throws IOException {
-    // handles opening the cha tfor the artist and updates suspect interaction
-    chatController.clearChat();
-    updateGuessButtonAvailability();
-    context.setSuspectInteracted("rectArtist");
-    if (context.getState().equals(context.getGuessingState())) {
-      context.handleRectangleClick(event, "rectArtist");
-    } else {
-      showChat("artist");
-      System.out.println("artist");
-    }
-  }
-
-  private void handleRectangleHover() {
-    rectSuspect.setStyle(
-        "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
-  }
-
-  private void handleRectangleHoverExit() {
-    rectSuspect.setStyle(""); // Remove the drop shadow effect
-  }
-
-  @FXML
   private void handleMouseEnter(MouseEvent event) {
     Node source = (Node) event.getSource();
     source.getScene().setCursor(Cursor.HAND); // Set cursor to hand on hover
@@ -290,29 +238,6 @@ public class RoomController extends SoundPlayer {
     ImageView suspectImageView = getSuspectImageView(source);
     if (suspectImageView != null) {
       suspectImageView.setStyle(""); // Remove the drop shadow effect
-    }
-  }
-
-  @FXML
-  private void handlePhoneClick(MouseEvent event) {
-    if (chatContainer != null) {
-      chatContainer.setVisible(false);
-    }
-
-    context.setClueInteracted(true);
-    try {
-      // Load the FXML file for the pop-up
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/phoneZoom.fxml"));
-      Parent popupContent = loader.load();
-
-      // Clear existing content and add new pop-up content
-      popupContainer.getChildren().clear();
-      popupContainer.getChildren().add(popupContent);
-
-      // Make the pop-up visible
-      popupContainer.setVisible(true);
-    } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 
@@ -446,16 +371,19 @@ public class RoomController extends SoundPlayer {
 
   @FXML
   private void onSwitchToMaidRoom(ActionEvent event) {
+    context.setSuspectInteracted("maid");
     switchScene(event, "/fxml/maid-room.fxml");
   }
 
   @FXML
   private void onSwitchToBar(ActionEvent event) {
+    context.setSuspectInteracted("bartender");
     switchScene(event, "/fxml/bar-room.fxml");
   }
 
   @FXML
   private void onSwitchToDeck(ActionEvent event) {
+    context.setSuspectInteracted("sailor");
     switchScene(event, "/fxml/deck.fxml");
   }
 
@@ -500,41 +428,19 @@ public class RoomController extends SoundPlayer {
     }
   }
 
-  // Method to handle mouse entering the paper
-  private void handleMouseEnterpaperImageView(MouseEvent event) {
-    paperImageView.setCursor(Cursor.HAND); // Change cursor to hand
-    paperImageView.setStyle(
+  @FXML
+  private void handleMouseEnterClue(MouseEvent event) {
+    ImageView source = (ImageView) event.getSource(); // Get the source ImageView
+    source.setCursor(Cursor.HAND); // Change cursor to hand to indicate interactivity
+    source.setStyle(
         "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
   }
 
-  // Method to handle mouse exiting the paper
-  private void handleMouseExitpaperImageView(MouseEvent event) {
-    paperImageView.setCursor(Cursor.DEFAULT); // Reset cursor
-    paperImageView.setStyle(""); // Remove the drop shadow effect
-  }
-
-  // add the same methods for floorBoardImageView
-  private void handleMouseEnterfloorBoardImageView(MouseEvent event) {
-    floorBoardImageView.setCursor(Cursor.HAND); // Change cursor to hand
-    floorBoardImageView.setStyle(
-        "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
-  }
-
-  private void handleMouseExitfloorBoardImageView(MouseEvent event) {
-    floorBoardImageView.setCursor(Cursor.DEFAULT); // Reset cursor
-    floorBoardImageView.setStyle(""); // Remove the drop shadow effect
-  }
-
-  // same for radioImageView
-  private void handleMouseEnterradioImageView(MouseEvent event) {
-    radioImageView.setCursor(Cursor.HAND); // Change cursor to hand
-    radioImageView.setStyle(
-        "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
-  }
-
-  private void handleMouseExitradioImageView(MouseEvent event) {
-    radioImageView.setCursor(Cursor.DEFAULT); // Reset cursor
-    radioImageView.setStyle(""); // Remove the drop shadow effect
+  @FXML
+  private void handleMouseExitClue(MouseEvent event) {
+    ImageView source = (ImageView) event.getSource(); // Get the source ImageView
+    source.setCursor(Cursor.DEFAULT); // Reset cursor
+    source.setStyle(""); // Remove the drop shadow effect
   }
 
   @FXML
