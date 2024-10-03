@@ -2,7 +2,6 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.animation.FadeTransition;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,6 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionRequest;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionResult;
@@ -138,16 +138,8 @@ public class GuessingController {
   private void submitGuess() {
     if (selectedSuspect != null && !explanationTextArea.getText().trim().isEmpty()) {
       TimerManager.getInstance().stopTimer();
-      showProcessingScreen(); // Show the processing screen immediately
       String userExplanation = explanationTextArea.getText().trim();
-
-      // Asynchronously evaluate the explanation and update UI
-      Platform.runLater(
-          () -> {
-            String responseContent = evaluateExplanation(selectedSuspect, userExplanation);
-            boolean won = checkIfUserWon(selectedSuspect);
-            showFeedbackScreen(responseContent, won);
-          });
+      showProcessingScreen(userExplanation); // Pass the explanation to the method
     } else {
       // Show an error message if no suspect is selected or explanation is missing
       Alert alert = new Alert(AlertType.WARNING);
@@ -163,13 +155,29 @@ public class GuessingController {
     return "suspectBartender".equals(selectedSuspect);
   }
 
-  private void showProcessingScreen() {
+  private void showProcessingScreen(String userExplanation) {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/processing.fxml"));
       Parent processingRoot = loader.load();
+      ProcessingController processingController = loader.getController();
       Scene processingScene = new Scene(processingRoot);
-      App.getStage().setScene(processingScene);
-      App.getStage().show();
+
+      // Set the new scene
+      Stage currentStage = (Stage) submitGuessButton.getScene().getWindow();
+      currentStage.setScene(processingScene);
+      currentStage.show();
+
+      // Start the API call in a background thread
+      new Thread(
+              () -> {
+                String responseContent = evaluateExplanation(selectedSuspect, userExplanation);
+                boolean won = checkIfUserWon(selectedSuspect);
+
+                // Pass the result to ProcessingController
+                processingController.setApiCallResult(responseContent, won);
+              })
+          .start();
+
     } catch (IOException e) {
       e.printStackTrace();
     }

@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.util.SoundPlayer;
+import nz.ac.auckland.se206.util.TextAnimator;
+import nz.ac.auckland.se206.util.TextOutput;
 import nz.ac.auckland.se206.util.TimerManager;
 
 public class FeedbackController extends SoundPlayer {
@@ -20,6 +23,42 @@ public class FeedbackController extends SoundPlayer {
   @FXML private Text status;
   @FXML private AnchorPane room;
   @FXML private Button playAgainButton;
+  @FXML private Text typingText;
+
+  @FXML
+  public void initialize() {
+    System.out.println("initialize() called in FeedbackController");
+
+    if (typingText != null) {
+      System.out.println("typingText is not null");
+      startTypingAnimation();
+    } else {
+      System.out.println("typingText is null");
+    }
+  }
+
+  private void startTypingAnimation() {
+    String fullText = "Analyzing your detective work...";
+    int animationTime = 100; // Adjust as needed
+
+    TextOutput textOutput =
+        new TextOutput() {
+          @Override
+          public void writeText(String textOut) {
+            Platform.runLater(
+                new Runnable() {
+                  @Override
+                  public void run() {
+                    typingText.setText(textOut);
+                  }
+                });
+          }
+        };
+
+    TextAnimator textAnimator = new TextAnimator(fullText, animationTime, textOutput);
+    Thread thread = new Thread(textAnimator);
+    thread.start();
+  }
 
   // Method to update the text
   public void updateResponseText(String text) {
