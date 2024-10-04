@@ -54,40 +54,23 @@ public class GuessingController {
 
     bindSubmitButtonVisibility();
 
-    // create a thread to check the time at every second
-    Thread timerThread =
-        new Thread(
-            () -> {
-              boolean hasExecuted = false; // Flag to prevent duplicate execution
-              while (true) {
-                try {
-                  Thread.sleep(1000); // Sleep for 1 second
+    // register the timer end listener
+    TimerManager.getInstance()
+        .setGuessTimeEndListener(
+            () ->
+                Platform.runLater(
+                    () -> {
+                      // stop the timer to avoid any further callbacks
+                      TimerManager.getInstance().stopTimer();
 
-                  // Check if the timer has reached 0 and if the action has not been executed yet
-                  if (TimerManager.getInstance().getTime() <= 0 && !hasExecuted) {
-                    hasExecuted = true; // Set the flag to true to prevent further execution
-                    TimerManager.getInstance().stopTimer(); // Stop the timer
-                    System.out.println("!!!!!!!!!!!!!!!!!!" + explanationTextArea.getText());
-                    System.out.println(
-                        "!!!!!!!!!!!!!!!!!!" + explanationTextArea.getText().isEmpty());
-
-                    // Check the content of the text area and call the appropriate method
-                    if (!explanationTextArea.getText().isEmpty()) {
-                      Platform.runLater(this::submitGuess);
-                      System.out.println("1");
-                    } else {
-                      Platform.runLater(this::noTime);
-                      System.out.println("2");
-                    }
-
-                    break; // Exit the while loop
-                  }
-                } catch (InterruptedException e) {
-                  e.printStackTrace();
-                }
-              }
-            });
-    timerThread.start();
+                      // Check if explanation is provided and submit accordingly
+                      if (!explanationTextArea.getText().trim().isEmpty()
+                          && selectedSuspect != null) {
+                        submitGuess(); // Auto-submit the guess
+                      } else {
+                        noTime(); // Handle no explanation provided case (go to loss scene)
+                      }
+                    }));
   }
 
   // Bind the visibility of the submit button to the explanation text area
