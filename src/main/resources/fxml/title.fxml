@@ -18,21 +18,16 @@
             </ImageView>
             <AnchorPane>
                 <children>
-                    <Text fill="WHITE" layoutX="235.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="main-title-font" text="Lost Time">
-                       <font>
-                          <Font size="96.0" />
-                       </font>
-                    </Text>
-                    <Text fill="LIGHTBLUE" layoutX="282.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="main-title-font" text="at Sea">
-                       <font>
-                          <Font size="96.0" />
-                       </font>
-                    </Text>
-                     <Text fill="WHITE" layoutX="298.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle-font" text="PRESS ENTER TO PLAY">
+                     <Text fill="WHITE" layoutX="298.0" layoutY="400.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle-font" text="PRESS ENTER TO PLAY">
                        <font>
                           <Font size="12.0" />
                        </font>
                     </Text>
+                  <ImageView fitHeight="360.0" fitWidth="612.0" layoutX="107.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/title.png" />
+                     </image>
+                  </ImageView>
                 </children>
             </AnchorPane>
           </children>
