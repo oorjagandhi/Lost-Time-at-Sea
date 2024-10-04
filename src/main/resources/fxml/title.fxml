@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="titleScreen" focusTraversable="true" onKeyPressed="#onKeyPressed" prefHeight="605.0" prefWidth="835.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.TitleController">
+   <children>
+      <StackPane prefHeight="605.0" prefWidth="835.0">
+          <children>
+            <ImageView fitHeight="605.0" fitWidth="835.0" preserveRatio="false">
+               <image>
+                  <Image url="@../images/temp-crimesceneblur3.png" />
+               </image>
+            </ImageView>
+            <AnchorPane>
+                <children>
+                    <Text fill="WHITE" layoutX="235.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="main-title-font" text="Lost Time">
+                       <font>
+                          <Font size="96.0" />
+                       </font>
+                    </Text>
+                    <Text fill="LIGHTBLUE" layoutX="282.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="main-title-font" text="at Sea">
+                       <font>
+                          <Font size="96.0" />
+                       </font>
+                    </Text>
+                     <Text fill="WHITE" layoutX="298.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle-font" text="PRESS ENTER TO PLAY">
+                       <font>
+                          <Font size="12.0" />
+                       </font>
+                    </Text>
+                </children>
+            </AnchorPane>
+          </children>
+      </StackPane> 
+   </children>
+</AnchorPane>
