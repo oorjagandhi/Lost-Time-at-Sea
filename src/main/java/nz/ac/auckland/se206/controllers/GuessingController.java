@@ -2,6 +2,7 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -52,6 +53,24 @@ public class GuessingController {
     setupHoverEffect(suspectSailor);
 
     bindSubmitButtonVisibility();
+
+    // register the timer end listener
+    TimerManager.getInstance()
+        .setGuessTimeEndListener(
+            () ->
+                Platform.runLater(
+                    () -> {
+                      // stop the timer to avoid any further callbacks
+                      TimerManager.getInstance().stopTimer();
+
+                      // Check if explanation is provided and submit accordingly
+                      if (!explanationTextArea.getText().trim().isEmpty()
+                          && selectedSuspect != null) {
+                        submitGuess(); // Auto-submit the guess
+                      } else {
+                        noTime(); // Handle no explanation provided case (go to loss scene)
+                      }
+                    }));
   }
 
   // Bind the visibility of the submit button to the explanation text area
@@ -62,6 +81,21 @@ public class GuessingController {
             (observable, oldValue, newValue) -> {
               updateSubmitButtonVisibility();
             });
+  }
+
+  private void noTime() {
+    // goes to the loss scene if the player has lost
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/feedback-notime.fxml"));
+    Parent root;
+    try {
+      root = loader.load();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    // opens the scene
+    Scene scene = new Scene(root);
+    App.getStage().setScene(scene);
+    App.getStage().show();
   }
 
   // Update the visibility of the submit button based on the explanation text area
