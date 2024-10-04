@@ -81,25 +81,9 @@ public class TimerController extends SoundPlayer {
                 timerManager.isGuessTime() ? "-fx-text-fill: red;" : "-fx-text-fill: white;");
           } else {
             timerManager.stopTimer();
-            // noTime();
           }
         });
   }
-
-  // private void noTime() {
-  //   // goes to the loss scene if the player has lost
-  //   FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/feedback-notime.fxml"));
-  //   Parent root;
-  //   try {
-  //     root = loader.load();
-  //   } catch (IOException e) {
-  //     throw new RuntimeException(e);
-  //   }
-  //   // opens the scene
-  //   Scene scene = new Scene(root);
-  //   App.getStage().setScene(scene);
-  //   App.getStage().show();
-  // }
 
   private String formatTime(int t) {
     int minutes = t / 60;
