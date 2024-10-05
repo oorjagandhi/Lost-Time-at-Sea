@@ -59,7 +59,7 @@
          </image>
       </ImageView>
         
-              <StackPane layoutX="850.0" layoutY="14.0" prefHeight="60.0" prefWidth="175.0">
+              <StackPane layoutX="845.0" layoutY="14.0" prefHeight="60.0" prefWidth="175.0">
             <fx:include source="timer.fxml" />
         </StackPane>
       <ImageView fx:id="suspectsProgressBar" fitHeight="43.0" fitWidth="161.0" layoutX="850.0" layoutY="509.0" pickOnBounds="true" preserveRatio="true">

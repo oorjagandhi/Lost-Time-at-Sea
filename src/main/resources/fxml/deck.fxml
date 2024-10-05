@@ -35,44 +35,44 @@
                   <Image url="@../images/sailor_closeup.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="95.0" fitWidth="161.0" layoutX="860.0" layoutY="84.0" onMouseClicked="#onSwitchToCrimeScene" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="95.0" fitWidth="161.0" layoutX="850.0" layoutY="74.0" onMouseClicked="#onSwitchToCrimeScene" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/layouts/crime-menu.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="898.0" layoutY="257.0" onMouseClicked="#onSwitchToBar" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="888.0" layoutY="247.0" onMouseClicked="#onSwitchToBar" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/layouts/bartender-navigation.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="898.0" layoutY="172.0" onMouseClicked="#onSwitchToMaidRoom" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="888.0" layoutY="162.0" onMouseClicked="#onSwitchToMaidRoom" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/layouts/maid-navigation.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="898.0" layoutY="342.0" onMouseClicked="#onSwitchToDeck" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="888.0" layoutY="332.0" onMouseClicked="#onSwitchToDeck" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/layouts/firstmate-navigation.png" />
                </image>
             </ImageView>
-            <StackPane layoutX="860.0" layoutY="24.0" prefHeight="60.0" prefWidth="175.0">
+            <StackPane layoutX="845.0" layoutY="14.0" prefHeight="60.0" prefWidth="175.0">
                <children>
                   <fx:include source="timer.fxml" />
                </children>
             </StackPane>
-            <ImageView fx:id="suspectsProgressBar" fitHeight="43.0" fitWidth="161.0" layoutX="860.0" layoutY="519.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="suspectsProgressBar" fitHeight="43.0" fitWidth="161.0" layoutX="850.0" layoutY="509.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/layouts/bar0.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="clueProgressBar" fitHeight="17.0" fitWidth="161.0" layoutX="860.0" layoutY="468.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="clueProgressBar" fitHeight="17.0" fitWidth="161.0" layoutX="850.0" layoutY="458.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/layouts/bar0.png" />
                </image>
             </ImageView>
-            <Text fx:id="cluesFound" layoutX="898.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="small-title-font" text="CLUES FOUND" wrappingWidth="85.0" />
-            <Text fx:id="suspectsTalkedTo" layoutX="878.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="small-title-font" text="SUSPECTS TALKED TO" wrappingWidth="161.0" />
-            <ImageView fx:id="btnGuess" fitHeight="68.0" fitWidth="161.0" layoutX="860.0" layoutY="547.0" onMouseClicked="#handleGuessClick" pickOnBounds="true" preserveRatio="true">
+            <Text fx:id="cluesFound" layoutX="888.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="small-title-font" text="CLUES FOUND" wrappingWidth="85.0" />
+            <Text fx:id="suspectsTalkedTo" layoutX="868.0" layoutY="505.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="small-title-font" text="SUSPECTS TALKED TO" wrappingWidth="161.0" />
+            <ImageView fx:id="btnGuess" fitHeight="68.0" fitWidth="161.0" layoutX="850.0" layoutY="537.0" onMouseClicked="#handleGuessClick" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/layouts/disabled-button.png" />
                </image>
