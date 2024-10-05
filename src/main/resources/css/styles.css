@@ -10,13 +10,16 @@
 .nav-button:hover {
   -fx-background-color: #b1b1b1;
   -fx-text-fill: rgb(0, 0, 0);
-  -fx-cursor: hand; 
+  -fx-cursor: hand;
 }
 
 .nav-button:disabled {
-  -fx-opacity: 1.0; /* Make sure it has the same opacity */
-  -fx-background-color: #7a7a7a; /* Keep the same color */
-  -fx-text-fill: black; /* Keep the same text color */
+  -fx-opacity: 1.0;
+  /* Make sure it has the same opacity */
+  -fx-background-color: #7a7a7a;
+  /* Keep the same color */
+  -fx-text-fill: black;
+  /* Keep the same text color */
 }
 
 .nav-current {
@@ -63,6 +66,11 @@
   -fx-font-size: 36px;
 }
 
+.small-title-font {
+  -fx-font-family: 'Copperplate Gothic Std';
+  -fx-font-size: 12px;
+}
+
 .feedback-font {
   -fx-font-family: 'MonoSpaceTypewriter';
   -fx-font-size: 14px;
@@ -86,28 +94,29 @@
 .menu-item:focused:hover,
 .menu-item:armed,
 .menu-item:selected {
-    -fx-text-fill: black;
-    -fx-background-color: transparent; /* Or set to your desired color */
-    -fx-cursor: hand; 
+  -fx-text-fill: black;
+  -fx-background-color: transparent;
+  /* Or set to your desired color */
+  -fx-cursor: hand;
 }
 
 /* Customize hover background color */
 .menu-item:hover {
-    -fx-background-color: #b1b1b1;
-    -fx-cursor: hand; 
+  -fx-background-color: #b1b1b1;
+  -fx-cursor: hand;
 }
 
 /* Customize focused and armed background color */
 .menu-item:focused,
 .menu-item:focused:hover,
 .menu-item:armed {
-    -fx-background-color: #b1b1b1;
-    -fx-cursor: hand; 
+  -fx-background-color: #b1b1b1;
+  -fx-cursor: hand;
 }
 
 /* Disabled MenuItems */
 .menu-item:disabled {
-    -fx-text-fill: gray;
+  -fx-text-fill: gray;
 }
 
 .menu-item-label {
@@ -119,10 +128,10 @@
 /* Hover effect for menu item labels */
 .menu-item-label:hover {
   -fx-background-color: #b1b1b1;
-  -fx-cursor: hand; 
+  -fx-cursor: hand;
 }
 
 .current-room-label {
-  -fx-background-color: #a9a9a9; /* Example darker gray */
+  -fx-background-color: #a9a9a9;
+  /* Example darker gray */
 }
-
