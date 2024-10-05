@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane fx:id="room" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" prefHeight="605.0" prefWidth="835.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RoomController">
    <children>
@@ -20,7 +19,7 @@
                     <Image url="@../images/maid-room.png" />
                  </image>
               </ImageView>
-            <ImageView fx:id="suspectMaid" fitHeight="454.0" fitWidth="314.0" layoutX="30.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="suspectMaid" fitHeight="533.0" fitWidth="493.0" layoutX="42.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/cleaner3.png" />
                </image>
@@ -31,12 +30,11 @@
               <StackPane layoutX="350.0" layoutY="20.0" prefHeight="40.0" prefWidth="135.0">
                   <fx:include source="timer.fxml" />
               </StackPane>
-            <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="353.0" layoutX="83.0" layoutY="217.0" onMouseClicked="#handleRectangleClick" stroke="TRANSPARENT" strokeType="INSIDE" width="150.0" />
-            <ImageView fx:id="thinkingBubble" fitHeight="127.0" fitWidth="53.0" layoutX="197.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true" visible="false"/>
+            <ImageView fx:id="thinkingBubble" fitHeight="127.0" fitWidth="53.0" layoutX="197.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true" visible="false" />
             <!-- Container for the chat -->
-            <VBox fx:id="chatContainer" layoutX="79.0" layoutY="327.0" prefHeight="190.0" prefWidth="661.0" />
+            <VBox fx:id="chatContainer" layoutX="79.0" layoutY="380.0" prefHeight="190.0" prefWidth="661.0" />
       
-                              <ImageView fx:id="suspectIcon" fitHeight="152.0" fitWidth="150.0" layoutX="85.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="suspectIcon" fitHeight="152.0" fitWidth="150.0" layoutX="85.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/cleaner-closeup2.png" />
                </image>

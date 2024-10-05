@@ -27,7 +27,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
-import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.util.RoomManager;
 import nz.ac.auckland.se206.util.SceneSwitcher;
@@ -40,45 +39,40 @@ import nz.ac.auckland.se206.util.TimerManager;
  */
 public class RoomController extends SoundPlayer {
 
-  private static boolean isFirstTimeInit = true;
   private static GameStateContext context = GameStateContext.getInstance();
-  private String currentSuspect;
-  private int currentThinkingImageIndex = 0;
-
-  @FXML private ImageView radioImageView;
-  @FXML private ImageView floorBoardImageView;
-
-  @FXML private Rectangle rectSecurity;
-  @FXML private Rectangle rectArtist;
-  @FXML private Rectangle rectCollector;
-
-  @FXML private ImageView suspectBartender;
-
-  @FXML private AnchorPane room;
-
-  @FXML private Rectangle rectSuspect;
-  @FXML private ImageView suspectMaid;
-  @FXML private ImageView suspectSailor;
-
-  @FXML private Button btnGuess;
-  @FXML private Button btnBack;
-
-  @FXML private ImageView book;
-  @FXML private ImageView suspectIcon;
-  @FXML private ImageView paperImageView;
-
-  @FXML private Pane popupContainer;
-  @FXML private VBox chatContainer;
-  @FXML private ChatController chatController;
-
-  private final RoomManager roomManager = RoomManager.getInstance();
-
-  @FXML private ImageView thinkingBubble;
+  private static boolean isFirstTimeInit = true;
 
   private static final String[] THINKING_IMAGES = {
     "/images/think.png", "/images/think-1.png", "/images/think-2.png", "/images/think-3.png"
   };
+
+  private String currentSuspect;
+  private int currentThinkingImageIndex = 0;
+  private final RoomManager roomManager = RoomManager.getInstance();
   private Timeline thinkingTimeline;
+
+  @FXML private AnchorPane room;
+
+  @FXML private Button btnBack;
+  @FXML private Button btnGuess;
+
+  @FXML private VBox chatContainer;
+
+  @FXML private ChatController chatController;
+
+  @FXML private ImageView book;
+  @FXML private ImageView floorBoardImageView;
+  @FXML private ImageView paperImageView;
+  @FXML private ImageView radioImageView;
+  @FXML private ImageView suspectBartender;
+  @FXML private ImageView suspectIcon;
+  @FXML private ImageView suspectMaid;
+  @FXML private ImageView suspectSailor;
+  @FXML private ImageView thinkingBubble;
+
+  @FXML private Pane popupContainer;
+
+  @FXML private Rectangle rectSuspect;
 
   /**
    * Initializes the room view. If it's the first time initialization, it will provide instructions
@@ -204,8 +198,6 @@ public class RoomController extends SoundPlayer {
     TimerManager timerManager = TimerManager.getInstance();
     timerManager.startGuessingTimer();
 
-    //    switchToGuessingScene();
-
     if (context.canGuess()) {
       context.setState(context.getGuessingState());
       System.out.println("Transitioning to guessing state. Ready to make a guess.");
@@ -280,20 +272,6 @@ public class RoomController extends SoundPlayer {
     }
     currentThinkingImageIndex = 0; // Reset index for next time
     thinkingBubble.setVisible(false);
-  }
-
-  private void showChat(String profession) {
-    currentSuspect = profession;
-    if (chatController != null) {
-      chatController.setProfession(profession);
-      chatContainer.setVisible(true);
-      chatController.setInputFocus();
-      suspectIcon.setVisible(true);
-      // Set the suspect icon to the appropriate image
-      updateSuspectIcon(false);
-    } else {
-      System.out.println("Chat controller is null");
-    }
   }
 
   private void updateGuessButtonState() {
@@ -525,24 +503,6 @@ public class RoomController extends SoundPlayer {
     context.setClueInteracted(true);
     updateGuessButtonAvailability();
     // Additional code for clue interaction...
-  }
-
-  private void switchToGuessingScene() {
-    Platform.runLater(
-        // loads the guessing scene when it is needed
-        () -> {
-          FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/guessing.fxml"));
-          // attempts to load guessing scene
-          try {
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            App.getStage().setScene(scene);
-            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
-            App.getStage().show();
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
-        });
   }
 
   private void setProfessionForCurrentScene() {

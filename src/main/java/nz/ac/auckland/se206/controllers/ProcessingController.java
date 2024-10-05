@@ -84,11 +84,15 @@ public class ProcessingController {
     showFeedbackScreen();
   }
 
+  // Switch to the feedback screen
   private void showFeedbackScreen() {
     try {
+      // Load the feedback screen
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/feedback.fxml"));
       Parent feedbackRoot = loader.load();
       FeedbackController feedbackController = loader.getController();
+
+      // Update the response text
       feedbackController.updateResponseText(apiResponseContent);
       feedbackController.updateStatus(userWon);
       Scene feedbackScene = new Scene(feedbackRoot);

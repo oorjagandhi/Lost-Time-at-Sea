@@ -27,8 +27,10 @@ public class FeedbackController extends SoundPlayer {
 
   @FXML
   public void initialize() {
+    // debug
     System.out.println("initialize() called in FeedbackController");
 
+    // Check if the typingText is not null
     if (typingText != null) {
       System.out.println("typingText is not null");
       startTypingAnimation();
@@ -37,10 +39,12 @@ public class FeedbackController extends SoundPlayer {
     }
   }
 
+  // Starting the typing animation
   private void startTypingAnimation() {
     String fullText = "Analyzing your detective work...";
-    int animationTime = 100; // Adjust as needed
+    int animationTime = 100;
 
+    // writing out the text animation
     TextOutput textOutput =
         new TextOutput() {
           @Override
@@ -69,7 +73,9 @@ public class FeedbackController extends SoundPlayer {
   // Method to update the text
   public void updateStatus(boolean won) {
     System.out.println("Updating response text to: " + won);
+    // Set the status text
     status.setText(won ? "you guessed the correct thief!" : "you guessed the incorrect thief.");
+    // Set the room color based on the result of the game
     if (won) {
       playSound("/sounds/congrats.mp3");
       room.setStyle("-fx-background-color: green;");
