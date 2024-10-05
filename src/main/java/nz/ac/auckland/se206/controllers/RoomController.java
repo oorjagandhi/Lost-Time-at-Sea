@@ -6,7 +6,6 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -54,7 +53,7 @@ public class RoomController extends SoundPlayer {
   @FXML private AnchorPane room;
 
   @FXML private Button btnBack;
-  @FXML private Button btnGuess;
+  @FXML private ImageView btnGuess;
 
   @FXML private VBox chatContainer;
 
@@ -69,6 +68,8 @@ public class RoomController extends SoundPlayer {
   @FXML private ImageView suspectMaid;
   @FXML private ImageView suspectSailor;
   @FXML private ImageView thinkingBubble;
+  @FXML private ImageView clueProgressBar;
+  @FXML private ImageView suspectsProgressBar;
 
   @FXML private Pane popupContainer;
 
@@ -113,6 +114,7 @@ public class RoomController extends SoundPlayer {
                     });
               });
     }
+    // set the image of the progress bar
 
     // **Set the profession based on the current room or suspect**
     setProfessionForCurrentScene();
@@ -123,6 +125,21 @@ public class RoomController extends SoundPlayer {
     // **Optionally set input focus to the chat input field**
     if (chatController != null) {
       chatController.setInputFocus();
+    }
+
+    // set the image of the progress bar
+    updateProgressBar();
+  }
+
+  private void updateProgressBar() {
+    if (clueProgressBar != null) {
+      int cluesInteracted = context.getNumCluesInteracted();
+      clueProgressBar.setImage(new Image("/images/layouts/bar" + cluesInteracted + ".png"));
+    }
+
+    if (suspectsProgressBar != null) {
+      int suspectsInteracted = context.getNumSuspectsInteracted();
+      suspectsProgressBar.setImage(new Image("/images/layouts/bar" + suspectsInteracted + ".png"));
     }
   }
 
@@ -193,7 +210,7 @@ public class RoomController extends SoundPlayer {
    * @throws IOException if there is an I/O error
    */
   @FXML
-  private void handleGuessClick(ActionEvent event) throws IOException {
+  private void handleGuessClick(MouseEvent event) throws IOException {
 
     TimerManager timerManager = TimerManager.getInstance();
     timerManager.startGuessingTimer();
@@ -276,7 +293,11 @@ public class RoomController extends SoundPlayer {
 
   private void updateGuessButtonState() {
     if (btnGuess != null) {
-      btnGuess.setDisable(!context.canGuess());
+      if (context.canGuess()) {
+        btnGuess.setImage(new Image("/images/layouts/enabled-button.png"));
+      } else {
+        btnGuess.setImage(new Image("/images/layouts/disabled-button.png"));
+      }
     }
   }
 
@@ -323,7 +344,7 @@ public class RoomController extends SoundPlayer {
 
   @FXML
   private void handleRadioClick(MouseEvent event) {
-    context.setClueInteracted(true);
+    context.setClueInteracted(true, "radio");
     System.out.println("Radio clicked, attempting to load radio.fxml...");
     try {
       // Load the FXML file for the radio scene
@@ -343,31 +364,31 @@ public class RoomController extends SoundPlayer {
   }
 
   @FXML
-  private void onSwitchToCrimeScene(ActionEvent event) {
+  private void onSwitchToCrimeScene(MouseEvent event) {
     switchScene(event, "/fxml/crime-scene.fxml");
   }
 
   @FXML
-  private void onSwitchToMaidRoom(ActionEvent event) {
+  private void onSwitchToMaidRoom(MouseEvent event) {
     context.setSuspectInteracted("maid");
     switchScene(event, "/fxml/maid-room.fxml");
   }
 
   @FXML
-  private void onSwitchToBar(ActionEvent event) {
+  private void onSwitchToBar(MouseEvent event) {
     context.setSuspectInteracted("bartender");
     switchScene(event, "/fxml/bar-room.fxml");
   }
 
   @FXML
-  private void onSwitchToDeck(ActionEvent event) {
+  private void onSwitchToDeck(MouseEvent event) {
     context.setSuspectInteracted("sailor");
     switchScene(event, "/fxml/deck.fxml");
   }
 
   @FXML
   private void handleFloorBoardClick(MouseEvent event) {
-    context.setClueInteracted(true);
+    context.setClueInteracted(true, "floorBoard");
     System.out.println("Floor clicked, attempting to load floor.fxml...");
     try {
       // Load the FXML file for the floorboard scene
@@ -386,7 +407,7 @@ public class RoomController extends SoundPlayer {
     }
   }
 
-  private void switchScene(ActionEvent event, String fxmlFile) {
+  private void switchScene(MouseEvent event, String fxmlFile) {
     try {
       // Use non-static FXMLLoader to load the FXML
       FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
@@ -423,7 +444,7 @@ public class RoomController extends SoundPlayer {
 
   @FXML
   private void handlePaperClick(MouseEvent event) {
-    context.setClueInteracted(true);
+    context.setClueInteracted(true, "paper");
     System.out.println("Paper clicked, attempting to load paper.fxml...");
     try {
       // Load the FXML file for the paper scene
@@ -500,7 +521,7 @@ public class RoomController extends SoundPlayer {
   @FXML
   private void handleClueClick(MouseEvent event) {
     // Assuming this method is triggered by clicking on a clue
-    context.setClueInteracted(true);
+    context.setClueInteracted(true, null);
     updateGuessButtonAvailability();
     // Additional code for clue interaction...
   }

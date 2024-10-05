@@ -94,7 +94,7 @@ public class FeedbackController extends SoundPlayer {
     TimerManager.getInstance().resetTimer();
 
     // reset clues
-    GameStateContext.getInstance().setClueInteracted(false);
+    GameStateContext.getInstance().setClueInteracted(false, null);
 
     // reset suspects
     GameStateContext.getInstance().clearSuspects();
