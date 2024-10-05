@@ -212,10 +212,9 @@ public class RoomController extends SoundPlayer {
   @FXML
   private void handleGuessClick(MouseEvent event) throws IOException {
 
-    TimerManager timerManager = TimerManager.getInstance();
-    timerManager.startGuessingTimer();
-
     if (context.canGuess()) {
+      TimerManager timerManager = TimerManager.getInstance();
+      timerManager.startGuessingTimer();
       context.setState(context.getGuessingState());
       System.out.println("Transitioning to guessing state. Ready to make a guess.");
 
