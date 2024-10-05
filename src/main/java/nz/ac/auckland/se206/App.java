@@ -40,7 +40,9 @@ public class App extends Application {
    * @throws IOException if the FXML file is not found
    */
   public static void setRoot(String fxml) throws IOException {
-    scene.setRoot(loadFxml(fxml));
+    Parent root = loadFxml(fxml);
+    scene.setRoot(root);
+    root.requestFocus(); // Set focus to the new root for keyboard input
   }
 
   /**
@@ -98,24 +100,32 @@ public class App extends Application {
   }
 
   /**
-   * This method is invoked when the application starts. It loads and shows the "room" scene.
+   * This method is invoked when the application starts. It loads and shows the "title" scene.
    *
    * @param stage the primary stage of the application
-   * @throws IOException if the "src/main/resources/fxml/room.fxml" file is not found
+   * @throws IOException if the "src/main/resources/fxml/title.fxml" file is not found
    */
   @Override
   public void start(final Stage stage) throws IOException {
+    // Play background music if necessary
     soundPlayer.playBackgroundTracks();
+
+    // Load fonts for the application
     Font font1 = Font.loadFont(getClass().getResourceAsStream("/fonts/timer-text.ttf"), 24);
     Font font2 =
         Font.loadFont(getClass().getResourceAsStream("/fonts/MonoSpaceTypewriter.ttf"), 24);
     Font font3 = Font.loadFont(getClass().getResourceAsStream("/fonts/title.ttf"), 24);
-    Parent root = loadFxml("crime-scene");
+    Font font4 = Font.loadFont(getClass().getResourceAsStream("/fonts/main-title.ttf"), 24);
+
+    // Load the title scene
+    Parent root = loadFxml("title");
     scene = new Scene(root);
     stage.setScene(scene);
     scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+    stage.setTitle("Lost Time at Sea"); // Set the window title
     stage.show();
-    root.requestFocus();
+    root.requestFocus(); // Request focus so key events can be processed
+
     App.stage = stage;
   }
 

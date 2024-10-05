@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="titleScreen" focusTraversable="true" onKeyPressed="#onKeyPressed" prefHeight="605.0" prefWidth="835.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.TitleController">
+   <children>
+      <StackPane prefHeight="605.0" prefWidth="835.0">
+          <children>
+            <ImageView fitHeight="605.0" fitWidth="835.0" preserveRatio="false">
+               <image>
+                  <Image url="@../images/temp-crimesceneblur3.png" />
+               </image>
+            </ImageView>
+            <AnchorPane>
+                <children>
+                     <Text fill="WHITE" layoutX="298.0" layoutY="400.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle-font" text="PRESS ENTER TO PLAY">
+                       <font>
+                          <Font size="12.0" />
+                       </font>
+                    </Text>
+                  <ImageView fitHeight="360.0" fitWidth="612.0" layoutX="107.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/title.png" />
+                     </image>
+                  </ImageView>
+                </children>
+            </AnchorPane>
+          </children>
+      </StackPane> 
+   </children>
+</AnchorPane>

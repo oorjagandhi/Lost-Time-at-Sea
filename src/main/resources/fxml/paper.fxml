@@ -17,19 +17,24 @@
                     <Image url="@../images/clues/paper-closeup2.png" />
                  </image>
               </ImageView>
-            <ImageView fitHeight="605.0" fitWidth="859.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/clues/paper-closeup3.png" />
-               </image>
-            </ImageView>
+              <ImageView fitHeight="605.0" fitWidth="859.0" layoutX="-10.0" pickOnBounds="true" preserveRatio="true">
+                 <image>
+                    <Image url="@../images/clues/paper-closeup3.png" />
+                 </image>
+              </ImageView>
               <StackPane layoutX="350.0" layoutY="20.0" prefHeight="40.0" prefWidth="135.0">
                   <fx:include source="timer.fxml" />
               </StackPane>
-              <ImageView fx:id="paperImageView" fitHeight="413.0" fitWidth="528.0" layoutX="142.0" layoutY="94.0" onMouseClicked="#handlePaperClick" pickOnBounds="true" preserveRatio="true">
-                 <image>
-                    <Image url="@../images/clues/paper.png" />
-                 </image>
-              </ImageView>
+              
+              <!-- StackPane for centering paperImageView -->
+              <StackPane layoutX="0.0" layoutY="0.0" prefWidth="835.0" prefHeight="605.0">
+                  <ImageView fx:id="paperImageView" fitHeight="413.0" fitWidth="528.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/clues/paper.png" />
+                     </image>
+                  </ImageView>
+              </StackPane>
+
               <Button fx:id="btnBack" layoutX="400.0" layoutY="513.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="BACK" styleClass="nav-button"/>
           </children>
       </Pane>

@@ -68,6 +68,16 @@
   -fx-font-size: 14px;
 }
 
+.main-title-font {
+  -fx-font-family: 'Bounesva Personal Use Only';
+  -fx-font-size: 72px;
+}
+
+.subtitle-font {
+  -fx-font-family: 'MonoSpaceTypewriter';
+  -fx-font-size: 20px;
+}
+
 
 /* Updated styles for MenuItems */
 .menu-item,
