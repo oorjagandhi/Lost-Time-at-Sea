@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane fx:id="room" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" prefHeight="605.0" prefWidth="835.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RoomController">
    <children>
@@ -20,22 +19,21 @@
                     <Image url="@../images/deck.png" />
                  </image>
               </ImageView>
-            <ImageView fx:id="suspectSailor" fitHeight="471.0" fitWidth="714.0" layoutX="136.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="suspectSailor" fitHeight="513.0" fitWidth="320.0" layoutX="348.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/sailor.png" />
                </image>
             </ImageView>
               
-              <Button fx:id="btnGuess" alignment="CENTER" layoutX="676.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="32.0" prefWidth="140.0" text="MAKE A GUESS" textAlignment="CENTER" styleClass="nav-button" />
+              <Button fx:id="btnGuess" alignment="CENTER" layoutX="676.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="32.0" prefWidth="140.0" styleClass="nav-button" text="MAKE A GUESS" textAlignment="CENTER" />
               
               <StackPane layoutX="350.0" layoutY="20.0" prefHeight="40.0" prefWidth="135.0">
                   <fx:include source="timer.fxml" />
               </StackPane>
-            <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="444.0" layoutX="163.0" layoutY="154.0" stroke="TRANSPARENT" strokeType="INSIDE" width="137.0" />
-            <ImageView fx:id="thinkingBubble" fitHeight="127.0" fitWidth="53.0" layoutX="197.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true" visible="false"/>
+            <ImageView fx:id="thinkingBubble" fitHeight="127.0" fitWidth="53.0" layoutX="197.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true" visible="false" />
             <!-- Container for the chat -->
-            <VBox fx:id="chatContainer" layoutX="79.0" layoutY="327.0" prefHeight="190.0" prefWidth="661.0" />
-            <ImageView fx:id="suspectIcon" fitHeight="156.0" fitWidth="156.0" layoutX="78.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true">
+            <VBox fx:id="chatContainer" layoutX="79.0" layoutY="380.0" prefHeight="190.0" prefWidth="661.0" />
+            <ImageView fx:id="suspectIcon" fitHeight="156.0" fitWidth="156.0" layoutX="78.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/sailor_closeup1.png" />
                </image>
