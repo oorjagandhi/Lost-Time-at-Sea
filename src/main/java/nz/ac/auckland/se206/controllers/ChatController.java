@@ -28,16 +28,16 @@ import nz.ac.auckland.se206.prompts.PromptEngineering;
  */
 public class ChatController {
 
-  @FXML private VBox chatBox;
-  @FXML private TextField txtInput;
-  @FXML private Button btnSend;
+  private static final int MAX_MESSAGES = 3;
 
   private BooleanProperty isLoading = new SimpleBooleanProperty(false);
 
   private ChatCompletionRequest chatCompletionRequest;
   private String profession;
 
-  private static final int MAX_MESSAGES = 3;
+  @FXML private Button btnSend;
+  @FXML private VBox chatBox;
+  @FXML private TextField txtInput;
 
   /**
    * Initializes the chat view.

@@ -22,7 +22,8 @@ public class App extends Application {
 
   private static Scene scene;
   private static Stage stage;
-  SoundPlayer soundPlayer = new SoundPlayer();
+
+  private SoundPlayer soundPlayer = new SoundPlayer();
 
   /**
    * The main method that launches the JavaFX application.
@@ -111,11 +112,10 @@ public class App extends Application {
     soundPlayer.playBackgroundTracks();
 
     // Load fonts for the application
-    Font font1 = Font.loadFont(getClass().getResourceAsStream("/fonts/timer-text.ttf"), 24);
-    Font font2 =
-        Font.loadFont(getClass().getResourceAsStream("/fonts/MonoSpaceTypewriter.ttf"), 24);
-    Font font3 = Font.loadFont(getClass().getResourceAsStream("/fonts/title.ttf"), 24);
-    Font font4 = Font.loadFont(getClass().getResourceAsStream("/fonts/main-title.ttf"), 24);
+    Font.loadFont(getClass().getResourceAsStream("/fonts/timer-text.ttf"), 24);
+    Font.loadFont(getClass().getResourceAsStream("/fonts/MonoSpaceTypewriter.ttf"), 24);
+    Font.loadFont(getClass().getResourceAsStream("/fonts/title.ttf"), 24);
+    Font.loadFont(getClass().getResourceAsStream("/fonts/main-title.ttf"), 24);
 
     // Load the title scene
     Parent root = loadFxml("title");

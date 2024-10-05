@@ -16,9 +16,11 @@ public class TextAnimator implements Runnable {
   }
 
   @Override
+  // This method is called when the thread is started
   public void run() {
 
     try {
+      // Loop through the text and write it to the text field
       for (int i = 0; i <= text.length(); i++) {
         String textAtThisPoint = text.substring(0, i);
 
