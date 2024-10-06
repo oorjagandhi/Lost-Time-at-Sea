@@ -10,6 +10,11 @@
 
 <AnchorPane fx:id="room" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" prefHeight="605.0" prefWidth="835.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RoomController">
    <children>
+      <ImageView fitHeight="605.0" fitWidth="200.0" layoutX="831.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/layouts/8.png" />
+         </image>
+      </ImageView>
       <Pane>
           <children>
               <ImageView fitHeight="605.0" fitWidth="835.0" preserveRatio="false">
@@ -31,47 +36,47 @@
                   <Image url="@../images/cleaner-closeup2.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="95.0" fitWidth="161.0" layoutX="850.0" layoutY="74.0" onMouseClicked="#onSwitchToCrimeScene" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/layouts/crime-menu.png" />
-               </image>
+            <ImageView fitHeight="85.0" fitWidth="138.0" layoutX="866.0" layoutY="73.0" onMouseClicked="#onSwitchToCrimeScene" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@../images/layouts/think_3.png" />
+              </image>
             </ImageView>
-            <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="888.0" layoutY="247.0" onMouseClicked="#onSwitchToBar" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/layouts/bartender-navigation.png" />
-               </image>
+            <ImageView fitHeight="92.0" fitWidth="85.0" layoutX="890.0" layoutY="257.0" onMouseClicked="#onSwitchToBar" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@../images/layouts/bartender-circle.png" />
+              </image>
             </ImageView>
-            <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="888.0" layoutY="162.0" onMouseClicked="#onSwitchToMaidRoom" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/layouts/maid-navigation.png" />
-               </image>
+            <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="890.0" layoutY="164.0" onMouseClicked="#onSwitchToMaidRoom" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@../images/layouts/maid-circle.png" />
+              </image>
             </ImageView>
-            <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="888.0" layoutY="332.0" onMouseClicked="#onSwitchToDeck" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/layouts/firstmate-navigation.png" />
-               </image>
+            <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="890.0" layoutY="352.0" onMouseClicked="#onSwitchToDeck" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@../images/layouts/sailor-circle.png" />
+              </image>
             </ImageView>
             <StackPane layoutX="845.0" layoutY="14.0" prefHeight="60.0" prefWidth="175.0">
                <children>
                   <fx:include source="timer.fxml" />
                </children>
             </StackPane>
-            <ImageView fx:id="suspectsProgressBar" fitHeight="43.0" fitWidth="161.0" layoutX="850.0" layoutY="509.0" pickOnBounds="true" preserveRatio="true">
-               <image>
+            <ImageView fx:id="suspectsProgressBar" fitHeight="43.0" fitWidth="161.0" layoutX="853.0" layoutY="509.0" pickOnBounds="true" preserveRatio="true">
+              <image>
                   <Image url="@../images/layouts/bar0.png" />
-               </image>
+              </image>
             </ImageView>
-            <ImageView fx:id="clueProgressBar" fitHeight="17.0" fitWidth="161.0" layoutX="850.0" layoutY="458.0" pickOnBounds="true" preserveRatio="true">
-               <image>
+            <ImageView fx:id="clueProgressBar" fitHeight="17.0" fitWidth="161.0" layoutX="853.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true">
+              <image>
                   <Image url="@../images/layouts/bar0.png" />
-               </image>
+              </image>
             </ImageView>
-            <Text fx:id="cluesFound" layoutX="888.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="small-title-font" text="CLUES FOUND" wrappingWidth="85.0" />
-            <Text fx:id="suspectsTalkedTo" layoutX="868.0" layoutY="505.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="small-title-font" text="SUSPECTS TALKED TO" wrappingWidth="161.0" />
-            <ImageView fx:id="btnGuess" fitHeight="68.0" fitWidth="161.0" layoutX="850.0" layoutY="537.0" onMouseClicked="#handleGuessClick" pickOnBounds="true" preserveRatio="true">
-               <image>
+            <Text fx:id="cluesFound" fill="WHITE" layoutX="893.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="small-title-font" text="CLUES FOUND" wrappingWidth="85.0" />
+            <Text fx:id="suspectsTalkedTo" fill="WHITE" layoutX="875.0" layoutY="505.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="small-title-font" text="SUSPECTS TALKED TO" wrappingWidth="119.0" />
+            <ImageView fx:id="btnGuess" fitHeight="68.0" fitWidth="161.0" layoutX="853.0" layoutY="537.0" onMouseClicked="#handleGuessClick" pickOnBounds="true" preserveRatio="true">
+              <image>
                   <Image url="@../images/layouts/disabled-button.png" />
-               </image>
+              </image>
             </ImageView>
           </children>
       </Pane>

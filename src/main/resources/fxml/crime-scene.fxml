@@ -83,6 +83,6 @@
          <image>
             <Image url="@../images/layouts/disabled-button.png" />
          </image>
-      </ImageView> 
+      </ImageView>
    </children>
 </AnchorPane>
