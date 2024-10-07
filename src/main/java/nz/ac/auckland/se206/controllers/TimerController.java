@@ -41,6 +41,7 @@ public class TimerController extends SoundPlayer {
 
   private void switchToGuessingScene() {
     // Ensure UI updates are performed on the JavaFX application thread
+    System.out.println("!!!!!!!!!!!!!Testing");
     Platform.runLater(
         () -> {
           GameStateContext context = GameStateContext.getInstance();

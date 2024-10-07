@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="room" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" prefHeight="605.0" prefWidth="835.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RoomController">
    <children>
+      <ImageView fitHeight="605.0" fitWidth="200.0" layoutX="831.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/layouts/8.png" />
+         </image>
+      </ImageView>
       <Pane>
           <children>
             <ImageView fitHeight="605.0" fitWidth="835.0" preserveRatio="false">
@@ -19,48 +21,68 @@
                   <Image url="@../images/clues/crimescene2.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="radioImageView" fitHeight="124.0" fitWidth="186.0" layoutX="151.0" layoutY="188.0" 
-                onMouseClicked="#handleRadioClick" onMouseEntered="#handleMouseEnterClue" onMouseExited="#handleMouseExitClue" 
-                pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="radioImageView" fitHeight="124.0" fitWidth="186.0" layoutX="151.0" layoutY="188.0" onMouseClicked="#handleRadioClick" onMouseEntered="#handleMouseEnterClue" onMouseExited="#handleMouseExitClue" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../images/clues/radio2.png" />
                 </image>
             </ImageView>
-            <ImageView fx:id="floorBoardImageView" fitHeight="121.0" fitWidth="119.0" layoutX="327.0" layoutY="457.0" 
-                onMouseClicked="#handleFloorBoardClick" onMouseEntered="#handleMouseEnterClue" onMouseExited="#handleMouseExitClue" 
-                pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="floorBoardImageView" fitHeight="121.0" fitWidth="119.0" layoutX="327.0" layoutY="457.0" onMouseClicked="#handleFloorBoardClick" onMouseEntered="#handleMouseEnterClue" onMouseExited="#handleMouseExitClue" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../images/clues/floorboard2.png" />
                 </image>
             </ImageView>
-              
-              <Button fx:id="btnGuess" alignment="CENTER" layoutX="676.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleGuessClick" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="32.0" prefWidth="140.0" text="MAKE A GUESS" textAlignment="CENTER" styleClass="nav-button" />
-              
-              <StackPane layoutX="350.0" layoutY="20.0" prefHeight="40.0" prefWidth="135.0">
-                  <fx:include source="timer.fxml" />
-              </StackPane>
           
               
-              <ImageView fx:id="paperImageView" fitHeight="47.0" fitWidth="53.0" layoutX="560.0" layoutY="469.0" 
-                  onMouseClicked="#handlePaperClick" onMouseEntered="#handleMouseEnterClue" onMouseExited="#handleMouseExitClue" 
-                  pickOnBounds="true" preserveRatio="true">
+              <ImageView fx:id="paperImageView" fitHeight="47.0" fitWidth="53.0" layoutX="560.0" layoutY="469.0" onMouseClicked="#handlePaperClick" onMouseEntered="#handleMouseEnterClue" onMouseExited="#handleMouseExitClue" pickOnBounds="true" preserveRatio="true">
                   <image>
                       <Image url="@../images/clues/paper.png" />
                   </image>
               </ImageView>
-
-              <MenuButton layoutX="37.0" layoutY="30.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="140.0" styleClass="nav-button" text="MOVE ROOMS">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#onSwitchToCrimeScene" styleClass="nav-button" text="CAPTAINS QUARTERS (CRIME SCENE)" />
-                <MenuItem mnemonicParsing="false" onAction="#onSwitchToMaidRoom" styleClass="nav-button" text="MAID (BEDROOM)" />
-                <MenuItem mnemonicParsing="false" onAction="#onSwitchToBar" styleClass="nav-button" text="BARTENDER (BAR)" />
-                <MenuItem mnemonicParsing="false" onAction="#onSwitchToDeck" styleClass="nav-button" text="FIRST MATE (DECK)" />
-              </items>
-            </MenuButton>
           </children>
       </Pane>
       <!-- Container for the popup -->
       <Pane fx:id="popupContainer" style="-fx-background-color: rgba(0, 0, 0, 0.5);" visible="false">
-      </Pane> 
+      </Pane>
+      <ImageView fx:id="currentScene" fitHeight="85.0" fitWidth="138.0" layoutX="865.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/layouts/think_3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="92.0" fitWidth="85.0" layoutX="890.0" layoutY="257.0" onMouseClicked="#onSwitchToBar" onMouseEntered="#handleMouseEnterClue" onMouseExited="#handleMouseExitClue" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/layouts/bartender-circle.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="890.0" layoutY="164.0" onMouseClicked="#onSwitchToMaidRoom" onMouseEntered="#handleMouseEnterClue" onMouseExited="#handleMouseExitClue" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/layouts/maid-circle.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="890.0" layoutY="352.0" onMouseClicked="#onSwitchToDeck" onMouseEntered="#handleMouseEnterClue" onMouseExited="#handleMouseExitClue" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/layouts/sailor-circle.png" />
+         </image>
+      </ImageView>
+        
+              <StackPane layoutX="850.0" layoutY="14.0" prefHeight="60.0" prefWidth="175.0">
+            <fx:include source="timer.fxml" />
+        </StackPane>
+      <ImageView fx:id="suspectsProgressBar" fitHeight="43.0" fitWidth="161.0" layoutX="853.0" layoutY="509.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/layouts/bar0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="clueProgressBar" fitHeight="17.0" fitWidth="161.0" layoutX="853.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/layouts/bar0.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="cluesFound" fill="WHITE" layoutX="893.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="small-title-font" text="CLUES FOUND" wrappingWidth="85.0" />
+      <Text fx:id="suspectsTalkedTo" fill="WHITE" layoutX="874.0" layoutY="505.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="small-title-font" text="SUSPECTS TALKED TO" wrappingWidth="138.0" />
+      <ImageView fx:id="btnGuess" fitHeight="68.0" fitWidth="161.0" layoutX="853.0" layoutY="537.0" onMouseClicked="#handleGuessClick" onMouseEntered="#handleMouseEnterClue" onMouseExited="#handleMouseExitClue" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/layouts/disabled-button.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

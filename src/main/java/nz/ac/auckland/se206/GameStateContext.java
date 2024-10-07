@@ -20,6 +20,7 @@ public class GameStateContext {
   private static GameStateContext gameStateContext;
 
   private boolean clueInteracted = false;
+  private int cluesInteracted = 0;
   private boolean won = false;
 
   private final String rectIdToGuess = "rectSecurity";
@@ -32,6 +33,7 @@ public class GameStateContext {
 
   private Runnable updateGuessButtonStateCallback;
   private Set<String> suspectsInteracted;
+  private Set<Object> cluesInteractedSet = new HashSet<>();
 
   /** Constructs a new GameStateContext and initializes the game states and professions. */
   private GameStateContext() {
@@ -135,8 +137,17 @@ public class GameStateContext {
     gameState.handleGuessClick();
   }
 
-  public void setClueInteracted(boolean interacted) {
+  public void setClueInteracted(boolean interacted, String clueId) {
     this.clueInteracted = interacted;
+    if (interacted && clueId != null) {
+      cluesInteractedSet.add(clueId);
+      cluesInteracted = cluesInteractedSet.size();
+    } else if (!interacted) {
+      cluesInteracted = 0;
+    } else {
+      cluesInteracted = cluesInteractedSet.size();
+    }
+    System.out.println("Clues interacted: " + cluesInteracted);
     updateGuessButtonState();
   }
 
@@ -152,6 +163,14 @@ public class GameStateContext {
 
   public boolean canGuess() {
     return clueInteracted && suspectsInteracted.size() >= 3;
+  }
+
+  public int getNumSuspectsInteracted() {
+    return suspectsInteracted.size();
+  }
+
+  public int getNumCluesInteracted() {
+    return cluesInteracted;
   }
 
   public boolean isWon() {
