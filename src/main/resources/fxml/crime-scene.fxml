@@ -43,7 +43,7 @@
       <!-- Container for the popup -->
       <Pane fx:id="popupContainer" style="-fx-background-color: rgba(0, 0, 0, 0.5);" visible="false">
       </Pane>
-      <ImageView fx:id="currentScene" fitHeight="85.0" fitWidth="138.0" layoutX="866.0" layoutY="73.0" onMouseClicked="#onSwitchToCrimeScene" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="currentScene" fitHeight="85.0" fitWidth="138.0" layoutX="865.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/layouts/think_3.png" />
          </image>

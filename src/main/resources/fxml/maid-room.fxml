@@ -46,7 +46,7 @@
                   <Image url="@../images/layouts/bartender-circle.png" />
               </image>
             </ImageView>
-            <ImageView fx:id="currentScene" fitHeight="85.0" fitWidth="85.0" layoutX="890.0" layoutY="164.0" onMouseClicked="#onSwitchToMaidRoom" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="currentScene" fitHeight="85.0" fitWidth="85.0" layoutX="890.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
               <image>
                   <Image url="@../images/layouts/maid-circle.png" />
               </image>

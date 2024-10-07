@@ -43,7 +43,7 @@
                   <Image url="@../images/layouts/think_3.png" />
               </image>
             </ImageView>
-            <ImageView fx:id="currentScene" fitHeight="92.0" fitWidth="85.0" layoutX="890.0" layoutY="257.0" onMouseClicked="#onSwitchToBar" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="currentScene" fitHeight="92.0" fitWidth="85.0" layoutX="890.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true">
               <image>
                   <Image url="@../images/layouts/bartender-circle.png" />
               </image>
