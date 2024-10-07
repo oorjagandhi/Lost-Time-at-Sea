@@ -76,12 +76,12 @@
               </image>
             </ImageView>
             <Text fx:id="cluesFound" fill="WHITE" layoutX="893.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="small-title-font" text="CLUES FOUND" wrappingWidth="85.0" />
-            <Text fx:id="suspectsTalkedTo" fill="WHITE" layoutX="875.0" layoutY="505.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="small-title-font" text="SUSPECTS TALKED TO" wrappingWidth="119.0" />
             <ImageView fx:id="btnGuess" fitHeight="68.0" fitWidth="161.0" layoutX="853.0" layoutY="537.0" onMouseClicked="#handleGuessClick" onMouseEntered="#handleMouseEnterClue" onMouseExited="#handleMouseExitClue" pickOnBounds="true" preserveRatio="true">
               <image>
                   <Image url="@../images/layouts/disabled-button.png" />
               </image>
             </ImageView>
+            <Text fx:id="suspectsTalkedTo" fill="WHITE" layoutX="875.0" layoutY="505.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="small-title-font" text="SUSPECTS TALKED TO" wrappingWidth="138.0" />
           </children>
       </Pane>
       <!-- Container for the popup -->
