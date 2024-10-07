@@ -45,13 +45,17 @@ public class CutsceneController {
         });
   }
 
+  /** Fades out the cutscene and then loads the game scene. */
   private void fadeOutAndLoadGameScene() {
     // Create a black overlay that covers the entire cutscenePane
     Pane blackOverlay = new Pane();
     blackOverlay.setStyle("-fx-background-color: black;");
+    // Set initial opacity to 0
     blackOverlay.setOpacity(0.0);
+    // Bind the overlay's width and height to the cutscenePane
     blackOverlay.prefWidthProperty().bind(cutscenePane.widthProperty());
     blackOverlay.prefHeightProperty().bind(cutscenePane.heightProperty());
+    // Add the overlay to the cutscenePane
     cutscenePane.getChildren().add(blackOverlay);
     blackOverlay.toFront();
 
@@ -59,6 +63,7 @@ public class CutsceneController {
     FadeTransition fadeInBlackOverlay = new FadeTransition(Duration.seconds(1), blackOverlay);
     fadeInBlackOverlay.setFromValue(0.0);
     fadeInBlackOverlay.setToValue(1.0);
+    // After fade-in, load the game scene
     fadeInBlackOverlay.setOnFinished(
         event -> {
           // After fade-in, load the game scene

@@ -217,21 +217,6 @@ public class GuessingController {
     }
   }
 
-  private void showFeedbackScreen(String responseContent, boolean won) {
-    try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/feedback.fxml"));
-      Parent feedbackRoot = loader.load();
-      FeedbackController feedbackController = loader.getController();
-      feedbackController.updateResponseText(responseContent);
-      feedbackController.updateStatus(won); // Add this line
-      Scene feedbackScene = new Scene(feedbackRoot);
-      App.getStage().setScene(feedbackScene);
-      App.getStage().show();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
   // Evaluate the player's explanation using OpenAI's chat completion API
   private String evaluateExplanation(String selectedSuspect, String userExplanation) {
     System.out.println("Selected Suspect: " + selectedSuspect);
