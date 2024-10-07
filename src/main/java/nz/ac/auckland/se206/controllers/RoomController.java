@@ -70,6 +70,7 @@ public class RoomController extends SoundPlayer {
   @FXML private ImageView thinkingBubble;
   @FXML private ImageView clueProgressBar;
   @FXML private ImageView suspectsProgressBar;
+  @FXML private ImageView currentScene;
 
   @FXML private Pane popupContainer;
 
@@ -129,6 +130,11 @@ public class RoomController extends SoundPlayer {
 
     // set the image of the progress bar
     updateProgressBar();
+
+    // set the red border around the current scene to indicate the user's location
+    if (room != null) {
+      currentScene.setStyle("-fx-effect: dropshadow(gaussian, lightblue, 20, 0.5, 0, 0);");
+    }
   }
 
   private void updateProgressBar() {
