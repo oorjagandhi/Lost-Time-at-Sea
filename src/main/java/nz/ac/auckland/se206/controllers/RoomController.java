@@ -435,6 +435,11 @@ public class RoomController extends SoundPlayer {
   @FXML
   private void handleMouseEnterClue(MouseEvent event) {
     ImageView source = (ImageView) event.getSource(); // Get the source ImageView
+
+    // check if the player is allowed to guess now
+    if (!context.canGuess() && source.equals(btnGuess)) {
+      return;
+    }
     source.setCursor(Cursor.HAND); // Change cursor to hand to indicate interactivity
     source.setStyle(
         "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
