@@ -27,7 +27,6 @@
                   <Image url="@../images/sailor.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="thinkingBubble" fitHeight="127.0" fitWidth="53.0" layoutX="197.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true" visible="false" />
             <!-- Container for the chat -->
             <VBox fx:id="chatContainer" layoutX="79.0" layoutY="380.0" prefHeight="190.0" prefWidth="661.0" />
             <ImageView fx:id="suspectIcon" fitHeight="156.0" fitWidth="156.0" layoutX="78.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true">
@@ -40,6 +39,7 @@
                   <Image url="@../images/sailor_closeup.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="thinkingBubble" fitHeight="127.0" fitWidth="53.0" layoutX="185.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true" visible="false" />
             <ImageView fitHeight="85.0" fitWidth="138.0" layoutX="866.0" layoutY="73.0" onMouseClicked="#onSwitchToCrimeScene" onMouseEntered="#handleMouseEnterClue" onMouseExited="#handleMouseExitClue" pickOnBounds="true" preserveRatio="true">
               <image>
                   <Image url="@../images/layouts/think_3.png" />
