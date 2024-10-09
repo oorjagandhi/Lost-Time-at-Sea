@@ -1,7 +1,6 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -24,6 +23,7 @@ public class PaperController extends SoundPlayer {
   @FXML private ImageView btnGuess;
   @FXML private ImageView suspectsProgressBar;
   @FXML private ImageView clueProgressBar;
+  @FXML private ImageView currentScene;
 
   private static GameStateContext context = GameStateContext.getInstance();
 
@@ -41,6 +41,9 @@ public class PaperController extends SoundPlayer {
   public void initialize() {
     setupPaperImages(); // Ensure this is called to initialize event handlers and images
     updateProgressBar();
+    if (room != null) {
+      currentScene.setStyle("-fx-effect: dropshadow(gaussian, lightblue, 20, 0.5, 0, 0);");
+    }
   }
 
   // Method to set up the initial image and click handler
@@ -88,24 +91,9 @@ public class PaperController extends SoundPlayer {
   }
 
   @FXML
-  private void onBackButtonAction(ActionEvent event) {
-    try {
-      // Load the FXML file to go back to the crime scene
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/crime-scene.fxml"));
-      Parent roomContent = loader.load();
+  private void onBackButtonAction(MouseEvent event) {
 
-      // Get the current room
-      Node source = (Node) event.getSource();
-      javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
-
-      roomContent.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
-
-      // Set the scene to the room
-      stage.setScene(new javafx.scene.Scene(roomContent));
-      stage.show();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    switchScene(event, "/fxml/crime-scene.fxml");
   }
 
   @FXML
