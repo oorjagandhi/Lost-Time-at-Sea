@@ -252,6 +252,7 @@ public class ChatController {
     txtInput.requestFocus();
   }
 
+  /** Sends the initial assistant message to start the conversation. */
   public void sendInitialAssistantMessage() {
     isLoading.set(true);
     Task<Void> backgroundTask =

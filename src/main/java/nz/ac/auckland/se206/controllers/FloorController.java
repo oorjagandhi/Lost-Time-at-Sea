@@ -21,7 +21,13 @@ import nz.ac.auckland.se206.util.SceneSwitcher;
 import nz.ac.auckland.se206.util.SoundPlayer;
 import nz.ac.auckland.se206.util.TimerManager;
 
+/**
+ * Controller class for the floor view. This class is responsible for handling the interactions with
+ * the floorboard and screws.
+ */
 public class FloorController extends SoundPlayer {
+
+  private static GameStateContext context = GameStateContext.getInstance();
 
   @FXML private ImageView screw1;
   @FXML private ImageView screw2;
@@ -33,12 +39,11 @@ public class FloorController extends SoundPlayer {
   @FXML private ImageView btnBack;
   @FXML private ImageView currentScene;
 
-  private static GameStateContext context = GameStateContext.getInstance();
-
   @FXML private AnchorPane room;
   private List<ImageView> screws;
   private boolean allScrewsRemoved = false;
 
+  /** Initializes the floor view. Sets up event handlers for screws and floorboard interactions. */
   @FXML
   public void initialize() {
     // Add screws to a list for easy management
@@ -78,7 +83,11 @@ public class FloorController extends SoundPlayer {
     }
   }
 
-  // Handle screw click to fade it away
+  /**
+   * Handles the event when a screw is clicked. The screw will fade out and be removed from the
+   *
+   * @param event the mouse event
+   */
   private void handleScrewClick(MouseEvent event) {
     ImageView screw = (ImageView) event.getSource();
     fadeOutScrew(screw);
@@ -92,7 +101,11 @@ public class FloorController extends SoundPlayer {
     }
   }
 
-  // Apply fade-out transition to the screw
+  /**
+   * Fades out the screw when it is clicked.
+   *
+   * @param screw the screw to fade out
+   */
   private void fadeOutScrew(ImageView screw) {
     FadeTransition fade = new FadeTransition(Duration.seconds(1), screw);
     fade.setFromValue(1.0);
@@ -101,21 +114,33 @@ public class FloorController extends SoundPlayer {
     fade.play();
   }
 
-  // Highlight screw on hover
+  /**
+   * Highlight screw on hover
+   *
+   * @param event the mouse event
+   */
   private void handleMouseEnterScrew(MouseEvent event) {
     ImageView screw = (ImageView) event.getSource();
     screw.setCursor(Cursor.HAND);
     screw.setStyle("-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);");
   }
 
-  // Remove screw highlight when mouse exits
+  /**
+   * Remove screw highlight when mouse exits
+   *
+   * @param event the mouse event
+   */
   private void handleMouseExitScrew(MouseEvent event) {
     ImageView screw = (ImageView) event.getSource();
     screw.setCursor(Cursor.DEFAULT);
     screw.setStyle(""); // Reset to default style
   }
 
-  // Highlight floorboard on hover after screws are removed
+  /**
+   * Highlight floorboard on hover
+   *
+   * @param event the mouse event
+   */
   private void handleMouseEnterFloorboard(MouseEvent event) {
     if (allScrewsRemoved) {
       floorBoard.setCursor(Cursor.OPEN_HAND);
@@ -123,20 +148,32 @@ public class FloorController extends SoundPlayer {
     }
   }
 
-  // Remove floorboard highlight when mouse exits
+  /**
+   * Remove floorboard highlight when mouse exits
+   *
+   * @param event the mouse event
+   */
   private void handleMouseExitFloorboard(MouseEvent event) {
     floorBoard.setCursor(Cursor.DEFAULT);
     floorBoard.setStyle(""); // Reset to default style
   }
 
-  // Allow floorboard to be dragged
+  /**
+   * Handle floorboard press
+   *
+   * @param event the mouse event
+   */
   private void handleMousePressFloorboard(MouseEvent event) {
     if (allScrewsRemoved) {
       floorBoard.setCursor(Cursor.CLOSED_HAND);
     }
   }
 
-  // Handle floorboard dragging
+  /**
+   * Handle floorboard drag
+   *
+   * @param event the mouse event
+   */
   private void handleMouseDragFloorboard(MouseEvent event) {
     if (allScrewsRemoved) {
       floorBoard.setLayoutX(event.getSceneX() - floorBoard.getFitWidth() / 2);
@@ -144,11 +181,21 @@ public class FloorController extends SoundPlayer {
     }
   }
 
+  /**
+   * Handle floorboard release
+   *
+   * @param event the mouse event
+   */
   @FXML
   private void onBackButtonAction(MouseEvent event) {
     switchScene(event, "/fxml/crime-scene.fxml");
   }
 
+  /**
+   * Handle floorboard release
+   *
+   * @param event the mouse event
+   */
   @FXML
   private void handleMouseEnterClue(MouseEvent event) {
     ImageView source = (ImageView) event.getSource(); // Get the source ImageView
@@ -162,6 +209,11 @@ public class FloorController extends SoundPlayer {
         "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
   }
 
+  /**
+   * Handle floorboard release
+   *
+   * @param event the mouse event
+   */
   @FXML
   private void handleMouseExitClue(MouseEvent event) {
     ImageView source = (ImageView) event.getSource(); // Get the source ImageView
@@ -169,6 +221,7 @@ public class FloorController extends SoundPlayer {
     source.setStyle(""); // Remove the drop shadow effect
   }
 
+  // Update the progress bar
   private void updateProgressBar() {
     if (clueProgressBar != null) {
       int cluesInteracted = context.getNumCluesInteracted();
@@ -181,6 +234,11 @@ public class FloorController extends SoundPlayer {
     }
   }
 
+  /**
+   * Handle floorboard release
+   *
+   * @param event the mouse event
+   */
   @FXML
   private void handleGuessClick(MouseEvent event) throws IOException {
 
@@ -201,24 +259,45 @@ public class FloorController extends SoundPlayer {
     }
   }
 
+  /**
+   * Switches to the crime scene.
+   *
+   * @param event the mouse event
+   */
   @FXML
   private void onSwitchToMaidRoom(MouseEvent event) {
     context.setSuspectInteracted("maid");
     switchScene(event, "/fxml/maid-room.fxml");
   }
 
+  /**
+   * Switches to the bar scene.
+   *
+   * @param event the mouse event
+   */
   @FXML
   private void onSwitchToBar(MouseEvent event) {
     context.setSuspectInteracted("bartender");
     switchScene(event, "/fxml/bar-room.fxml");
   }
 
+  /**
+   * Switches to the deck scene.
+   *
+   * @param event the mouse event
+   */
   @FXML
   private void onSwitchToDeck(MouseEvent event) {
     context.setSuspectInteracted("sailor");
     switchScene(event, "/fxml/deck.fxml");
   }
 
+  /**
+   * Switches to the specified scene.
+   *
+   * @param event the mouse event
+   * @param fxmlFile the FXML file to switch to
+   */
   private void switchScene(MouseEvent event, String fxmlFile) {
     try {
       // Use non-static FXMLLoader to load the FXML

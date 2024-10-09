@@ -16,12 +16,22 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * The TitleController class is responsible for handling user interaction on the title screen. This
+ * includes responding to key presses (such as "Enter") and transitioning to the cutscene screen.
+ * The cutscene video is preloaded to ensure smooth playback when the transition occurs.
+ */
 public class TitleController {
 
   @FXML private AnchorPane titleScreen; // Make sure this matches fx:id in the FXML
 
   private MediaPlayer preloadedMediaPlayer;
 
+  /**
+   * This method is automatically called after the FXML components are initialized. It preloads the
+   * cutscene video to ensure smooth playback during the scene transition. If the video file is not
+   * found, an error message is logged.
+   */
   @FXML
   public void initialize() {
     // Preload the video to avoid delay
@@ -35,6 +45,13 @@ public class TitleController {
     }
   }
 
+  /**
+   * Handles key press events on the title screen. When the "Enter" key is pressed, it initiates a
+   * transition to the cutscene. A black overlay is faded in to cover the screen before switching to
+   * the cutscene.
+   *
+   * @param event The KeyEvent that triggers this method, typically a key press.
+   */
   @FXML
   public void onKeyPressed(KeyEvent event) {
     // Ensure titleScreen is not null

@@ -6,12 +6,21 @@ import javafx.concurrent.Task;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+/**
+ * The SoundPlayer class is responsible for playing audio files in the game. It can play sound
+ * effects and background music.
+ */
 public class SoundPlayer {
   private MediaPlayer mediaPlayer;
 
   private MediaPlayer musicPlayer;
   private MediaPlayer wavesPlayer;
 
+  /**
+   * Plays a sound effect from a file. The file path should be relative to the resources directory.
+   *
+   * @param filePath the path to the audio file
+   */
   public void playSound(String filePath) {
     // runs playing an audio file as a background task
     Task<Void> backgroundTask =

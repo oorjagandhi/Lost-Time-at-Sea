@@ -16,6 +16,10 @@ import javafx.util.Duration;
 import nz.ac.auckland.se206.util.TextAnimator;
 import nz.ac.auckland.se206.util.TextOutput;
 
+/**
+ * Controller class for the processing view. This class is responsible for animating the typing text
+ * and displaying the result of the API call.
+ */
 public class ProcessingController {
 
   @FXML private Text typingText;
@@ -53,6 +57,12 @@ public class ProcessingController {
     animationThread.start();
   }
 
+  /**
+   * Sets the result of the API call and whether the user won the game.
+   *
+   * @param responseContent the response content from the API call
+   * @param won whether the user won the game
+   */
   public synchronized void setApiCallResult(String responseContent, boolean won) {
     this.apiResponseContent = responseContent;
     this.userWon = won;
