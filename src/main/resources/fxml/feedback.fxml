@@ -23,7 +23,7 @@
         <VBox alignment="CENTER" layoutX="148.0" layoutY="150.0" prefWidth="735.0" spacing="10" style="-fx-padding: 20; -fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 2; -fx-background-radius: 15; -fx-border-radius: 15;">
             <Text fx:id="responseText" styleClass="feedback-font" text="Your text here" wrappingWidth="695.0" />
         </VBox>
-      <ImageView fx:id="playAgainButton" fitHeight="150.0" fitWidth="200.0" layoutX="320.0" layoutY="518.0" onMouseClicked="#onPlayAgain" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="playAgainButton" fitHeight="150.0" fitWidth="200.0" layoutX="415.5" layoutY="518.0" onMouseClicked="#onPlayAgain" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/layouts/play-again.png" />
          </image>

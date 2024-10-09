@@ -19,7 +19,7 @@
             <VBox alignment="CENTER" spacing="20.0">
                 <Text fx:id="typingText" styleClass="title-font" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: white;" textAlignment="CENTER" wrappingWidth="735.0" />
                 <Text fx:id="resultText" styleClass="title-font" opacity="0.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: white;" text="Let's see if you've cracked the case!" textAlignment="CENTER" wrappingWidth="735.0" />                
-                <ImageView fx:id="nextButton" fitHeight="49.0" fitWidth="171.0" onMouseClicked="#onNextClicked" opacity="0.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                <ImageView fx:id="nextButton" fitHeight="49.0" fitWidth="171.0" onMouseClicked="#onNextClicked" opacity="0.0" pickOnBounds="true" preserveRatio="true" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" style="-fx-cursor: hand;">
                     <image>
                         <Image url="@../images/next.png" />
                     </image>

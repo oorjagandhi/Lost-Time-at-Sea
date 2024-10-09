@@ -50,9 +50,12 @@
                 <TextArea fx:id="explanationTextArea" maxWidth="600.0" prefRowCount="4" style="-fx-control-inner-background: white;" wrapText="true" />
             </VBox>
 
-               <!-- Button to submit the guess -->
-
-            <Button fx:id="submitGuessButton" managed="false" onAction="#submitGuess" styleClass="nav-button" text="SUBMIT" visible="false" />
+            <!-- Button to submit the guess -->
+            <ImageView fx:id="submitGuessButton" fitHeight="68.0" fitWidth="161.0" onMouseClicked="#submitGuess" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" pickOnBounds="true" preserveRatio="true" managed="false" visible="false">
+                <image>
+                    <Image url="@../images/submit.png" />
+                </image>
+            </ImageView>
 
         </VBox>
     </children>
