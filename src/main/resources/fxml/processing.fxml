@@ -3,25 +3,28 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="room" prefHeight="605.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/22" stylesheets="@../css/styles.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ProcessingController">
     <children>
-        <ImageView fitHeight="605.0" fitWidth="835.0" pickOnBounds="true" preserveRatio="false">
-            <image>
-                <Image url="@/images/temp-crimesceneblur3.png" />
-            </image>
-        </ImageView>
-        <Text fx:id="typingText" styleClass="title-font" layoutX="50.0" layoutY="255.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: white;" textAlignment="CENTER" wrappingWidth="735.0" />
-        <!-- Let's see if you've cracked the case! Text -->
-        <Text fx:id="resultText" styleClass="title-font" layoutX="50.0" layoutY="312.0" opacity="0.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: white;" text="Let's see if you've cracked the case!" textAlignment="CENTER" wrappingWidth="735.0" />
-        <!-- Next Button -->
-        <ImageView fx:id="nextButton" fitHeight="49.0" fitWidth="171.0" layoutX="350.0" layoutY="341.0" onMouseClicked="#onNextClicked" opacity="0.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
-          <image>
-              <Image url="@../images/next.png" />
-          </image>
-      </ImageView>
+        <StackPane prefHeight="605.0" prefWidth="835.0">
+            <ImageView fitHeight="605.0" fitWidth="1031.0" pickOnBounds="true" preserveRatio="false">
+                <image>
+                    <Image url="@/images/temp-crimesceneblur3.png" />
+                </image>
+            </ImageView>
 
-
+            <VBox alignment="CENTER" spacing="20.0">
+                <Text fx:id="typingText" styleClass="title-font" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: white;" textAlignment="CENTER" wrappingWidth="735.0" />
+                <Text fx:id="resultText" styleClass="title-font" opacity="0.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: white;" text="Let's see if you've cracked the case!" textAlignment="CENTER" wrappingWidth="735.0" />                
+                <ImageView fx:id="nextButton" fitHeight="49.0" fitWidth="171.0" onMouseClicked="#onNextClicked" opacity="0.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                    <image>
+                        <Image url="@../images/next.png" />
+                    </image>
+                </ImageView>
+            </VBox>
+        </StackPane>
     </children>
 </AnchorPane>
