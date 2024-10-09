@@ -9,11 +9,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="titleScreen" focusTraversable="true" onKeyPressed="#onKeyPressed" prefHeight="605.0" prefWidth="1035.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.TitleController">
+<AnchorPane fx:id="titleScreen" focusTraversable="true" onKeyPressed="#onKeyPressed" prefHeight="605.0" prefWidth="1031.0" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.TitleController">
    <children>
-      <StackPane prefHeight="605.0" prefWidth="1035.0">
+      <StackPane prefHeight="605.0" prefWidth="1031.0">
           <children>
-            <ImageView fitHeight="605.0" fitWidth="1035.0" preserveRatio="false">
+            <ImageView fitHeight="605.0" fitWidth="1031.0" preserveRatio="false">
                <image>
                   <Image url="@../images/temp-crimesceneblur3.png" />
                </image>

@@ -7,7 +7,7 @@
 
 <AnchorPane fx:id="room" prefHeight="605.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/22" stylesheets="@../css/styles.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ProcessingController">
     <children>
-        <ImageView fitHeight="605.0" fitWidth="835.0" pickOnBounds="true" preserveRatio="false">
+        <ImageView fitHeight="605.0" fitWidth="1031.0" pickOnBounds="true" preserveRatio="false">
             <image>
                 <Image url="@/images/temp-crimesceneblur3.png" />
             </image>

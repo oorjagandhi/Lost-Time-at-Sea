@@ -5,6 +5,6 @@
 
 <AnchorPane fx:id="cutscenePane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CutsceneController">
     <children>
-        <MediaView fx:id="mediaView" preserveRatio="false" fitHeight="605.0" fitWidth="835.0" />
+        <MediaView fx:id="mediaView" preserveRatio="false" fitHeight="605.0" fitWidth="1031.0" />
     </children>
 </AnchorPane>
