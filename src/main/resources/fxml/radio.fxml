@@ -5,19 +5,16 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="835.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RadioSceneController">
+<AnchorPane prefHeight="605.0" prefWidth="835.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RadioSceneController">
    <children>
       <ImageView fitHeight="605.0" fitWidth="835.0" pickOnBounds="true">
          <image>
             <Image url="@../images/clues/radio-closeup.png" />
          </image>
       </ImageView>
-      <StackPane layoutX="350.0" layoutY="20.0" prefHeight="40.0" prefWidth="135.0">
-          <fx:include source="timer.fxml" />
-      </StackPane>
-      <Button fx:id="btnBack" layoutX="400.0" layoutY="513.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="BACK" styleClass="nav-button"/>
+      <Button fx:id="btnBack" layoutX="400.0" layoutY="513.0" mnemonicParsing="false" onAction="#onBackButtonAction" styleClass="nav-button" text="BACK" />
       <ImageView fx:id="frequencyImage" fitHeight="50.0" fitWidth="167.0" layoutX="259.0" layoutY="247.8" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/clues/sevenseg1.png" />
