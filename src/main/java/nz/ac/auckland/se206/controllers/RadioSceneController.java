@@ -1,36 +1,20 @@
 package nz.ac.auckland.se206.controllers;
 
-import java.io.IOException;
 import java.net.URL;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.Stage;
-import nz.ac.auckland.se206.GameStateContext;
-import nz.ac.auckland.se206.util.SceneSwitcher;
-import nz.ac.auckland.se206.util.TimerManager;
 
-/**
- * The RadioSceneController class manages the radio interaction within the game. It handles audio
- * playback through changing frequencies, user interaction via buttons, and transitions to different
- * scenes such as suspect rooms or the guessing state.
- */
-public class RadioSceneController {
+/** The RadioSceneController class manages the radio interaction within the game. */
+public class RadioSceneController extends ClueSoundController {
 
-  private static GameStateContext context = GameStateContext.getInstance();
-
-  private boolean isPlayingaudio = false;
+  private boolean isPlayingAudio = false;
   private int frequency = 1;
   private MediaPlayer mediaPlayer;
   private Task<Void> backgroundTask;
@@ -40,19 +24,12 @@ public class RadioSceneController {
   @FXML private ImageView increaseFrequency;
   @FXML private ImageView decreaseFrequency;
   @FXML private ImageView play;
-  @FXML private ImageView btnGuess;
-  @FXML private ImageView suspectsProgressBar;
-  @FXML private ImageView clueProgressBar;
-  @FXML private ImageView currentScene;
-  @FXML private AnchorPane room;
+  @FXML protected ImageView currentScene;
 
-  /**
-   * Initializes the controller. Sets up hover effects, click handlers, and updates the progress bar
-   * and guess button state.
-   */
   @FXML
-  private void initialize() {
-    if (room != null) {
+  public void initialize() {
+    super.initialize();
+    if (room != null && currentScene != null) {
       currentScene.setStyle("-fx-effect: dropshadow(gaussian, lightblue, 20, 0.5, 0, 0);");
     }
     if (increaseFrequency != null && decreaseFrequency != null && play != null) {
@@ -60,36 +37,32 @@ public class RadioSceneController {
       decreaseFrequency.setCursor(Cursor.HAND);
       play.setCursor(Cursor.HAND);
     }
-    increaseFrequency.setOnMouseClicked(event -> handleIncreaseClick(event));
-    decreaseFrequency.setOnMouseClicked(event -> handleDecreaseClick(event));
+    increaseFrequency.setOnMouseClicked(this::handleIncreaseClick);
+    decreaseFrequency.setOnMouseClicked(this::handleDecreaseClick);
 
     // Set up hovering effects for buttons
-    play.setOnMouseClicked(event -> handlePlayClick(event));
+    play.setOnMouseClicked(this::handlePlayClick);
     increaseFrequency.setOnMouseEntered(this::handleMouseEnter);
     decreaseFrequency.setOnMouseEntered(this::handleMouseEnter);
     play.setOnMouseEntered(this::handleMouseEnter);
     increaseFrequency.setOnMouseExited(this::handleMouseExit);
     decreaseFrequency.setOnMouseExited(this::handleMouseExit);
     play.setOnMouseExited(this::handleMouseExit);
-
-    updateProgressBar();
-    updateGuessButtonState();
   }
 
   /**
-   * Handles the play button click. Toggles audio playback. If audio is playing, it pauses it; if
-   * paused, it resumes the audio.
+   * Handles the play button click. Toggles audio playback. If audio is playing, it stops it; if
+   * stopped, it plays the audio.
    *
    * @param event The mouse event associated with the button click.
    */
   @FXML
   private void handlePlayClick(MouseEvent event) {
-    System.out.println("Play button clicked");
-    if (isPlayingaudio) {
-      isPlayingaudio = false;
+    if (isPlayingAudio) {
+      isPlayingAudio = false;
       stopAudio();
     } else {
-      isPlayingaudio = true;
+      isPlayingAudio = true;
       playAudio();
     }
   }
@@ -102,7 +75,6 @@ public class RadioSceneController {
    */
   @FXML
   private void handleDecreaseClick(MouseEvent event) {
-    System.out.println("Decrease Frequency button clicked");
     stopAudio();
     frequency--;
     if (frequency < 1) {
@@ -121,7 +93,6 @@ public class RadioSceneController {
    */
   @FXML
   private void handleIncreaseClick(MouseEvent event) {
-    System.out.println("Increase Frequency button clicked");
     stopAudio();
     frequency++;
     if (frequency > totalAudios) {
@@ -137,7 +108,7 @@ public class RadioSceneController {
       return;
     }
 
-    isPlayingaudio = false;
+    isPlayingAudio = false;
     backgroundTask.cancel();
   }
 
@@ -188,7 +159,7 @@ public class RadioSceneController {
                 () -> {
                   mediaPlayer = new MediaPlayer(media);
 
-                  isPlayingaudio = true;
+                  isPlayingAudio = true;
 
                   // Listener to stop playing when audio ends
                   mediaPlayer
@@ -203,8 +174,11 @@ public class RadioSceneController {
 
                   mediaPlayer.setOnEndOfMedia(
                       () -> {
-                        isPlayingaudio = false;
+                        isPlayingAudio = false;
                         System.out.println("Audio finished playing");
+                        // Mark that the clue has been interacted with
+                        context.setClueInteracted(true, "radio");
+                        updateProgressBar();
                       });
 
                   mediaPlayer.play();
@@ -227,7 +201,7 @@ public class RadioSceneController {
                   if (mediaPlayer != null
                       && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
                     mediaPlayer.stop();
-                    isPlayingaudio = false;
+                    isPlayingAudio = false;
                   }
                 });
 
@@ -239,159 +213,15 @@ public class RadioSceneController {
     backgroundThread.start();
   }
 
-  /**
-   * Handles the back button click. Stops any playing audio and switches the scene back to the crime
-   * scene.
-   *
-   * @param event The mouse event associated with the button click.
-   */
-  @FXML
-  private void onBackButtonAction(MouseEvent event) {
+  /** Overrides the preBackAction method to stop audio playback before switching scenes. */
+  @Override
+  protected void preBackAction() {
     stopAudio();
-    switchScene(event, "/fxml/crime-scene.fxml");
   }
 
-  /**
-   * Applies a hover effect to the image of a clue or guess button when the mouse enters. If the
-   * player is not allowed to guess yet, the guess button hover effect is not applied.
-   *
-   * @param event The mouse event associated with entering the clue or guess button area.
-   */
-  @FXML
-  private void handleMouseEnterClue(MouseEvent event) {
-    ImageView source = (ImageView) event.getSource();
-    if (!context.canGuess() && source.equals(btnGuess)) {
-      return;
-    }
-    source.setCursor(Cursor.HAND);
-    source.setStyle("-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);");
-  }
-
-  /**
-   * Removes the hover effect from the image of a clue or guess button when the mouse exits.
-   *
-   * @param event The mouse event associated with exiting the clue or guess button area.
-   */
-  @FXML
-  private void handleMouseExitClue(MouseEvent event) {
-    ImageView source = (ImageView) event.getSource();
-    source.setCursor(Cursor.DEFAULT);
-    source.setStyle("");
-  }
-
-  /**
-   * Updates the progress bar to reflect the number of clues and suspects the player has interacted
-   * with.
-   */
-  private void updateProgressBar() {
-    if (clueProgressBar != null) {
-      int cluesInteracted = context.getNumCluesInteracted();
-      clueProgressBar.setImage(new Image("/images/layouts/bar" + cluesInteracted + ".png"));
-    }
-
-    if (suspectsProgressBar != null) {
-      int suspectsInteracted = context.getNumSuspectsInteracted();
-      suspectsProgressBar.setImage(new Image("/images/layouts/bar" + suspectsInteracted + ".png"));
-    }
-  }
-
-  /**
-   * Handles the guess button click. If the player is allowed to guess, the game transitions to the
-   * guessing state. Otherwise, a message is shown that the player needs to interact with both a
-   * clue and a suspect.
-   *
-   * @param event The mouse event associated with the guess button click.
-   * @throws IOException If an error occurs while loading the guessing scene.
-   */
-  @FXML
-  private void handleGuessClick(MouseEvent event) throws IOException {
-    if (context.canGuess()) {
-      TimerManager timerManager = TimerManager.getInstance();
-      timerManager.startGuessingTimer();
-      context.setState(context.getGuessingState());
-      System.out.println("Transitioning to guessing state. Ready to make a guess.");
-
-      // Load the guessing screen
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/guessing.fxml"));
-      Parent root = loader.load();
-
-      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-      SceneSwitcher.switchScene(stage, root);
-    } else {
-      System.out.println("You must interact with both a clue and a suspect before you can guess.");
-    }
-  }
-
-  /**
-   * Updates the state of the guess button, enabling or disabling it based on the player's progress.
-   */
-  private void updateGuessButtonState() {
-    if (btnGuess != null) {
-      if (context.canGuess()) {
-        btnGuess.setImage(new Image("/images/layouts/enabled-button.png"));
-      } else {
-        btnGuess.setImage(new Image("/images/layouts/disabled-button.png"));
-      }
-    }
-  }
-
-  /**
-   * Switches the scene to the maid's room when the maid suspect is interacted with.
-   *
-   * @param event The mouse event associated with interacting with the maid suspect.
-   */
-  @FXML
-  private void onSwitchToMaidRoom(MouseEvent event) {
+  /** Overrides the preSwitchAction method to stop audio playback before switching scenes. */
+  @Override
+  protected void preSwitchAction() {
     stopAudio();
-    context.setSuspectInteracted("maid");
-    switchScene(event, "/fxml/maid-room.fxml");
-  }
-
-  /**
-   * Switches the scene to the bartender's bar when the bartender suspect is interacted with.
-   *
-   * @param event The mouse event associated with interacting with the bartender suspect.
-   */
-  @FXML
-  private void onSwitchToBar(MouseEvent event) {
-    stopAudio();
-    context.setSuspectInteracted("bartender");
-    switchScene(event, "/fxml/bar-room.fxml");
-  }
-
-  /**
-   * Switches the scene to the first mate's deck when the first mate suspect is interacted with.
-   *
-   * @param event The mouse event associated with interacting with the first mate suspect.
-   */
-  @FXML
-  private void onSwitchToDeck(MouseEvent event) {
-    stopAudio();
-    context.setSuspectInteracted("sailor");
-    switchScene(event, "/fxml/deck.fxml");
-  }
-
-  /**
-   * Switches the current scene to the specified FXML file.
-   *
-   * @param event The mouse event associated with switching the scene.
-   * @param fxmlFile The path to the FXML file to switch to.
-   */
-  private void switchScene(MouseEvent event, String fxmlFile) {
-    try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-      Parent newScene = loader.load();
-
-      Stage stage = (Stage) room.getScene().getWindow();
-      Scene scene = new Scene(newScene);
-
-      newScene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
-
-      // Set the new scene
-      stage.setScene(scene);
-      stage.show();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
   }
 }
