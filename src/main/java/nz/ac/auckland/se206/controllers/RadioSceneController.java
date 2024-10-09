@@ -36,10 +36,9 @@ public class RadioSceneController {
   @FXML private ImageView suspectsProgressBar;
   @FXML private ImageView clueProgressBar;
   @FXML private ImageView currentScene;
+  @FXML private AnchorPane room;
 
   private static GameStateContext context = GameStateContext.getInstance();
-
-  @FXML private AnchorPane room;
 
   @FXML
   private void initialize() {
@@ -64,6 +63,7 @@ public class RadioSceneController {
     play.setOnMouseExited(this::handleMouseExit);
 
     updateProgressBar();
+    updateGuessButtonState();
   }
 
   /**
@@ -283,20 +283,33 @@ public class RadioSceneController {
     }
   }
 
+  private void updateGuessButtonState() {
+    if (btnGuess != null) {
+      if (context.canGuess()) {
+        btnGuess.setImage(new Image("/images/layouts/enabled-button.png"));
+      } else {
+        btnGuess.setImage(new Image("/images/layouts/disabled-button.png"));
+      }
+    }
+  }
+
   @FXML
   private void onSwitchToMaidRoom(MouseEvent event) {
+    stopAudio();
     context.setSuspectInteracted("maid");
     switchScene(event, "/fxml/maid-room.fxml");
   }
 
   @FXML
   private void onSwitchToBar(MouseEvent event) {
+    stopAudio();
     context.setSuspectInteracted("bartender");
     switchScene(event, "/fxml/bar-room.fxml");
   }
 
   @FXML
   private void onSwitchToDeck(MouseEvent event) {
+    stopAudio();
     context.setSuspectInteracted("sailor");
     switchScene(event, "/fxml/deck.fxml");
   }

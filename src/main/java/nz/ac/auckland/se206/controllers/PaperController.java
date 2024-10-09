@@ -44,6 +44,7 @@ public class PaperController extends SoundPlayer {
     if (room != null) {
       currentScene.setStyle("-fx-effect: dropshadow(gaussian, lightblue, 20, 0.5, 0, 0);");
     }
+    updateGuessButtonState();
   }
 
   // Method to set up the initial image and click handler
@@ -71,6 +72,16 @@ public class PaperController extends SoundPlayer {
       if (clickCount == paperImages.length - 1) {
         paperImageView.setStyle(""); // Reset style to remove highlight
         paperImageView.setCursor(Cursor.DEFAULT); // Reset cursor
+      }
+    }
+  }
+
+  private void updateGuessButtonState() {
+    if (btnGuess != null) {
+      if (context.canGuess()) {
+        btnGuess.setImage(new Image("/images/layouts/enabled-button.png"));
+      } else {
+        btnGuess.setImage(new Image("/images/layouts/disabled-button.png"));
       }
     }
   }

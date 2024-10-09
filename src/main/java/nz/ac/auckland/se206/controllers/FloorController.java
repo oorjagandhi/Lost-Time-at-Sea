@@ -65,6 +65,17 @@ public class FloorController extends SoundPlayer {
     if (room != null) {
       currentScene.setStyle("-fx-effect: dropshadow(gaussian, lightblue, 20, 0.5, 0, 0);");
     }
+    updateGuessButtonState();
+  }
+
+  private void updateGuessButtonState() {
+    if (btnGuess != null) {
+      if (context.canGuess()) {
+        btnGuess.setImage(new Image("/images/layouts/enabled-button.png"));
+      } else {
+        btnGuess.setImage(new Image("/images/layouts/disabled-button.png"));
+      }
+    }
   }
 
   // Handle screw click to fade it away
