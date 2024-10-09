@@ -19,21 +19,23 @@ public class GameStateContext {
 
   private static GameStateContext gameStateContext;
 
-  private boolean clueInteracted = false;
-  private int cluesInteracted = 0;
-  private boolean won = false;
-
-  private final String rectIdToGuess = "rectSecurity";
   private final GameOver gameOverState;
   private final GameStarted gameStartedState;
   private final Guessing guessingState;
   private final Map<String, String> rectanglesToProfession;
+  private final String rectIdToGuess = "rectSecurity";
+
+  private boolean clueInteracted = false;
+  private boolean won = false;
+
+  private int cluesInteracted = 0;
+
+  private Set<Object> cluesInteractedSet = new HashSet<>();
+  private Set<String> suspectsInteracted;
 
   private GameState gameState;
 
   private Runnable updateGuessButtonStateCallback;
-  private Set<String> suspectsInteracted;
-  private Set<Object> cluesInteractedSet = new HashSet<>();
 
   /** Constructs a new GameStateContext and initializes the game states and professions. */
   private GameStateContext() {
@@ -137,8 +139,14 @@ public class GameStateContext {
     gameState.handleGuessClick();
   }
 
+  /**
+   * Handles the event when the play again button is clicked.
+   *
+   * @throws IOException if there is an I/O error
+   */
   public void setClueInteracted(boolean interacted, String clueId) {
     this.clueInteracted = interacted;
+    // If the clue was interacted with, add it to the set
     if (interacted && clueId != null) {
       cluesInteractedSet.add(clueId);
       cluesInteracted = cluesInteractedSet.size();
@@ -148,6 +156,7 @@ public class GameStateContext {
       cluesInteracted = cluesInteractedSet.size();
     }
     System.out.println("Clues interacted: " + cluesInteracted);
+    // Update the state of the guess button
     updateGuessButtonState();
   }
 

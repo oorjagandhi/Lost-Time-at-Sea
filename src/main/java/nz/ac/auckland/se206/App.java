@@ -23,8 +23,6 @@ public class App extends Application {
   private static Scene scene;
   private static Stage stage;
 
-  private SoundPlayer soundPlayer = new SoundPlayer();
-
   /**
    * The main method that launches the JavaFX application.
    *
@@ -101,6 +99,17 @@ public class App extends Application {
   }
 
   /**
+   * Returns the primary stage of the application.
+   *
+   * @return the primary stage of the application
+   */
+  public static Stage getStage() {
+    return stage;
+  }
+
+  private SoundPlayer soundPlayer = new SoundPlayer();
+
+  /**
    * This method is invoked when the application starts. It loads and shows the "title" scene.
    *
    * @param stage the primary stage of the application
@@ -127,14 +136,5 @@ public class App extends Application {
     root.requestFocus(); // Request focus so key events can be processed
 
     App.stage = stage;
-  }
-
-  /**
-   * Returns the primary stage of the application.
-   *
-   * @return the primary stage of the application
-   */
-  public static Stage getStage() {
-    return stage;
   }
 }
