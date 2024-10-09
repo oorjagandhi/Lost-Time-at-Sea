@@ -80,6 +80,11 @@
                   <Image url="@../images/layouts/disabled-button.png" />
               </image>
             </ImageView>
+            <ImageView fitHeight="77.0" fitWidth="253.0" layoutX="297.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/bartenders-pub.png" />
+               </image>
+            </ImageView>
           </children>
       </Pane>
       <!-- Container for the popup -->
