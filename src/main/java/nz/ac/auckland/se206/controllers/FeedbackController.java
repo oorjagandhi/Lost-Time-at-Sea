@@ -2,12 +2,12 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -22,7 +22,7 @@ public class FeedbackController extends SoundPlayer {
   @FXML private Text responseText;
   @FXML private Text status;
   @FXML private AnchorPane room;
-  @FXML private Button playAgainButton;
+  @FXML private ImageView playAgainButton;
   @FXML private Text typingText;
 
   @FXML
@@ -87,7 +87,7 @@ public class FeedbackController extends SoundPlayer {
 
   // Handle the Play Again action
   @FXML
-  private void onPlayAgain(ActionEvent event) {
+  private void onPlayAgain(MouseEvent event) {
     System.out.println("Play Again button clicked");
 
     // Reset the timer
