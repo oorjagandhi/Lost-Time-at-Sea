@@ -29,7 +29,6 @@
                </image>
             </ImageView>
             <Rectangle fx:id="rectSuspect" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="172.0" layoutX="339.0" layoutY="144.0" stroke="TRANSPARENT" strokeType="INSIDE" width="111.0" />
-            <ImageView fx:id="thinkingBubble" fitHeight="127.0" fitWidth="53.0" layoutX="197.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true" visible="false" />
             <!-- Container for the chat -->
             <VBox fx:id="chatContainer" layoutX="79.0" layoutY="380.0" prefHeight="190.0" prefWidth="661.0" />
       
@@ -38,6 +37,7 @@
                   <Image url="@../images/bartender-closeup.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="thinkingBubble" fitHeight="127.0" fitWidth="53.0" layoutX="175.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true" visible="false" />
             <ImageView fitHeight="85.0" fitWidth="138.0" layoutX="866.0" layoutY="73.0" onMouseClicked="#onSwitchToCrimeScene" onMouseEntered="#handleMouseEnterClue" onMouseExited="#handleMouseExitClue" pickOnBounds="true" preserveRatio="true">
               <image>
                   <Image url="@../images/layouts/think_3.png" />
@@ -79,6 +79,11 @@
               <image>
                   <Image url="@../images/layouts/disabled-button.png" />
               </image>
+            </ImageView>
+            <ImageView fitHeight="77.0" fitWidth="253.0" layoutX="297.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/bartenders-pub.png" />
+               </image>
             </ImageView>
           </children>
       </Pane>

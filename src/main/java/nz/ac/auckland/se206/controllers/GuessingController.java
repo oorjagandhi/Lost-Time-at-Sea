@@ -5,12 +5,12 @@ import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
@@ -43,7 +43,7 @@ public class GuessingController {
 
   @FXML private ImageView suspectSailor;
 
-  @FXML private Button submitGuessButton;
+  @FXML private ImageView submitGuessButton;
 
   @FXML
   private void initialize() throws IOException {
@@ -114,6 +114,7 @@ public class GuessingController {
           if (!suspect.getId().equals(selectedSuspect)) {
             suspect.setStyle("-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);");
           }
+          suspect.setCursor(Cursor.HAND);
         });
 
     // Remove hover effect when not hovering
@@ -123,6 +124,7 @@ public class GuessingController {
           if (!suspect.getId().equals(selectedSuspect)) {
             suspect.setStyle("");
           }
+          suspect.setCursor(Cursor.DEFAULT);
         });
   }
 
@@ -215,6 +217,21 @@ public class GuessingController {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  @FXML
+  private void handleMouseEnter(MouseEvent event) {
+    ImageView source = (ImageView) event.getSource(); // Get the source ImageView
+    source.setCursor(Cursor.HAND); // Change cursor to hand to indicate interactivity
+    source.setStyle(
+        "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
+  }
+
+  @FXML
+  private void handleMouseExit(MouseEvent event) {
+    ImageView source = (ImageView) event.getSource(); // Get the source ImageView
+    source.setCursor(Cursor.DEFAULT); // Reset cursor
+    source.setStyle(""); // Remove the drop shadow effect
   }
 
   // Evaluate the player's explanation using OpenAI's chat completion API

@@ -5,9 +5,11 @@ import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -82,6 +84,21 @@ public class ProcessingController {
   @FXML
   private void onNextClicked() {
     showFeedbackScreen();
+  }
+
+  @FXML
+  private void handleMouseEnter(MouseEvent event) {
+    ImageView source = (ImageView) event.getSource(); // Get the source ImageView
+    source.setCursor(Cursor.HAND); // Change cursor to hand to indicate interactivity
+    source.setStyle(
+        "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
+  }
+
+  @FXML
+  private void handleMouseExit(MouseEvent event) {
+    ImageView source = (ImageView) event.getSource(); // Get the source ImageView
+    source.setCursor(Cursor.DEFAULT); // Reset cursor
+    source.setStyle(""); // Remove the drop shadow effect
   }
 
   // Switch to the feedback screen
