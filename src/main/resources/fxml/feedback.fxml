@@ -6,20 +6,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="room" prefHeight="605.0" prefWidth="835.0" style="-fx-background-color: #dbd7cc;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.FeedbackController">
+
+<AnchorPane fx:id="room" prefHeight="605.0" prefWidth="1031.0" stylesheets="@../css/styles.css" style="-fx-background-color: #dbd7cc;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.FeedbackController">
     <children>
-      <ImageView fitHeight="605.0" fitWidth="835.0" opacity="0.5" pickOnBounds="true" preserveRatio="false">
+      <ImageView fitHeight="605.0" fitWidth="1031.0" opacity="0.5" pickOnBounds="true" preserveRatio="false">
          <image>
             <Image url="@../images/crimesceneblur2.png" />
          </image>
       </ImageView>
         <!-- VBox for status message -->
-        <VBox fx:id="colorBox" alignment="CENTER" layoutX="0.0" layoutY="50.0" prefWidth="835.0" spacing="10">
-            <Text fx:id="status" fill="WHITE" styleClass="title-font" text="Success or Fail" />
+        <VBox fx:id="colorBox" alignment="CENTER" layoutX="0.0" layoutY="50.0" prefWidth="1031.0" spacing="10">
+            <Text fx:id="status" styleClass="title-font" fill="WHITE" text="Success or Fail" />
         </VBox>
-        
-        <!-- VBox for Response Text Box with rounded corners -->
-        <VBox alignment="CENTER" layoutX="50.0" layoutY="150.0" prefWidth="735.0" spacing="10" style="-fx-padding: 20; -fx-background-color: #ffffff; -fx-border-color: #000000;                -fx-border-width: 2; -fx-background-radius: 15; -fx-border-radius: 15;">
+
+        <!-- VBox for the response text, centered and aligned with status -->
+        <VBox alignment="CENTER" layoutX="148.0" layoutY="150.0" prefWidth="735.0" spacing="10" style="-fx-padding: 20; -fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 2; -fx-background-radius: 15; -fx-border-radius: 15;">
             <Text fx:id="responseText" styleClass="feedback-font" text="Your text here" wrappingWidth="695.0" />
         </VBox>
       <ImageView fx:id="playAgainButton" fitHeight="150.0" fitWidth="200.0" layoutX="320.0" layoutY="518.0" onMouseClicked="#onPlayAgain" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" pickOnBounds="true" preserveRatio="true">
