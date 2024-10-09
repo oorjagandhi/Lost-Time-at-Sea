@@ -12,13 +12,17 @@ import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.util.SoundPlayer;
 import nz.ac.auckland.se206.util.TimerManager;
 
+/**
+ * Controller class for the timer view. This class is responsible for updating the timer label and
+ * switching to the guessing scene when the timer reaches zero.
+ */
 public class TimerController extends SoundPlayer {
 
   @FXML private Label timerLabel;
 
   private final TimerManager timerManager = TimerManager.getInstance();
 
-  // Method to handle the initialization of the timer
+  /** Initializes the timer view. Starts the timer and sets the guessing start listener. */
   @FXML
   public void initialize() {
     // Configure the timer

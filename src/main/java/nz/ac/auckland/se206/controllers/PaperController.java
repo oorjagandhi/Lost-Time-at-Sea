@@ -1,33 +1,15 @@
 package nz.ac.auckland.se206.controllers;
 
-import java.io.IOException;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import nz.ac.auckland.se206.GameStateContext;
-import nz.ac.auckland.se206.util.SceneSwitcher;
-import nz.ac.auckland.se206.util.SoundPlayer;
-import nz.ac.auckland.se206.util.TimerManager;
 
-public class PaperController extends SoundPlayer {
+/** The PaperController class handles the interactions with the paper clue scene. */
+public class PaperController extends ClueSoundController {
 
   @FXML private ImageView paperImageView;
-  @FXML private ImageView btnGuess;
-  @FXML private ImageView suspectsProgressBar;
-  @FXML private ImageView clueProgressBar;
-  @FXML private ImageView currentScene;
-
-  private static GameStateContext context = GameStateContext.getInstance();
-
-  @FXML private AnchorPane room;
 
   private int clickCount = 0; // To track the number of clicks
   private final String[] paperImages = {
@@ -37,29 +19,40 @@ public class PaperController extends SoundPlayer {
     "/images/clues/paper5.png"
   };
 
+  /** Initializes the scene and sets up paper images, event handlers, and progress bar. */
   @FXML
   public void initialize() {
-    setupPaperImages(); // Ensure this is called to initialize event handlers and images
-    updateProgressBar();
+    super.initialize(); // Call the parent initialize method
+    setupPaperImages(); // Initialize event handlers and images
+    updateGuessButtonState();
     if (room != null) {
       currentScene.setStyle("-fx-effect: dropshadow(gaussian, lightblue, 20, 0.5, 0, 0);");
     }
-    updateGuessButtonState();
   }
 
-  // Method to set up the initial image and click handler
+  /**
+   * Sets up the initial paper image and click handlers for cycling through paper images. Also
+   * handles mouse hover effects.
+   */
   public void setupPaperImages() {
     if (paperImageView != null) {
       // Set the initial image
       paperImageView.setImage(new Image(getClass().getResourceAsStream(paperImages[0])));
       // Set up click event handler
-      paperImageView.setOnMouseClicked(event -> handlePaperClick(event));
+      paperImageView.setOnMouseClicked(this::handlePaperClick);
 
+      // Set up hover effects
       paperImageView.setOnMouseEntered(this::handleMouseEnterPaper);
       paperImageView.setOnMouseExited(this::handleMouseExitPaper);
     }
   }
 
+  /**
+   * Handles the paper click event. Cycles through the paper images and plays sound effects. Removes
+   * hover effects after the final image is displayed.
+   *
+   * @param event The mouse event associated with the paper click.
+   */
   @FXML
   private void handlePaperClick(MouseEvent event) {
     // Cycle through the images
@@ -72,20 +65,19 @@ public class PaperController extends SoundPlayer {
       if (clickCount == paperImages.length - 1) {
         paperImageView.setStyle(""); // Reset style to remove highlight
         paperImageView.setCursor(Cursor.DEFAULT); // Reset cursor
+        // Mark that the clue has been interacted with
+        context.setClueInteracted(true, "paper");
+        updateProgressBar();
       }
     }
   }
 
-  private void updateGuessButtonState() {
-    if (btnGuess != null) {
-      if (context.canGuess()) {
-        btnGuess.setImage(new Image("/images/layouts/enabled-button.png"));
-      } else {
-        btnGuess.setImage(new Image("/images/layouts/disabled-button.png"));
-      }
-    }
-  }
-
+  /**
+   * Handles the mouse entering the paper image, applying a hover effect and changing the cursor to
+   * a hand.
+   *
+   * @param event The mouse event associated with entering the paper image area.
+   */
   private void handleMouseEnterPaper(MouseEvent event) {
     if (clickCount < paperImages.length - 1) {
       ImageView paper = (ImageView) event.getSource();
@@ -95,110 +87,14 @@ public class PaperController extends SoundPlayer {
     }
   }
 
+  /**
+   * Handles the mouse exiting the paper image, resetting the cursor and removing the hover effect.
+   *
+   * @param event The mouse event associated with exiting the paper image area.
+   */
   private void handleMouseExitPaper(MouseEvent event) {
     ImageView paper = (ImageView) event.getSource();
     paper.setCursor(Cursor.DEFAULT);
     paper.setStyle(""); // Reset to default style
-  }
-
-  @FXML
-  private void onBackButtonAction(MouseEvent event) {
-
-    switchScene(event, "/fxml/crime-scene.fxml");
-  }
-
-  @FXML
-  private void handleMouseEnterClue(MouseEvent event) {
-    ImageView source = (ImageView) event.getSource(); // Get the source ImageView
-
-    // check if the player is allowed to guess now
-    if (!context.canGuess() && source.equals(btnGuess)) {
-      return;
-    }
-    source.setCursor(Cursor.HAND); // Change cursor to hand to indicate interactivity
-    source.setStyle(
-        "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
-  }
-
-  @FXML
-  private void handleMouseExitClue(MouseEvent event) {
-    ImageView source = (ImageView) event.getSource(); // Get the source ImageView
-    source.setCursor(Cursor.DEFAULT); // Reset cursor
-    source.setStyle(""); // Remove the drop shadow effect
-  }
-
-  private void updateProgressBar() {
-    if (clueProgressBar != null) {
-      int cluesInteracted = context.getNumCluesInteracted();
-      clueProgressBar.setImage(new Image("/images/layouts/bar" + cluesInteracted + ".png"));
-    }
-
-    if (suspectsProgressBar != null) {
-      int suspectsInteracted = context.getNumSuspectsInteracted();
-      suspectsProgressBar.setImage(new Image("/images/layouts/bar" + suspectsInteracted + ".png"));
-    }
-  }
-
-  @FXML
-  private void handleGuessClick(MouseEvent event) throws IOException {
-
-    if (context.canGuess()) {
-      TimerManager timerManager = TimerManager.getInstance();
-      timerManager.startGuessingTimer();
-      context.setState(context.getGuessingState());
-      System.out.println("Transitioning to guessing state. Ready to make a guess.");
-
-      // Load the guessing screen
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/guessing.fxml"));
-      Parent root = loader.load();
-
-      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-      SceneSwitcher.switchScene(stage, root);
-    } else {
-      System.out.println("You must interact with both a clue and a suspect before you can guess.");
-    }
-  }
-
-  @FXML
-  private void onSwitchToCrimeScene(MouseEvent event) {
-    switchScene(event, "/fxml/crime-scene.fxml");
-  }
-
-  @FXML
-  private void onSwitchToMaidRoom(MouseEvent event) {
-    context.setSuspectInteracted("maid");
-    switchScene(event, "/fxml/maid-room.fxml");
-  }
-
-  @FXML
-  private void onSwitchToBar(MouseEvent event) {
-    context.setSuspectInteracted("bartender");
-    switchScene(event, "/fxml/bar-room.fxml");
-  }
-
-  @FXML
-  private void onSwitchToDeck(MouseEvent event) {
-    context.setSuspectInteracted("sailor");
-    switchScene(event, "/fxml/deck.fxml");
-  }
-
-  private void switchScene(MouseEvent event, String fxmlFile) {
-    try {
-      // Use non-static FXMLLoader to load the FXML
-      FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-      Parent newScene = loader.load(); // Load the new scene
-
-      // Get the stage from the current event
-      Stage stage = (Stage) room.getScene().getWindow();
-      Scene scene = new Scene(newScene);
-
-      newScene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
-
-      // Set the new scene
-      stage.setScene(scene);
-      stage.show();
-    } catch (IOException e) {
-      e.printStackTrace(); // Handle IOException
-    }
   }
 }

@@ -14,6 +14,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * Controller class for the cutscene view. This class is responsible for playing the cutscene video.
+ */
 public class CutsceneController {
 
   @FXML private MediaView mediaView;
@@ -26,6 +29,11 @@ public class CutsceneController {
     // Do nothing here since mediaPlayer will be set via setMediaPlayer()
   }
 
+  /**
+   * Sets the MediaPlayer for the cutscene video.
+   *
+   * @param mediaPlayer the MediaPlayer for the cutscene video
+   */
   public void setMediaPlayer(MediaPlayer mediaPlayer) {
     this.mediaPlayer = mediaPlayer;
     mediaView.setMediaPlayer(mediaPlayer);
@@ -112,6 +120,7 @@ public class CutsceneController {
     System.out.println("Game timer started!");
   }
 
+  /** Fades in the cutscene video. This method is called when the cutscene view is shown. */
   public void fadeInCutscene() {
     // Set initial opacity to 0
     cutscenePane.setOpacity(0.0);

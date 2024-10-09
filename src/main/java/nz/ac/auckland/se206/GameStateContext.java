@@ -27,14 +27,10 @@ public class GameStateContext {
 
   private boolean clueInteracted = false;
   private boolean won = false;
-
   private int cluesInteracted = 0;
-
   private Set<Object> cluesInteractedSet = new HashSet<>();
   private Set<String> suspectsInteracted;
-
   private GameState gameState;
-
   private Runnable updateGuessButtonStateCallback;
 
   /** Constructs a new GameStateContext and initializes the game states and professions. */
@@ -52,6 +48,11 @@ public class GameStateContext {
     suspectsInteracted = new HashSet<>();
   }
 
+  /**
+   * Gets the singleton instance of the GameStateContext.
+   *
+   * @return the GameStateContext instance
+   */
   public static GameStateContext getInstance() {
     if (gameStateContext == null) {
       gameStateContext = new GameStateContext();

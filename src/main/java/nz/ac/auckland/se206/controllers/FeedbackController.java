@@ -18,6 +18,10 @@ import nz.ac.auckland.se206.util.TextAnimator;
 import nz.ac.auckland.se206.util.TextOutput;
 import nz.ac.auckland.se206.util.TimerManager;
 
+/**
+ * Controller class for the feedback view. This class is responsible for displaying the result of
+ * the game and handling the play again action.
+ */
 public class FeedbackController extends SoundPlayer {
 
   @FXML private Text responseText;
@@ -26,6 +30,7 @@ public class FeedbackController extends SoundPlayer {
   @FXML private ImageView playAgainButton;
   @FXML private Text typingText;
 
+  /** Initializes the feedback view. Starts the typing animation. */
   @FXML
   public void initialize() {
     // debug
@@ -65,13 +70,21 @@ public class FeedbackController extends SoundPlayer {
     thread.start();
   }
 
-  // Method to update the text
+  /**
+   * Method to update the response text
+   *
+   * @param text the text to update the response text to
+   */
   public void updateResponseText(String text) {
     System.out.println("Updating response text to: " + text);
     responseText.setText(text);
   }
 
-  // Method to update the text
+  /**
+   * Method to update the status text
+   *
+   * @param won the result of the game
+   */
   public void updateStatus(boolean won) {
     System.out.println("Updating response text to: " + won);
     // Set the status text
@@ -86,7 +99,11 @@ public class FeedbackController extends SoundPlayer {
     }
   }
 
-  // Handle the Play Again action
+  /**
+   * Method to handle the play again button click event
+   *
+   * @param event the mouse event
+   */
   @FXML
   private void onPlayAgain(MouseEvent event) {
     System.out.println("Play Again button clicked");
@@ -125,6 +142,11 @@ public class FeedbackController extends SoundPlayer {
     }
   }
 
+  /**
+   * Method to handle the mouse enter event
+   *
+   * @param event the mouse event
+   */
   @FXML
   private void handleMouseEnter(MouseEvent event) {
     ImageView source = (ImageView) event.getSource(); // Get the source ImageView
@@ -133,6 +155,11 @@ public class FeedbackController extends SoundPlayer {
         "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
   }
 
+  /**
+   * Method to handle the mouse exit event
+   *
+   * @param event the mouse event
+   */
   @FXML
   private void handleMouseExit(MouseEvent event) {
     ImageView source = (ImageView) event.getSource(); // Get the source ImageView

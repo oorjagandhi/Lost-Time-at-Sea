@@ -27,6 +27,10 @@ import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.util.TimerManager;
 
+/**
+ * Controller class for the guessing view. This class is responsible for handling the player's guess
+ * and explanation, and communicating with the GPT model via the API proxy.
+ */
 public class GuessingController {
 
   private String selectedSuspect;
@@ -45,6 +49,12 @@ public class GuessingController {
 
   @FXML private ImageView submitGuessButton;
 
+  /**
+   * Initializes the guessing view. Sets up the hover effect for suspects, binds the visibility of
+   * the submit button to the explanation text area, and registers the timer end listener.
+   *
+   * @throws IOException if there is an error loading the FXML file
+   */
   @FXML
   private void initialize() throws IOException {
     // Set up hover effect for suspects
