@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.FadeTransition;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -31,6 +30,8 @@ public class FloorController extends SoundPlayer {
   @FXML private ImageView btnGuess;
   @FXML private ImageView suspectsProgressBar;
   @FXML private ImageView clueProgressBar;
+  @FXML private ImageView btnBack;
+  @FXML private ImageView currentScene;
 
   private static GameStateContext context = GameStateContext.getInstance();
 
@@ -61,6 +62,9 @@ public class FloorController extends SoundPlayer {
     floorBoard.setOnMouseDragged(this::handleMouseDragFloorboard);
 
     updateProgressBar();
+    if (room != null) {
+      currentScene.setStyle("-fx-effect: dropshadow(gaussian, lightblue, 20, 0.5, 0, 0);");
+    }
   }
 
   // Handle screw click to fade it away
@@ -130,24 +134,8 @@ public class FloorController extends SoundPlayer {
   }
 
   @FXML
-  private void onBackButtonAction(ActionEvent event) {
-    try {
-      // Load the FXML file for the crimescene
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/crime-scene.fxml"));
-      Parent roomContent = loader.load();
-
-      // Get the current stage
-      Node source = (Node) event.getSource();
-      javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
-
-      roomContent.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
-
-      // Set the scene to the crimescene
-      stage.setScene(new javafx.scene.Scene(roomContent));
-      stage.show();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+  private void onBackButtonAction(MouseEvent event) {
+    switchScene(event, "/fxml/crime-scene.fxml");
   }
 
   @FXML
@@ -200,11 +188,6 @@ public class FloorController extends SoundPlayer {
     } else {
       System.out.println("You must interact with both a clue and a suspect before you can guess.");
     }
-  }
-
-  @FXML
-  private void onSwitchToCrimeScene(MouseEvent event) {
-    switchScene(event, "/fxml/crime-scene.fxml");
   }
 
   @FXML
