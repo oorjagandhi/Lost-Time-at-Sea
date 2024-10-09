@@ -4,6 +4,7 @@ import java.io.IOException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
@@ -122,5 +123,20 @@ public class FeedbackController extends SoundPlayer {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  @FXML
+  private void handleMouseEnter(MouseEvent event) {
+    ImageView source = (ImageView) event.getSource(); // Get the source ImageView
+    source.setCursor(Cursor.HAND); // Change cursor to hand to indicate interactivity
+    source.setStyle(
+        "-fx-effect: dropshadow(gaussian, yellow, 10, 0.5, 0, 0);"); // Apply drop shadow effect
+  }
+
+  @FXML
+  private void handleMouseExit(MouseEvent event) {
+    ImageView source = (ImageView) event.getSource(); // Get the source ImageView
+    source.setCursor(Cursor.DEFAULT); // Reset cursor
+    source.setStyle(""); // Remove the drop shadow effect
   }
 }
