@@ -185,7 +185,9 @@ public class GuessingController {
     if (selectedSuspect != null && !explanationTextArea.getText().trim().isEmpty()) {
       TimerManager.getInstance().stopTimer();
       String userExplanation = explanationTextArea.getText().trim();
-      showProcessingScreen(userExplanation); // Pass the explanation to the method
+
+      // Always show the processing screen
+      showProcessingScreen(userExplanation);
     } else {
       // Show an error message if no suspect is selected or explanation is missing
       Alert alert = new Alert(AlertType.WARNING);
@@ -216,8 +218,16 @@ public class GuessingController {
       // Start the API call in a background thread
       new Thread(
               () -> {
-                String responseContent = evaluateExplanation(selectedSuspect, userExplanation);
                 boolean won = checkIfUserWon(selectedSuspect);
+                String responseContent;
+                if (won) {
+                  responseContent = evaluateExplanation(selectedSuspect, userExplanation);
+                } else {
+                  // Predefined message for incorrect guess
+                  responseContent =
+                      "Oops! That wasn’t the right suspect. The real thief remains at large, but"
+                          + " don’t give up — your next guess might catch them!";
+                }
 
                 // Pass the result to ProcessingController
                 processingController.setApiCallResult(responseContent, won);
