@@ -88,7 +88,7 @@ public class FeedbackController extends SoundPlayer {
   public void updateStatus(boolean won) {
     System.out.println("Updating response text to: " + won);
     // Set the status text
-    status.setText(won ? "you guessed the correct thief!" : "you guessed the incorrect thief.");
+    status.setText(won ? "YOU GUESSED THE CORRECT THIEF!" : "YOU GUESSED THE WRONG THIEF");
     // Set the room color based on the result of the game
     if (won) {
       playSound("/sounds/congrats.mp3");
