@@ -1,6 +1,8 @@
 package nz.ac.auckland.se206.util;
 
 import java.io.IOException;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -14,23 +16,53 @@ import nz.ac.auckland.se206.GameStateContext;
 public class SceneSwitcherUtils {
 
   public static void switchScene(MouseEvent event, String fxmlFile, Stage stage) {
-    try {
-      FXMLLoader loader = new FXMLLoader(SceneSwitcherUtils.class.getResource(fxmlFile));
-      Parent newScene = loader.load(); // Load the new scene
+    // Show a loading indicator or keep the current scene
+    // Optionally, you can add a fade-out effect here
 
-      Scene scene = new Scene(newScene);
+    // Create a Task to load the FXML in a background thread
+    Task<Parent> loadSceneTask =
+        new Task<Parent>() {
+          @Override
+          protected Parent call() throws Exception {
+            FXMLLoader loader = new FXMLLoader(SceneSwitcherUtils.class.getResource(fxmlFile));
+            Parent newScene = loader.load(); // Load the new scene
+            return newScene;
+          }
+        };
 
-      // Add the CSS stylesheet
-      newScene
-          .getStylesheets()
-          .add(SceneSwitcherUtils.class.getResource("/css/styles.css").toExternalForm());
+    // On succeeded, update the UI on the JavaFX Application Thread
+    loadSceneTask.setOnSucceeded(
+        workerStateEvent -> {
+          Parent newScene = loadSceneTask.getValue();
+          Scene scene = new Scene(newScene);
 
-      // Set the new scene on the stage
-      stage.setScene(scene);
-      stage.show();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+          // Add the CSS stylesheet
+          newScene
+              .getStylesheets()
+              .add(SceneSwitcherUtils.class.getResource("/css/styles.css").toExternalForm());
+
+          // Set the new scene on the stage
+          stage.setScene(scene);
+          stage.show();
+        });
+
+    // On failed, handle the exception
+    loadSceneTask.setOnFailed(
+        workerStateEvent -> {
+          Throwable exception = loadSceneTask.getException();
+          exception.printStackTrace();
+          // Optionally, handle the error on the UI thread
+          Platform.runLater(
+              () -> {
+                // Show an error dialog or return to a safe state
+                System.err.println("Failed to load the FXML file: " + fxmlFile);
+              });
+        });
+
+    // Start the Task in a background thread
+    Thread thread = new Thread(loadSceneTask);
+    thread.setDaemon(true);
+    thread.start();
   }
 
   public static void handleGuessClick(GameStateContext context, MouseEvent event)
@@ -39,9 +71,6 @@ public class SceneSwitcherUtils {
       TimerManager timerManager = TimerManager.getInstance();
       timerManager.startGuessingTimer();
       context.setState(context.getGuessingState());
-
-      FXMLLoader loader = new FXMLLoader(context.getClass().getResource("/fxml/guessing.fxml"));
-      Parent root = loader.load();
 
       Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
       SceneSwitcherUtils.switchScene(event, "/fxml/guessing.fxml", stage);

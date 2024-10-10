@@ -413,23 +413,35 @@ public class RoomController extends SoundPlayer {
   }
 
   private void switchScene(MouseEvent event, String fxmlFile) {
-    try {
-      // Use non-static FXMLLoader to load the FXML
-      FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-      Parent newScene = loader.load(); // Load the new scene
+    // Show a loading indicator or keep the current scene
+    Stage stage = (Stage) room.getScene().getWindow();
 
-      // Get the stage from the current event
-      Stage stage = (Stage) room.getScene().getWindow();
-      Scene scene = new Scene(newScene);
+    // Start a background thread to load the FXML
+    new Thread(
+            () -> {
+              try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+                Parent newSceneRoot = loader.load();
 
-      newScene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
-
-      // Set the new scene
-      stage.setScene(scene);
-      stage.show();
-    } catch (IOException e) {
-      e.printStackTrace(); // Handle IOException
-    }
+                // After loading is complete, update the UI on the JavaFX Application Thread
+                Platform.runLater(
+                    () -> {
+                      Scene newScene = new Scene(newSceneRoot);
+                      newSceneRoot
+                          .getStylesheets()
+                          .add(getClass().getResource("/css/styles.css").toExternalForm());
+                      stage.setScene(newScene);
+                    });
+              } catch (IOException e) {
+                e.printStackTrace();
+                // Optionally, handle the error on the UI thread
+                Platform.runLater(
+                    () -> {
+                      // Show an error dialog or return to a safe state
+                    });
+              }
+            })
+        .start();
   }
 
   @FXML
