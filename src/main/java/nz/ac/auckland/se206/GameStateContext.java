@@ -19,6 +19,18 @@ public class GameStateContext {
 
   private static GameStateContext gameStateContext;
 
+  /**
+   * Gets the singleton instance of the GameStateContext.
+   *
+   * @return the GameStateContext instance.
+   */
+  public static GameStateContext getInstance() {
+    if (gameStateContext == null) {
+      gameStateContext = new GameStateContext();
+    }
+    return gameStateContext;
+  }
+
   private final GameOver gameOverState;
   private final GameStarted gameStartedState;
   private final Guessing guessingState;
@@ -46,18 +58,6 @@ public class GameStateContext {
     rectanglesToProfession.put("rectCollector", "Collector");
 
     suspectsInteracted = new HashSet<>();
-  }
-
-  /**
-   * Gets the singleton instance of the GameStateContext.
-   *
-   * @return the GameStateContext instance
-   */
-  public static GameStateContext getInstance() {
-    if (gameStateContext == null) {
-      gameStateContext = new GameStateContext();
-    }
-    return gameStateContext;
   }
 
   /**

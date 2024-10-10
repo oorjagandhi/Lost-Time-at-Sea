@@ -36,7 +36,7 @@ public class TitleController {
   public void initialize() {
     // Preload the video to avoid delay
     try {
-      String mediaPath = getClass().getResource("/videos/cutscene.mp4").toExternalForm();
+      String mediaPath = getClass().getResource("/videos/cutsceneanimation10.mp4").toExternalForm();
       Media media = new Media(mediaPath);
       preloadedMediaPlayer = new MediaPlayer(media);
     } catch (NullPointerException e) {

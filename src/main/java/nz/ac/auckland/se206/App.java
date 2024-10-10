@@ -123,7 +123,7 @@ public class App extends Application {
     // Load fonts for the application
     Font.loadFont(getClass().getResourceAsStream("/fonts/timer-text.ttf"), 24);
     Font.loadFont(getClass().getResourceAsStream("/fonts/MonoSpaceTypewriter.ttf"), 24);
-    Font.loadFont(getClass().getResourceAsStream("/fonts/title.ttf"), 24);
+    Font.loadFont(getClass().getResourceAsStream("/fonts/albertusnova_bold.otf"), 24);
     Font.loadFont(getClass().getResourceAsStream("/fonts/main-title.ttf"), 24);
 
     // Load the title scene
