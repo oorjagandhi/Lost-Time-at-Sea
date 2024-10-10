@@ -96,6 +96,17 @@ public class ClueSoundController extends SoundPlayer {
           event, "/fxml/guessing.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
     } else {
       System.out.println("You must interact with both a clue and a suspect before you can guess.");
+      // gets how many suspects nad clues have been interacted with
+      int cluesInteractedWith = context.getNumCluesInteracted();
+      int suspectsInteractedWith = context.getNumSuspectsInteracted();
+      // plays a different sound depending on the amounts of interaction
+      if ((cluesInteractedWith == 0) && (suspectsInteractedWith < 3)) {
+        playSound("/sounds/suspect-and-clue.mp3");
+      } else if (cluesInteractedWith == 0) {
+        playSound("/sounds/clue.mp3");
+      } else {
+        playSound("/sounds/suspect.mp3");
+      }
     }
   }
 
