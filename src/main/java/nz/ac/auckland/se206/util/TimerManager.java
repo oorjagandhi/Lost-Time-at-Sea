@@ -38,7 +38,7 @@ public class TimerManager {
 
   /** Private constructor to initialize the timer to 5 minutes. */
   private TimerManager() {
-    this.time = 300; // initial time of 5 minutes
+    this.time = 291; // initial time of 5 minutes
   }
 
   /**

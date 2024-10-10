@@ -78,14 +78,14 @@ public class SoundPlayer {
                       musicPlayer.stop();
                     }
                     musicPlayer = newPlayer;
-                    musicPlayer.setVolume(0.5);
+                    musicPlayer.setVolume(0.2);
                     musicPlayer.play();
                   } else {
                     if (wavesPlayer != null) {
                       wavesPlayer.stop();
                     }
                     wavesPlayer = newPlayer;
-                    wavesPlayer.setVolume(0.3);
+                    wavesPlayer.setVolume(0.2);
                     wavesPlayer.play();
                   }
                 });
