@@ -13,10 +13,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.GameStateContext;
 
+/** The SceneSwitcherUtils class handles switching scenes. */
 public class SceneSwitcherUtils extends SoundPlayer {
   /**
    * Switches scene by taking a mouse event and an fxml file and stage and loads fxml scene.
-   * 
+   *
    * @param event the mouse event
    * @param fxmlFile the fxml file to load
    * @param stage the stage to load
@@ -73,10 +74,10 @@ public class SceneSwitcherUtils extends SoundPlayer {
 
   /**
    * Handles the clicking of the guess button based on the game state.
-   * 
+   *
    * @param context takes the context of the game
    * @param event the mouse vent
-   * @throws IOException
+   * @throws IOException exception to be thrown
    */
   public static void handleGuessClick(GameStateContext context, MouseEvent event)
       throws IOException {
@@ -96,7 +97,7 @@ public class SceneSwitcherUtils extends SoundPlayer {
 
   /**
    * Updates the progress bars of the clues and suspect interactions.
-   * 
+   *
    * @param clueProgressBar progress bar for the clue progress
    * @param suspectsProgressBar the progress bar for the suspect progress
    * @param context the context of the game

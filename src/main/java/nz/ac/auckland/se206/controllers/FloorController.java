@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
+/** The FloorController class handles interactions iwth the floorboard clue. */
 public class FloorController extends ClueSoundController {
 
   @FXML private ImageView screw1;
