@@ -13,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.GameStateContext;
 
-public class SceneSwitcherUtils {
+public class SceneSwitcherUtils extends SoundPlayer {
   /**
    * Switches scene by taking a mouse event and an fxml file and stage and loads fxml scene.
    * 
