@@ -86,7 +86,7 @@ public class FloorController extends ClueSoundController {
   }
 
   /**
-   * Highlight screw on hover
+   * Highlight screw when the mouse cursor hovers over them.
    *
    * @param event the mouse event
    */
@@ -97,7 +97,7 @@ public class FloorController extends ClueSoundController {
   }
 
   /**
-   * Remove screw highlight when mouse exits
+   * Remove screw highlight when mouse exits.
    *
    * @param event the mouse event
    */
@@ -108,7 +108,7 @@ public class FloorController extends ClueSoundController {
   }
 
   /**
-   * Highlight floorboard on hover
+   * Highlight floorboard when mouse cursor hovers over it.
    *
    * @param event the mouse event
    */
@@ -120,7 +120,7 @@ public class FloorController extends ClueSoundController {
   }
 
   /**
-   * Remove floorboard highlight when mouse exits
+   * Remove floorboard highlight when mouse exits.
    *
    * @param event the mouse event
    */
@@ -130,7 +130,7 @@ public class FloorController extends ClueSoundController {
   }
 
   /**
-   * Handle floorboard press
+   * Handles the pressing of the floorboard clue.
    *
    * @param event the mouse event
    */
@@ -141,7 +141,7 @@ public class FloorController extends ClueSoundController {
   }
 
   /**
-   * Handle floorboard drag
+   * Handles the dragging of the floorboard clue.
    *
    * @param event the mouse event
    */

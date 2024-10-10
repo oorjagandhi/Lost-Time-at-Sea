@@ -55,6 +55,7 @@ public class FeedbackController extends SoundPlayer {
         new TextOutput() {
           @Override
           public void writeText(String textOut) {
+            // sets text to be set later
             Platform.runLater(
                 new Runnable() {
                   @Override
@@ -65,13 +66,14 @@ public class FeedbackController extends SoundPlayer {
           }
         };
 
+    // creates a textAnimator instance to animate the text
     TextAnimator textAnimator = new TextAnimator(fullText, animationTime, textOutput);
     Thread thread = new Thread(textAnimator);
     thread.start();
   }
 
   /**
-   * Method to update the response text
+   * Method to update the response text.
    *
    * @param text the text to update the response text to
    */
@@ -81,7 +83,7 @@ public class FeedbackController extends SoundPlayer {
   }
 
   /**
-   * Method to update the status text
+   * Method to update the status text.
    *
    * @param won the result of the game
    */
@@ -100,7 +102,7 @@ public class FeedbackController extends SoundPlayer {
   }
 
   /**
-   * Method to handle the play again button click event
+   * Method to handle the play again button click event.
    *
    * @param event the mouse event
    */
@@ -143,7 +145,7 @@ public class FeedbackController extends SoundPlayer {
   }
 
   /**
-   * Method to handle the mouse enter event
+   * Method to handle the mouse enter event.
    *
    * @param event the mouse event
    */
@@ -156,7 +158,7 @@ public class FeedbackController extends SoundPlayer {
   }
 
   /**
-   * Method to handle the mouse exit event
+   * Method to handle the mouse exit event.
    *
    * @param event the mouse event
    */

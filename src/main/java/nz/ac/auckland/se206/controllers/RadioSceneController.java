@@ -58,10 +58,13 @@ public class RadioSceneController extends ClueSoundController {
    */
   @FXML
   private void handlePlayClick(MouseEvent event) {
+    // checks if audio is already playing
     if (isPlayingAudio) {
+      // stops audio if it is already playing
       isPlayingAudio = false;
       stopAudio();
     } else {
+      // plays audio if it is stopped
       isPlayingAudio = true;
       playAudio();
     }
@@ -77,9 +80,11 @@ public class RadioSceneController extends ClueSoundController {
   private void handleDecreaseClick(MouseEvent event) {
     stopAudio();
     frequency--;
+    // loops the frequency around if it is less than 1
     if (frequency < 1) {
       frequency = totalAudios;
     }
+    // updates radio image based on current frequency
     frequencyImage.setImage(new Image("/images/clues/sevenseg" + frequency + ".png"));
     playAudio();
   }
@@ -95,9 +100,11 @@ public class RadioSceneController extends ClueSoundController {
   private void handleIncreaseClick(MouseEvent event) {
     stopAudio();
     frequency++;
+    // loops frequency back around to 1 when it is greater than the max frequency
     if (frequency > totalAudios) {
       frequency = 1;
     }
+    // updates radio image based on the current frequency
     frequencyImage.setImage(new Image("/images/clues/sevenseg" + frequency + ".png"));
     playAudio();
   }
