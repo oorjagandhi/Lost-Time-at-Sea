@@ -55,6 +55,7 @@ public class FeedbackController extends SoundPlayer {
         new TextOutput() {
           @Override
           public void writeText(String textOut) {
+            // sets text to be set later
             Platform.runLater(
                 new Runnable() {
                   @Override
@@ -65,6 +66,7 @@ public class FeedbackController extends SoundPlayer {
           }
         };
 
+    // creates a textAnimator instance to animate the text
     TextAnimator textAnimator = new TextAnimator(fullText, animationTime, textOutput);
     Thread thread = new Thread(textAnimator);
     thread.start();

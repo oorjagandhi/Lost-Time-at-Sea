@@ -80,11 +80,13 @@ public class SceneSwitcherUtils {
    */
   public static void handleGuessClick(GameStateContext context, MouseEvent event)
       throws IOException {
+    // checks if the player is able to guess
     if (context.canGuess()) {
       TimerManager timerManager = TimerManager.getInstance();
       timerManager.startGuessingTimer();
       context.setState(context.getGuessingState());
 
+      // switches to guessing scene if the player is able to guess
       Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
       SceneSwitcherUtils.switchScene(event, "/fxml/guessing.fxml", stage);
     } else {
@@ -101,13 +103,17 @@ public class SceneSwitcherUtils {
    */
   public static void updateProgressBar(
       ImageView clueProgressBar, ImageView suspectsProgressBar, GameStateContext context) {
+    // checks if the clue progress bar is empty or not
     if (clueProgressBar != null) {
       int cluesInteracted = context.getNumCluesInteracted();
+      // updates progress bar image based on how many clues have been interacted with
       clueProgressBar.setImage(new Image("/images/layouts/bar" + cluesInteracted + ".png"));
     }
 
+    // checks if the suspect interaction progress bar is empty or not
     if (suspectsProgressBar != null) {
       int suspectsInteracted = context.getNumSuspectsInteracted();
+      // updates progress bar image based on how many suspects have been interacted with
       suspectsProgressBar.setImage(new Image("/images/layouts/bar" + suspectsInteracted + ".png"));
     }
   }
