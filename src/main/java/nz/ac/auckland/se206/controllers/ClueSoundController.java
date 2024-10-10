@@ -26,7 +26,7 @@ public class ClueSoundController extends SoundPlayer {
   @FXML protected AnchorPane room;
   @FXML protected ImageView currentScene;
 
-  /** Initializes the controller. */
+  /** Initializes the controller for the game. */
   @FXML
   public void initialize() {
     this.context = GameStateContext.getInstance();

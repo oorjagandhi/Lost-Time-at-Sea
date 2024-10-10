@@ -26,6 +26,7 @@ public class RadioSceneController extends ClueSoundController {
   @FXML private ImageView play;
   @FXML protected ImageView currentScene;
 
+  /** Initializes the variables for the radi9o scene clue. */
   @FXML
   public void initialize() {
     super.initialize();
