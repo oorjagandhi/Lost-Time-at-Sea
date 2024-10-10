@@ -14,7 +14,13 @@ import javafx.stage.Stage;
 import nz.ac.auckland.se206.GameStateContext;
 
 public class SceneSwitcherUtils {
-
+  /**
+   * Switches scene by taking a mouse event and an fxml file and stage and loads fxml scene.
+   * 
+   * @param event the mouse event
+   * @param fxmlFile the fxml file to load
+   * @param stage the stage to load
+   */
   public static void switchScene(MouseEvent event, String fxmlFile, Stage stage) {
     // Show a loading indicator or keep the current scene
     // Optionally, you can add a fade-out effect here
@@ -65,6 +71,13 @@ public class SceneSwitcherUtils {
     thread.start();
   }
 
+  /**
+   * Handles the clicking of the guess button based on the game state.
+   * 
+   * @param context takes the context of the game
+   * @param event the mouse vent
+   * @throws IOException
+   */
   public static void handleGuessClick(GameStateContext context, MouseEvent event)
       throws IOException {
     if (context.canGuess()) {
@@ -79,6 +92,13 @@ public class SceneSwitcherUtils {
     }
   }
 
+  /**
+   * Updates the progress bars of the clues and suspect interactions.
+   * 
+   * @param clueProgressBar progress bar for the clue progress
+   * @param suspectsProgressBar the progress bar for the suspect progress
+   * @param context the context of the game
+   */
   public static void updateProgressBar(
       ImageView clueProgressBar, ImageView suspectsProgressBar, GameStateContext context) {
     if (clueProgressBar != null) {
