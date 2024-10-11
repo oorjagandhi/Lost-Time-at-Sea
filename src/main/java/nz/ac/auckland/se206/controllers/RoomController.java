@@ -115,6 +115,30 @@ public class RoomController extends SoundPlayer {
                     });
               });
     }
+
+    // Set up the timer for the room view
+    TimerManager.getInstance()
+        .setNoGuessTimeListener(
+            () -> {
+              // Handle the end of the initial timer phase
+              Platform.runLater(
+                  () -> {
+                    try {
+                      // Load the feedback-notime.fxml file
+                      FXMLLoader loader =
+                          new FXMLLoader(getClass().getResource("/fxml/feedback-notime.fxml"));
+                      Parent root = loader.load();
+                      Stage stage = (Stage) room.getScene().getWindow();
+                      stage.setScene(new Scene(root));
+                      stage.show();
+                    } catch (IOException e) {
+                      e.printStackTrace();
+                    }
+                  });
+            });
+
+    // Start the timer
+    TimerManager.getInstance().startTimer();
     // set the image of the progress bar
 
     // **Set the profession based on the current room or suspect**

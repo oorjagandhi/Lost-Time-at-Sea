@@ -16,7 +16,7 @@
       </ImageView>
         <!-- VBox for status message -->
         <VBox fx:id="colorBox" alignment="CENTER" layoutX="0.0" layoutY="50.0" prefWidth="1031.0" spacing="10">
-            <Text fx:id="status" styleClass="title-font" fill="WHITE" text="you did not guess the thief" />
+            <Text fx:id="status" styleClass="title-font" fill="WHITE" text="YOU DID NOT GUESS THE THIEF IN TIME" />
         </VBox>
 
         <!-- VBox for the response text box with rounded corners -->
@@ -25,6 +25,10 @@
         </VBox>
         
         <!-- Play Again Button at the bottom center -->
-        <Button fx:id="playAgainButton" layoutX="392.5" layoutY="550.0" onAction="#onPlayAgain" style="-fx-font-size: 18px;" text="PLAY AGAIN" styleClass="nav-button"/>
+        <ImageView fx:id="playAgainButton" fitHeight="150.0" fitWidth="200.0" layoutX="415.5" layoutY="518.0" onMouseClicked="#onPlayAgain" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/layouts/play-again.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

@@ -3,6 +3,7 @@ package nz.ac.auckland.se206.util;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+import nz.ac.auckland.se206.GameStateContext;
 
 /**
  * The TimerManager class is responsible for managing the countdown timer in the game. This includes
@@ -32,6 +33,7 @@ public class TimerManager {
   private Runnable tickListener;
   private Runnable guessingStartListener;
   private Runnable guessTimeEndListener; // Listener for when guess time ends
+  private Runnable noGuessTimeListener;
 
   private boolean isGuessTime = false;
   private boolean canGuess = true;
@@ -72,11 +74,27 @@ public class TimerManager {
   private void updateTimer() {
     time--;
     if (time < 0) {
+      // Check if the timer is in the guessing phase
       if (!isGuessTime) {
-        switchToGuessTime();
+        if (GameStateContext.getInstance().canGuess()) {
+          switchToGuessTime();
+        } else {
+          onFinishNoGuessTime();
+        }
       } else {
         onFinishGuessTimer();
       }
+    }
+  }
+
+  /**
+   * Handles the end of the initial timer phase by stopping the timeline. The noGuessTimeListener is
+   * triggered to notify that the player has run out of time to make a guess.
+   */
+  private void onFinishNoGuessTime() {
+    timeline.stop();
+    if (noGuessTimeListener != null) {
+      noGuessTimeListener.run();
     }
   }
 
@@ -104,6 +122,14 @@ public class TimerManager {
     if (guessTimeEndListener != null) {
       guessTimeEndListener.run();
     }
+  }
+
+  /**
+   * Handles the end of the guessing phase by stopping the timeline. The guessTimeEndListener is
+   * triggered to notify that the guessing time is over.
+   */
+  public void setNoGuessTimeListener(Runnable listener) {
+    this.noGuessTimeListener = listener;
   }
 
   /** Starts the timer and begins counting down from the initial time. */
