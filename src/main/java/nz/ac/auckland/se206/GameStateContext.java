@@ -161,6 +161,11 @@ public class GameStateContext {
     updateGuessButtonState();
   }
 
+  public void clearCluesInteracted() {
+    this.clueInteracted = false;
+    cluesInteractedSet.clear();
+  }
+
   public void setSuspectInteracted(String suspectId) {
     suspectsInteracted.add(suspectId);
     updateGuessButtonState();

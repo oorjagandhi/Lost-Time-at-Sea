@@ -119,6 +119,8 @@ public class FeedbackController extends SoundPlayer {
     // reset suspects
     GameStateContext.getInstance().clearSuspects();
 
+    GameStateContext.getInstance().clearCluesInteracted();
+
     // Load the crime scene FXML
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/crime-scene.fxml"));
