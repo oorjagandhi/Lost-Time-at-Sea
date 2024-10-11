@@ -106,6 +106,11 @@ public class RoomController extends SoundPlayer {
               (obs, wasLoading, isNowLoading) -> {
                 Platform.runLater(
                     () -> {
+                      try {
+                        Thread.sleep(300);
+                      } catch (Exception e) {
+                        e.printStackTrace();
+                      }
                       updateSuspectIcon(isNowLoading);
                       if (isNowLoading) {
                         startThinkingAnimation();
